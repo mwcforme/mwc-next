@@ -24,9 +24,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Men's Wellness Centers | Low Testosterone Therapy in Virginia",
+  title: "Men's Wellness Centers | TRT, ED & Weight Loss in Virginia",
   description:
-    "Provider-supervised testosterone replacement therapy at 3 Virginia locations. Testing and results reviewed in-visit. Walk in today.",
+    "Provider-supervised testosterone replacement therapy at 3 Virginia locations. 60-minute in-person visit. Same-day labs. No insurance needed.",
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  themeColor: "#0B1029",
 };
 
 export default function RootLayout({

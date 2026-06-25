@@ -47,7 +47,7 @@ export function LocationRadioGroup({
             : error
             ? ERR_RED
             : hov
-            ? "rgba(255,255,255,0.35)"
+            ? (dark ? "rgba(255,255,255,0.35)" : "#9CA3AF")
             : dark
             ? "rgba(255,255,255,0.18)"
             : "#DBDBDB";

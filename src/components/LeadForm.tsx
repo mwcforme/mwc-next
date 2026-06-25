@@ -50,6 +50,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [successLocation, setSuccessLocation] = useState("");
+  const [successContactId, setSuccessContactId] = useState("");
   const [formError, setFormError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -130,14 +131,9 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
       const locLabel = (data as { location?: string }).location ??
         location.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 
-      // Redirect to Vite booking flow
-      try {
-        window.location.href = `https://book.menswellnesscenters.com/qualify?location=${location}&phone=${encodeURIComponent(phone)}&name=${encodeURIComponent(name)}&source=${source}&contactId=${contactId}`;
-      } catch {
-        // Fallback: show success card if redirect fails
-        setSuccessLocation(locLabel);
-        setSuccess(true);
-      }
+      setSuccessLocation(locLabel);
+      setSuccessContactId(contactId);
+      setSuccess(true);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
       setFormError(message);
@@ -192,6 +188,31 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
           We&rsquo;ll reach out shortly to confirm your visit at{" "}
           <strong>{successLocation}</strong>.
         </p>
+        <a
+          href="https://book.menswellnesscenters.com"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            marginTop: 20,
+            width: "100%",
+            height: 54,
+            background: "#E8670A",
+            color: "#FFFFFF",
+            border: "none",
+            borderRadius: 9999,
+            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+            fontSize: 15,
+            fontWeight: 700,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase" as const,
+            textDecoration: "none",
+            boxShadow: "0 4px 20px rgba(232,103,10,0.40)",
+          }}
+        >
+          Book Your Visit →
+        </a>
         <p style={{ marginTop: 12, fontSize: 13, color: "#9CA3AF" }}>
           Check your phone for a confirmation text.
         </p>
