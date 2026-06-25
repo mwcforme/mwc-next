@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { User, Phone, ArrowRight, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { User, Phone, ArrowRight, Loader2, CheckCircle, AlertCircle, Star } from "lucide-react";
 import { LocationRadioGroup, type LocationKey } from "./LocationRadioGroup";
 import { TCPADisclaimer } from "./TCPADisclaimer";
 
@@ -36,9 +36,13 @@ interface LeadFormProps {
   formId?: string;
   source?: string;
   dark?: boolean;
+  /** CRO variant: star rating at top, CRO heading/CTA, testimonial at bottom, always-orange pill button */
+  variant?: "trt" | "cro";
 }
 
-export function LeadForm({ formId = "hero", source = "next-lander", dark = true }: LeadFormProps) {
+export function LeadForm({ formId = "hero", source = "next-lander", dark = true, variant }: LeadFormProps) {
+  const isCro = variant === "cro" || dark === false;
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState<LocationKey | "">("");
@@ -59,6 +63,8 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
   const locOk = !!location;
   const tcpaOk = tcpa;
   const canSubmit = nameOk && phoneOk && locOk && tcpaOk && !submitting;
+  // CRO: button is always orange regardless of form completeness
+  const btnEnabled = isCro ? !submitting : canSubmit;
 
   const handleNameChange = (v: string) => {
     setName(v.replace(/<[^>]*>/g, ""));
@@ -135,10 +141,10 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
     return (
       <div
         style={{
-          background: dark ? "rgba(255,255,255,0.07)" : "#fff",
-          backdropFilter: dark ? "blur(24px)" : "none",
-          WebkitBackdropFilter: dark ? "blur(24px)" : "none",
-          border: dark ? "1px solid rgba(255,255,255,0.35)" : "1px solid rgba(11,16,41,0.10)",
+          background: isCro ? "#fff" : "rgba(255,255,255,0.07)",
+          backdropFilter: isCro ? "none" : "blur(24px)",
+          WebkitBackdropFilter: isCro ? "none" : "blur(24px)",
+          border: isCro ? "1px solid rgba(11,16,41,0.10)" : "1px solid rgba(255,255,255,0.35)",
           borderRadius: 16,
           padding: "48px 28px",
           boxShadow: "0 24px 64px rgba(0,0,0,0.50)",
@@ -168,13 +174,13 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
             fontSize: 24,
             textTransform: "uppercase",
             fontWeight: 700,
-            color: dark ? "#fff" : "#0B1029",
+            color: isCro ? "#0B1029" : "#fff",
             marginBottom: 8,
           }}
         >
           You&rsquo;re In.
         </h2>
-        <p style={{ color: dark ? "#B0ADA8" : "#6B7280", fontSize: 14, lineHeight: 1.5 }}>
+        <p style={{ color: isCro ? "#374151" : "#B0ADA8", fontSize: 14, lineHeight: 1.5 }}>
           We&rsquo;ll reach out shortly to confirm your visit at{" "}
           <strong>{successLocation}</strong>.
         </p>
@@ -189,8 +195,8 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
     position: "relative",
     display: "flex",
     alignItems: "center",
-    background: dark ? "rgba(255,255,255,0.08)" : "#fff",
-    border: `2px solid ${errors[field] ? "#DC2626" : dark ? "rgba(255,255,255,0.22)" : "rgba(11,16,41,0.20)"}`,
+    background: isCro ? "#fff" : "rgba(255,255,255,0.08)",
+    border: `2px solid ${errors[field] ? "#DC2626" : isCro ? "rgba(11,16,41,0.20)" : "rgba(255,255,255,0.22)"}`,
     borderRadius: 10,
     height: 52,
     transition: "border-color 150ms",
@@ -203,7 +209,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
     background: "transparent",
     border: "none",
     outline: "none",
-    color: dark ? "#fff" : "#0B1029",
+    color: isCro ? "#0B1029" : "#fff",
     fontFamily: "'Inter', system-ui, sans-serif",
     fontSize: 15,
     fontWeight: 400,
@@ -212,41 +218,60 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
   const iconStyle: React.CSSProperties = {
     position: "absolute",
     left: 14,
-    color: dark ? "rgba(255,255,255,0.50)" : "rgba(11,16,41,0.40)",
+    color: isCro ? "rgba(11,16,41,0.40)" : "rgba(255,255,255,0.50)",
     pointerEvents: "none",
     display: "flex",
   };
 
   return (
     <div
-      id={`${formId}-card`}
+      id={isCro ? "hero-form" : `${formId}-card`}
       style={{
-        background: dark ? "rgba(255,255,255,0.07)" : "#fff",
-        backdropFilter: dark ? "blur(24px)" : "none",
-        WebkitBackdropFilter: dark ? "blur(24px)" : "none",
-        border: dark ? "1px solid rgba(255,255,255,0.35)" : "1px solid rgba(11,16,41,0.10)",
+        background: isCro ? "#FFFFFF" : "rgba(255,255,255,0.07)",
+        backdropFilter: isCro ? "none" : "blur(24px)",
+        WebkitBackdropFilter: isCro ? "none" : "blur(24px)",
+        border: isCro ? "1px solid rgba(11,16,41,0.06)" : "1px solid rgba(255,255,255,0.35)",
         borderRadius: 16,
         padding: "32px 28px",
-        boxShadow: "0 24px 64px rgba(0,0,0,0.50)",
+        boxShadow: isCro ? "0 20px 60px rgba(0,0,0,0.25)" : "0 24px 64px rgba(0,0,0,0.50)",
         maxWidth: 460,
         width: "100%",
       }}
     >
+      {/* CRO-only: star rating at top */}
+      {isCro && (
+        <a
+          href="https://www.google.com/maps/search/Men%27s+Wellness+Centers"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 10, textDecoration: "none" }}
+        >
+          <span style={{ display: "flex", gap: 2 }}>
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={14} fill="#C9A961" stroke="#C9A961" aria-hidden />
+            ))}
+          </span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "#374151" }}>
+            4.9 &middot; 191 verified Google reviews
+          </span>
+        </a>
+      )}
+
       <h2
         style={{
           fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
           fontWeight: 700,
           fontSize: 20,
           lineHeight: 1.15,
-          color: dark ? "#F5F0EB" : "#0B1029",
+          color: isCro ? "#0B1029" : "#F5F0EB",
           textTransform: "uppercase",
           letterSpacing: "0.02em",
           marginBottom: 8,
         }}
       >
-        Start Feeling Like Yourself Again.
+        {isCro ? "CLAIM YOUR NO-COST VISIT" : "Start Feeling Like Yourself Again."}
       </h2>
-      <p style={{ fontSize: 13, color: dark ? "#F5F0EB" : "#6B7280", lineHeight: 1.4, marginBottom: 8, fontFamily: "'Montserrat', system-ui, sans-serif" }}>
+      <p style={{ fontSize: 13, color: isCro ? "#374151" : "#F5F0EB", lineHeight: 1.4, marginBottom: 8, fontFamily: "'Montserrat', system-ui, sans-serif" }}>
         No-cost 60-minute visit. Same-day labs. No insurance needed. FSA &amp; HSA accepted.
       </p>
 
@@ -305,7 +330,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
             value={location}
             onChange={handleLocationChange}
             error={errors.location}
-            dark={dark}
+            dark={!isCro}
           />
 
           {/* TCPA */}
@@ -313,42 +338,42 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
             checked={tcpa}
             onChange={handleTcpaChange}
             error={errors.tcpa}
-            dark={dark}
+            dark={!isCro}
           />
 
           {/* Submit */}
           <button
             type="submit"
-            disabled={!canSubmit}
+            disabled={!btnEnabled}
             style={{
               width: "100%",
-              height: 54,
+              height: isCro ? 56 : 54,
               marginTop: 4,
               border: "none",
-              borderRadius: 60,
+              borderRadius: isCro ? 9999 : 60,
               fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
               fontSize: 15,
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              cursor: canSubmit ? "pointer" : "not-allowed",
+              cursor: submitting ? "wait" : "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               gap: 8,
               transition: "background 180ms ease, transform 180ms ease, box-shadow 180ms ease",
-              background: canSubmit ? "#E8670A" : "#1E244A",
-              color: canSubmit ? "#fff" : "rgba(255,255,255,0.50)",
-              boxShadow: canSubmit ? "0 4px 20px rgba(232,103,10,0.40)" : "none",
+              background: (btnEnabled || isCro) ? "#E8670A" : "#1E244A",
+              color: (btnEnabled || isCro) ? "#fff" : "rgba(255,255,255,0.50)",
+              boxShadow: (btnEnabled || isCro) ? "0 4px 20px rgba(232,103,10,0.40)" : "none",
             }}
             onMouseEnter={(e) => {
-              if (canSubmit) {
+              if (btnEnabled || isCro) {
                 e.currentTarget.style.background = "#CF5C09";
                 e.currentTarget.style.transform = "translateY(-1px)";
               }
             }}
             onMouseLeave={(e) => {
-              if (canSubmit) {
+              if (btnEnabled || isCro) {
                 e.currentTarget.style.background = "#E8670A";
                 e.currentTarget.style.transform = "translateY(0)";
               }
@@ -360,7 +385,8 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
               </>
             ) : (
               <>
-                Book My No-Cost Visit <ArrowRight size={16} strokeWidth={2.5} />
+                {isCro ? "BOOK MY 60-MINUTE VISIT" : "Book My No-Cost Visit"}{" "}
+                <ArrowRight size={16} strokeWidth={2.5} />
               </>
             )}
           </button>
@@ -372,6 +398,23 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
               style={{ color: "#DC2626" }}
             >
               <AlertCircle size={12} strokeWidth={2} /> {formError}
+            </p>
+          )}
+
+          {/* CRO-only: testimonial quote at bottom */}
+          {isCro && (
+            <p
+              style={{
+                fontSize: 11,
+                marginTop: 4,
+                textAlign: "center",
+                lineHeight: 1.5,
+                fontStyle: "italic",
+                color: "#6B7280",
+                fontFamily: "'Montserrat', system-ui, sans-serif",
+              }}
+            >
+              &ldquo;I&rsquo;ve been to two GPs who told me my levels were fine. After one visit here I had answers and a plan. Game-changer for me.&rdquo; R.T., Richmond &middot; Verified member
             </p>
           )}
         </div>
