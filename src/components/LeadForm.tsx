@@ -252,7 +252,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
           href="https://www.google.com/maps/search/Men%27s+Wellness+Centers"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 10, textDecoration: "none" }}
+          style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 10, textDecoration: "none", flexWrap: "nowrap" }}
         >
           <span style={{ display: "flex", gap: 2 }}>
             {[...Array(5)].map((_, i) => (

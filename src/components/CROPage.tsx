@@ -379,7 +379,7 @@ function CROCredibilityBand() {
                 style={{
                   fontFamily: "'Montserrat', system-ui, sans-serif",
                   fontSize: 11,
-                  fontWeight: 600,
+                  fontWeight: 500,
                   textTransform: "uppercase",
                   letterSpacing: "0.10em",
                   color: "rgba(255,255,255,0.70)",
