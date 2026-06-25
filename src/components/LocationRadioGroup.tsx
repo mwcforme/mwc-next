@@ -52,7 +52,7 @@ export function LocationRadioGroup({
             ? "rgba(255,255,255,0.18)"
             : "#DBDBDB";
 
-          const labelColor = dark ? "var(--off-white)" : "#0B1029";
+          const labelColor = dark ? "#F5F0EB" : "#0B1029";
 
           return (
             <label
@@ -97,7 +97,7 @@ export function LocationRadioGroup({
               />
               <span
                 style={{
-                  fontFamily: "var(--font-body, Montserrat, sans-serif)",
+                  fontFamily: "'Montserrat', system-ui, sans-serif",
                   fontSize: 14,
                   fontWeight: 600,
                   color: labelColor,

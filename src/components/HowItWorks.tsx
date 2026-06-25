@@ -18,17 +18,17 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section style={{ background: "var(--navy-deep)", padding: "clamp(56px,10vw,120px) 20px" }}>
+    <section style={{ background: "#0B1029", padding: "clamp(56px,10vw,120px) 20px" }}>
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         <div style={{ textAlign: "center" }}>
           <div
             style={{
-              fontFamily: "var(--font-body)",
+              fontFamily: "'Montserrat', system-ui, sans-serif",
               fontSize: 13,
               fontWeight: 700,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "var(--accent-orange)",
+              color: "#E8670A",
               marginBottom: 12,
             }}
           >
@@ -36,7 +36,7 @@ export function HowItWorks() {
           </div>
           <h2
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
               fontWeight: 700,
               textTransform: "uppercase",
               fontSize: "clamp(24px, 4vw, 40px)",
@@ -51,7 +51,7 @@ export function HowItWorks() {
             style={{
               fontSize: 16,
               lineHeight: 1.65,
-              color: "var(--body-gray)",
+              color: "#B0ADA8",
               maxWidth: 640,
               margin: "0 auto",
             }}
@@ -72,7 +72,7 @@ export function HowItWorks() {
             <div
               key={num}
               style={{
-                background: "var(--navy-mid)",
+                background: "#161B3A",
                 border: "1px solid rgba(255,255,255,0.06)",
                 borderRadius: 16,
                 padding: "32px 24px",
@@ -88,8 +88,8 @@ export function HowItWorks() {
                   height: 44,
                   borderRadius: "50%",
                   background: "rgba(232,103,10,0.12)",
-                  color: "var(--accent-orange)",
-                  fontFamily: "var(--font-display)",
+                  color: "#E8670A",
+                  fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
                   fontSize: 18,
                   fontWeight: 700,
                   marginBottom: 16,
@@ -99,7 +99,7 @@ export function HowItWorks() {
               </div>
               <h3
                 style={{
-                  fontFamily: "var(--font-display)",
+                  fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
                   fontSize: 18,
                   fontWeight: 700,
                   textTransform: "uppercase",
@@ -109,7 +109,7 @@ export function HowItWorks() {
               >
                 {title}
               </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.55, color: "var(--body-gray)" }}>{desc}</p>
+              <p style={{ fontSize: 14, lineHeight: 1.55, color: "#B0ADA8", fontFamily: "'Montserrat', system-ui, sans-serif" }}>{desc}</p>
             </div>
           ))}
         </div>

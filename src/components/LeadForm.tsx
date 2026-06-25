@@ -142,7 +142,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
           borderRadius: 16,
           padding: "48px 28px",
           boxShadow: "0 24px 64px rgba(0,0,0,0.50)",
-          maxWidth: 416,
+          maxWidth: 460,
           width: "100%",
           textAlign: "center",
         }}
@@ -164,7 +164,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
         </div>
         <h2
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
             fontSize: 24,
             textTransform: "uppercase",
             fontWeight: 700,
@@ -204,7 +204,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
     border: "none",
     outline: "none",
     color: dark ? "#fff" : "#0B1029",
-    fontFamily: "var(--font-ui)",
+    fontFamily: "'Inter', system-ui, sans-serif",
     fontSize: 15,
     fontWeight: 400,
   };
@@ -228,26 +228,26 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
         borderRadius: 16,
         padding: "32px 28px",
         boxShadow: "0 24px 64px rgba(0,0,0,0.50)",
-        maxWidth: 416,
+        maxWidth: 460,
         width: "100%",
       }}
     >
       <h2
         style={{
-          fontFamily: "var(--font-display)",
+          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
           fontWeight: 700,
           fontSize: 20,
           lineHeight: 1.15,
-          color: dark ? "var(--off-white)" : "#0B1029",
+          color: dark ? "#F5F0EB" : "#0B1029",
           textTransform: "uppercase",
           letterSpacing: "0.02em",
           marginBottom: 8,
         }}
       >
-        Claim Your No-Cost Visit
+        Start Feeling Like Yourself Again.
       </h2>
-      <p style={{ fontSize: 13, color: dark ? "var(--off-white)" : "#6B7280", lineHeight: 1.4, marginBottom: 8 }}>
-        Labs drawn on-site. Results reviewed same visit. Leave with a plan.
+      <p style={{ fontSize: 13, color: dark ? "#F5F0EB" : "#6B7280", lineHeight: 1.4, marginBottom: 8, fontFamily: "'Montserrat', system-ui, sans-serif" }}>
+        No-cost 60-minute visit. Same-day labs. No insurance needed. FSA &amp; HSA accepted.
       </p>
 
       <form id={`${formId}-form`} onSubmit={handleSubmit} noValidate>
@@ -326,7 +326,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
               marginTop: 4,
               border: "none",
               borderRadius: 60,
-              fontFamily: "Oswald, var(--font-display), sans-serif",
+              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
               fontSize: 15,
               fontWeight: 700,
               letterSpacing: "0.08em",
@@ -337,7 +337,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true 
               justifyContent: "center",
               gap: 8,
               transition: "background 180ms ease, transform 180ms ease, box-shadow 180ms ease",
-              background: canSubmit ? "#E8670A" : "var(--navy-light)",
+              background: canSubmit ? "#E8670A" : "#1E244A",
               color: canSubmit ? "#fff" : "rgba(255,255,255,0.50)",
               boxShadow: canSubmit ? "0 4px 20px rgba(232,103,10,0.40)" : "none",
             }}

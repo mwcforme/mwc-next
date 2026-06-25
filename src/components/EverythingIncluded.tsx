@@ -35,16 +35,16 @@ const items = [
 
 export function EverythingIncluded() {
   return (
-    <section style={{ background: "var(--c-surface-page-light)", padding: "clamp(56px,10vw,120px) 20px" }}>
+    <section style={{ background: "#F5F0EB", padding: "clamp(56px,10vw,120px) 20px" }}>
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         <div
           style={{
-            fontFamily: "var(--font-body)",
+            fontFamily: "'Montserrat', system-ui, sans-serif",
             fontSize: 13,
             fontWeight: 700,
             letterSpacing: "0.14em",
             textTransform: "uppercase",
-            color: "var(--accent-orange)",
+            color: "#E8670A",
             marginBottom: 12,
           }}
         >
@@ -52,13 +52,13 @@ export function EverythingIncluded() {
         </div>
         <h2
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
             fontWeight: 700,
             textTransform: "uppercase",
             fontSize: "clamp(24px, 4vw, 40px)",
             lineHeight: 1.05,
             marginBottom: 16,
-            color: "var(--navy-deep)",
+            color: "#0B1029",
           }}
         >
           Everything Included. No Surprise Bills.
@@ -96,7 +96,7 @@ export function EverythingIncluded() {
                   borderRadius: "50%",
                   flexShrink: 0,
                   background: "rgba(232,103,10,0.10)",
-                  color: "var(--accent-orange)",
+                  color: "#E8670A",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -105,7 +105,7 @@ export function EverythingIncluded() {
                 {CHECK_SVG}
               </div>
               <div>
-                <strong style={{ fontSize: 15, fontWeight: 600, color: "var(--navy-deep)", display: "block" }}>
+                <strong style={{ fontSize: 15, fontWeight: 600, color: "#0B1029", display: "block", fontFamily: "'Montserrat', system-ui, sans-serif" }}>
                   {title}
                 </strong>
                 <span style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.4 }}>{desc}</span>

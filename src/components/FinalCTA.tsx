@@ -8,14 +8,14 @@ export function FinalCTA() {
   return (
     <section
       style={{
-        background: "var(--navy-deep)",
+        background: "#0B1029",
         padding: "clamp(64px,12vw,120px) 20px",
         textAlign: "center",
       }}
     >
       <h2
         style={{
-          fontFamily: "var(--font-display)",
+          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
           fontWeight: 700,
           textTransform: "uppercase",
           fontSize: "clamp(28px, 5vw, 48px)",
@@ -26,7 +26,7 @@ export function FinalCTA() {
       >
         Stop Guessing.<br />Get Answers.
       </h2>
-      <p style={{ fontSize: 16, color: "var(--body-gray)", marginBottom: 32 }}>
+      <p style={{ fontSize: 16, color: "#B0ADA8", marginBottom: 32, fontFamily: "'Montserrat', system-ui, sans-serif" }}>
         No-cost visit. Same-day availability.
       </p>
       <button
@@ -42,7 +42,7 @@ export function FinalCTA() {
           borderRadius: 60,
           background: "#E8670A",
           color: "#fff",
-          fontFamily: "Oswald, var(--font-display), sans-serif",
+          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
           fontSize: 16,
           fontWeight: 700,
           letterSpacing: "0.08em",

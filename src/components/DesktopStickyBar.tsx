@@ -30,7 +30,7 @@ export function DesktopStickyBar() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "0 32px",
-        fontFamily: "Montserrat, var(--font-body), sans-serif",
+        fontFamily: "'Montserrat', system-ui, sans-serif",
         transform: visible ? "translateY(0)" : "translateY(100%)",
         transition: "transform 300ms ease",
       }}
@@ -51,7 +51,7 @@ export function DesktopStickyBar() {
           color: "#FFFFFF",
           border: "none",
           borderRadius: 9999,
-          fontFamily: "Oswald, var(--font-display), sans-serif",
+          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
           fontSize: 14,
           fontWeight: 700,
           textTransform: "uppercase",

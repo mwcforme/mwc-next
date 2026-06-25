@@ -32,7 +32,7 @@ export function StickyMobileCTA() {
 
   return (
     <div
-      className={`sticky-mobile-cta-wrapper cro-sticky-slide${visible ? " visible" : " hidden"}`}
+      className="md:hidden"
       style={{
         position: "fixed",
         bottom: 0,
@@ -45,6 +45,8 @@ export function StickyMobileCTA() {
         borderTop: "1px solid rgba(255,255,255,0.08)",
         padding: "12px 16px",
         paddingBottom: "calc(12px + env(safe-area-inset-bottom, 0px))",
+        transform: visible ? "translateY(0)" : "translateY(100%)",
+        transition: "transform 300ms ease",
       }}
     >
       <button
@@ -57,7 +59,7 @@ export function StickyMobileCTA() {
           color: "#FFFFFF",
           border: "none",
           borderRadius: 0,
-          fontFamily: "Oswald, var(--font-display), sans-serif",
+          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
           fontSize: 15,
           fontWeight: 700,
           textTransform: "uppercase",
@@ -74,7 +76,7 @@ export function StickyMobileCTA() {
       <p
         style={{
           textAlign: "center",
-          fontFamily: "Montserrat, var(--font-body), sans-serif",
+          fontFamily: "'Montserrat', system-ui, sans-serif",
           fontSize: 11,
           color: "#9CA3AF",
           margin: "6px 0 0",

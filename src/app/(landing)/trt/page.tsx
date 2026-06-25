@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { ChevronRight, Star } from "lucide-react";
 import { Header } from "@/components/Header";
 import { LeadForm } from "@/components/LeadForm";
 import { CredibilityBand } from "@/components/CredibilityBand";
@@ -17,16 +17,17 @@ export const metadata: Metadata = {
     "Provider-supervised TRT at 3 Virginia locations. Labs drawn on-site. Results reviewed same visit. Same-day availability in Richmond, Virginia Beach & Newport News.",
 };
 
-const BULLETS = [
-  "Testosterone, metabolic & CBC labs drawn on-site",
-  "Board-certified provider reviews results same visit",
-  "Leave with a clear plan — not a referral chain",
-  "FSA & HSA accepted. No insurance required.",
+const TRT_SYMPTOMS = [
+  "You're tired by noon. Coffee stopped working.",
+  "You're training just as hard. Your body stopped responding.",
+  "Your drive is down. For work, the gym, her.",
+  "Your doctor ran labs. Said everything is normal. You don't feel normal.",
+  "You don't need a pep talk. You need someone to look at the data.",
 ];
 
 export default function TRTPage() {
   return (
-    <main style={{ background: "var(--navy-deep)", minHeight: "100vh" }}>
+    <main style={{ background: "#0B1029", minHeight: "100vh" }}>
       <Header />
 
       {/* ── Hero ── */}
@@ -34,106 +35,109 @@ export default function TRTPage() {
         style={{
           background: "#080D1F",
           minHeight: 720,
-          paddingTop: 96,
-          paddingBottom: 48,
         }}
+        className="flex items-start lg:items-center"
       >
         <div
+          className="w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-8 lg:gap-16 items-start"
           style={{
-            width: "100%",
             maxWidth: 1280,
-            margin: "0 auto",
             padding: "0 20px",
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: 32,
-            alignItems: "stretch",
+            paddingTop: 96,
+            paddingBottom: 48,
           }}
-          className="lg:grid-cols-[1fr_460px] lg:pt-[128px] lg:pb-[96px] lg:gap-[64px]"
         >
-          {/* Left: Copy */}
-          <div className="flex flex-col justify-center">
+          {/* LEFT: Copy */}
+          <div
+            className="flex flex-col lg:pt-8"
+            style={{ paddingTop: 0 }}
+          >
+            <h1
+              className="font-bold uppercase"
+              style={{
+                fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                fontSize: "clamp(26px, 7vw, 96px)",
+                lineHeight: 1.0,
+                letterSpacing: "-0.01em",
+                color: "#FFFFFF",
+                fontWeight: 700,
+              }}
+            >
+              <span className="block">YOUR GP SAID YOU&rsquo;RE FINE.</span>
+              <span className="block" style={{ color: "#E8670A" }}>YOU DON&rsquo;T FEEL FINE.</span>
+            </h1>
+
             {/* Stars */}
             <div
               style={{
+                marginTop: 16,
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                marginBottom: 16,
               }}
             >
-              <svg width="80" height="14" viewBox="0 0 80 14" fill="#C9A961" aria-hidden="true">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <polygon
-                    key={i}
-                    points="7,1 8.9,5.6 14,6.1 10,9.5 11.2,14 7,11.5 2.8,14 4,9.5 0,6.1 5.1,5.6"
-                    transform={`translate(${i * 16}, 0)`}
-                  />
+              <span style={{ display: "flex", gap: 2 }}>
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={14} fill="#C9A961" stroke="#C9A961" />
                 ))}
-              </svg>
-              <span style={{ fontSize: 13, fontWeight: 600, color: "var(--off-white)" }}>
-                4.9 · 200+ Google Reviews
+              </span>
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: "#F5F0EB",
+                  fontFamily: "'Montserrat', system-ui, sans-serif",
+                }}
+              >
+                4.9 &middot; 191 verified Google reviews
               </span>
             </div>
 
-            <h1
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                fontSize: "clamp(26px, 7vw, 80px)",
-                lineHeight: 1.0,
-                letterSpacing: "-0.01em",
-                color: "#fff",
-              }}
-            >
-              Low T?{" "}
-              <span style={{ color: "#E8670A" }}>Get Answers</span>{" "}
-              Today.
-            </h1>
-
+            {/* Body copy */}
             <p
               style={{
                 marginTop: 20,
-                fontSize: "clamp(15px, 2vw, 19px)",
+                fontSize: 19,
                 lineHeight: 1.6,
-                color: "var(--off-white)",
+                color: "#F5F0EB",
+                fontFamily: "'Montserrat', system-ui, sans-serif",
               }}
             >
-              Provider-supervised testosterone therapy at 3 Virginia locations. Labs drawn on-site,
-              results reviewed the same visit.
+              Your GP checked the basics and said you&rsquo;re fine. You&rsquo;re not fine. We specialize in men&rsquo;s
+              hormones, ED, and weight loss. It&rsquo;s all we do. That focus is the difference.
             </p>
 
-            <ul
-              className="hidden lg:flex flex-col gap-3"
-              style={{ marginTop: 24, listStyle: "none" }}
-            >
-              {BULLETS.map((bullet) => (
-                <li key={bullet} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#E8670A"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ flexShrink: 0, marginTop: 3 }}
-                    aria-hidden="true"
+            {/* Symptom bullets — desktop only */}
+            <div className="hidden lg:flex flex-col gap-3" style={{ marginTop: 24 }}>
+              {TRT_SYMPTOMS.map((text) => (
+                <div key={text} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+                  <ChevronRight
+                    size={16}
+                    strokeWidth={1.75}
+                    aria-hidden
+                    style={{ color: "#E8670A", marginTop: 3, flexShrink: 0 }}
+                  />
+                  <span
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: "#F5F0EB",
+                      fontFamily: "'Montserrat', system-ui, sans-serif",
+                      lineHeight: 1.4,
+                    }}
                   >
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  <span style={{ fontSize: 16, fontWeight: 500, color: "var(--off-white)", lineHeight: 1.4 }}>
-                    {bullet}
+                    {text}
                   </span>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
-          {/* Right: Form */}
-          <div id="hero-form" className="flex justify-center lg:justify-end">
+          {/* RIGHT: Form */}
+          <div
+            id="hero-form"
+            className="flex justify-center lg:justify-end"
+          >
             <LeadForm formId="hero" source="trt-lander" dark={true} />
           </div>
         </div>

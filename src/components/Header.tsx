@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Phone, ArrowRight } from "lucide-react";
-import Image from "next/image";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -33,12 +32,11 @@ export function Header() {
       >
         {/* Logo */}
         <a href="https://menswellnesscenters.com" aria-label="Men's Wellness Centers home" className="inline-flex">
-          <Image
+          <img
             src="/logos/Text_Logo_white.webp"
             alt="Men's Wellness Centers"
             width={180}
             height={28}
-            priority
             className="h-7 w-auto"
           />
         </a>
@@ -48,7 +46,7 @@ export function Header() {
           <a
             href="tel:+18663444955"
             className="text-sm font-medium transition-opacity hover:opacity-80"
-            style={{ color: "var(--c-text-on-dark)", fontFamily: "var(--font-ui)" }}
+            style={{ color: "#F5F0EB", fontFamily: "'Inter', system-ui, sans-serif" }}
           >
             866-344-4955
           </a>
@@ -61,11 +59,11 @@ export function Header() {
               borderRadius: 60,
               boxShadow: "0 4px 16px rgba(232,103,10,0.40)",
               transition: "background 180ms ease, transform 180ms ease",
-              fontFamily: "Oswald, var(--font-display), sans-serif",
+              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
               fontSize: 14,
               textTransform: "uppercase",
               letterSpacing: "0.07em",
-              background: "var(--brand-cta)",
+              background: "#E8670A",
               color: "#fff",
             }}
             onMouseEnter={(e) => {
@@ -73,7 +71,7 @@ export function Header() {
               e.currentTarget.style.transform = "translateY(-1px)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--brand-cta)";
+              e.currentTarget.style.background = "#E8670A";
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
@@ -90,7 +88,7 @@ export function Header() {
             style={{
               width: 52,
               height: 52,
-              background: "var(--brand-cta)",
+              background: "#E8670A",
               color: "#fff",
               boxShadow: "0 4px 16px rgba(232,103,10,0.40)",
             }}
@@ -98,7 +96,7 @@ export function Header() {
             <span
               aria-hidden="true"
               className="absolute inset-0 rounded-full animate-ping opacity-40"
-              style={{ background: "var(--brand-cta)" }}
+              style={{ background: "#E8670A" }}
             />
             <Phone size={22} className="relative" strokeWidth={2.5} />
           </a>

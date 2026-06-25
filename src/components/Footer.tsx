@@ -2,16 +2,16 @@ export function Footer() {
   return (
     <footer
       style={{
-        background: "var(--navy-deep)",
+        background: "#0B1029",
         padding: "32px 20px",
         borderTop: "1px solid rgba(255,255,255,0.06)",
         textAlign: "center",
       }}
     >
-      <p style={{ fontSize: 12, color: "var(--muted-gray)", lineHeight: 1.6 }}>
+      <p style={{ fontSize: 12, color: "#9CA3AF", lineHeight: 1.6 }}>
         &copy; 2026 Men&rsquo;s Wellness Centers. All rights reserved.
       </p>
-      <p style={{ marginTop: 8, fontSize: 12, color: "var(--muted-gray)" }}>
+      <p style={{ marginTop: 8, fontSize: 12, color: "#9CA3AF" }}>
         <a
           href="https://menswellnesscenters.com/privacy-practices/"
           target="_blank"
