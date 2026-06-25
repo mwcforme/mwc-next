@@ -126,10 +126,18 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error((data as { error?: string }).error ?? "Something went wrong.");
 
+      const contactId = (data as { contactId?: string }).contactId ?? "";
       const locLabel = (data as { location?: string }).location ??
         location.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
-      setSuccessLocation(locLabel);
-      setSuccess(true);
+
+      // Redirect to Vite booking flow
+      try {
+        window.location.href = `https://book.menswellnesscenters.com/qualify?location=${location}&phone=${encodeURIComponent(phone)}&name=${encodeURIComponent(name)}&source=${source}&contactId=${contactId}`;
+      } catch {
+        // Fallback: show success card if redirect fails
+        setSuccessLocation(locLabel);
+        setSuccess(true);
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
       setFormError(message);
@@ -406,7 +414,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
             <p
               style={{
                 fontSize: 11,
-                marginTop: 4,
+                marginTop: 20,
                 textAlign: "center",
                 lineHeight: 1.5,
                 fontStyle: "italic",

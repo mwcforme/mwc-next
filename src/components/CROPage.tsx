@@ -149,7 +149,7 @@ function CROHero() {
                 }}
               >
                 <ChevronRight
-                  size={16}
+                  size={14}
                   color="#E8670A"
                   style={{ flexShrink: 0, marginTop: 3 }}
                   aria-hidden
@@ -356,7 +356,7 @@ function CROCredibilityBand() {
           margin: "0 auto",
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          gap: "32px 24px",
+          gap: "20px 16px",
           textAlign: "center",
         }}
       >
