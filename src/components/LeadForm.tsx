@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { User, Phone, ArrowRight, Loader2, CheckCircle, AlertCircle, Star } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { User, Phone, ArrowRight, Loader2, AlertCircle, Star } from "lucide-react";
 import { LocationRadioGroup, type LocationKey } from "./LocationRadioGroup";
 import { TCPADisclaimer } from "./TCPADisclaimer";
+import { patchBookingState } from "@/lib/bookingStore";
 
 function formatPhone(raw: string): string {
   const digits = raw.replace(/\D/g, "").slice(0, 10);
@@ -47,10 +49,8 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState<LocationKey | "">("");
   const [tcpa, setTcpa] = useState(false);
+  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [successLocation, setSuccessLocation] = useState("");
-  const [successContactId, setSuccessContactId] = useState("");
   const [formError, setFormError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -128,97 +128,28 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
       if (!res.ok) throw new Error((data as { error?: string }).error ?? "Something went wrong.");
 
       const contactId = (data as { contactId?: string }).contactId ?? "";
-      const locLabel = (data as { location?: string }).location ??
-        location.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 
-      setSuccessLocation(locLabel);
-      setSuccessContactId(contactId);
-      setSuccess(true);
+      // Write booking state to sessionStorage
+      const parts2 = name.trim().split(/\s+/);
+      patchBookingState({
+        identity: {
+          firstName: parts2[0] ?? "Guest",
+          lastName: parts2.slice(1).join(" ") || "",
+          phone,
+          ghlContactId: contactId,
+        },
+        location,
+        source,
+      });
+
+      // Navigate into the booking funnel
+      router.push("/qualify");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
       setFormError(message);
       setSubmitting(false);
     }
   };
-
-  if (success) {
-    return (
-      <div
-        style={{
-          background: isCro ? "#fff" : "rgba(255,255,255,0.07)",
-          backdropFilter: isCro ? "none" : "blur(24px)",
-          WebkitBackdropFilter: isCro ? "none" : "blur(24px)",
-          border: isCro ? "1px solid rgba(11,16,41,0.10)" : "1px solid rgba(255,255,255,0.35)",
-          borderRadius: 16,
-          padding: "48px 28px",
-          boxShadow: "0 24px 64px rgba(0,0,0,0.50)",
-          maxWidth: 460,
-          width: "100%",
-          textAlign: "center",
-        }}
-      >
-        <div
-          style={{
-            width: 64,
-            height: 64,
-            borderRadius: "50%",
-            background: "rgba(93,214,138,0.15)",
-            color: "#5DD68A",
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: 20,
-          }}
-        >
-          <CheckCircle size={32} strokeWidth={2} />
-        </div>
-        <h2
-          style={{
-            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
-            fontSize: 24,
-            textTransform: "uppercase",
-            fontWeight: 700,
-            color: isCro ? "#0B1029" : "#fff",
-            marginBottom: 8,
-          }}
-        >
-          You&rsquo;re In.
-        </h2>
-        <p style={{ color: isCro ? "#374151" : "#B0ADA8", fontSize: 14, lineHeight: 1.5 }}>
-          We&rsquo;ll reach out shortly to confirm your visit at{" "}
-          <strong>{successLocation}</strong>.
-        </p>
-        <a
-          href="https://book.menswellnesscenters.com"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 8,
-            marginTop: 20,
-            width: "100%",
-            height: 54,
-            background: "#E8670A",
-            color: "#FFFFFF",
-            border: "none",
-            borderRadius: 9999,
-            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
-            fontSize: 15,
-            fontWeight: 700,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase" as const,
-            textDecoration: "none",
-            boxShadow: "0 4px 20px rgba(232,103,10,0.40)",
-          }}
-        >
-          Book Your Visit →
-        </a>
-        <p style={{ marginTop: 12, fontSize: 13, color: "#9CA3AF" }}>
-          Check your phone for a confirmation text.
-        </p>
-      </div>
-    );
-  }
 
   const inputWrapStyle = (field: string): React.CSSProperties => ({
     position: "relative",
