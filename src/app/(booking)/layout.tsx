@@ -85,7 +85,7 @@ export default function BookingLayout({
           <div>
             <img src="/logos/Text_Logo_white.webp" alt="Men's Wellness Centers" width={140} height={22} style={{ height: 22, width: "auto", marginBottom: 12 }} />
             <p style={{ fontSize: 12, color: "rgba(245,240,235,0.50)" }}>Copyright &copy; 2026</p>
-            <p style={{ fontSize: 12, color: "rgba(245,240,235,0.50)", marginTop: 4 }}>\uD83D\uDCDE (866) 344-4955</p>
+            <p style={{ fontSize: 12, color: "rgba(245,240,235,0.50)", marginTop: 4 }}>📞 (866) 344-4955</p>
           </div>
           {/* Right */}
           <div>
