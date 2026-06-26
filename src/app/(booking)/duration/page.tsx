@@ -77,7 +77,7 @@ function DurationContent() {
       <h1
         style={{
           fontFamily: "Inter, system-ui, sans-serif",
-          fontSize: 22,
+          fontSize: 20,
           fontWeight: 700,
           color: "#0B1029",
           textAlign: "center",
