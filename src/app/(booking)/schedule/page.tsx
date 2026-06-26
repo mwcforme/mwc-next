@@ -338,12 +338,24 @@ function ConfirmSheet({
   error,
 }: ConfirmSheetProps) {
   const [email, setEmail] = useState("");
+  const [secondsLeft, setSecondsLeft] = useState(180); // 3-minute hold
   const cal = CALENDARS[location];
   const address = LOCATION_ADDRESSES[location] ?? "";
 
   const dateStr = formatConfirmDate(slotIso);
   const timeSlot = isoToDisplayTime(slotIso);
   const timeStr = `${timeSlot.display} ${timeSlot.meridiem}`;
+
+  // Countdown timer
+  useEffect(() => {
+    if (secondsLeft <= 0) return;
+    const id = setInterval(() => setSecondsLeft((s) => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(id);
+  }, [secondsLeft]);
+
+  const mins = Math.floor(secondsLeft / 60);
+  const secs = secondsLeft % 60;
+  const expired = secondsLeft === 0;
 
   return (
     <div
@@ -385,19 +397,42 @@ function ConfirmSheet({
           <div style={{ width: 36, height: 4, borderRadius: 2, background: "rgba(11,16,41,0.15)" }} />
         </div>
 
-        {/* Header row */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 20px 4px" }}>
-          <h2 style={{ fontFamily: OSWALD, fontSize: 22, fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.02em", margin: 0 }}>
-            Confirm Your Visit
-          </h2>
+        {/* Header row: timer pill + close */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 20px 12px" }}>
+          {/* Timer pill */}
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              borderRadius: 9999,
+              padding: "6px 12px",
+              background: expired ? "#FEF2F2" : "rgba(16,185,129,0.10)",
+              color: expired ? "#991B1B" : "#059669",
+              border: `1px solid ${expired ? "#FECACA" : "rgba(16,185,129,0.30)"}`,
+              fontSize: 13,
+              fontWeight: 600,
+              fontFamily: INTER,
+            }}
+          >
+            <Clock size={14} strokeWidth={2.5} />
+            <span>{expired ? "Hold expired" : `Holding your spot: ${mins}:${secs.toString().padStart(2, "0")}`}</span>
+          </div>
           <button
             type="button"
             onClick={onClose}
-            style={{ width: 40, height: 40, borderRadius: "50%", border: "none", background: "rgba(11,16,41,0.07)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+            style={{ width: 40, height: 40, borderRadius: "50%", border: "none", background: "rgba(11,16,41,0.07)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
             aria-label="Close"
           >
             <X size={16} color={NAVY} />
           </button>
+        </div>
+
+        {/* Main heading */}
+        <div style={{ padding: "0 20px 4px" }}>
+          <h2 style={{ fontFamily: OSWALD, fontSize: 22, fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.02em", margin: 0 }}>
+            Confirm Your Visit
+          </h2>
         </div>
 
         {/* Slot summary */}
@@ -509,7 +544,7 @@ function ConfirmSheet({
           >
             {confirming ? "Booking..." : (
               <>
-                Confirm Visit
+                Confirm Appointment
                 <ChevronRight size={18} strokeWidth={2.5} />
               </>
             )}
@@ -532,7 +567,7 @@ function ConfirmSheet({
               textUnderlineOffset: 3,
             }}
           >
-            Change Time
+            Change date or time
           </button>
         </div>
       </div>
