@@ -296,7 +296,7 @@ function SlotButton({
       style={{
         height: 44,
         borderRadius: 12,
-        border: selected ? `2px solid ${ORANGE}` : "2px solid rgba(11,16,41,0.12)",
+        border: selected ? `2px solid ${ORANGE}` : `1px solid ${NAVY}`,
         background: selected ? ORANGE : WHITE,
         color: selected ? WHITE : NAVY,
         cursor: "pointer",
@@ -873,7 +873,7 @@ function ScheduleContent() {
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             {morning.length > 0 && (
               <div>
-                <h3 style={{ fontFamily: OSWALD, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "rgba(11,16,41,0.45)", margin: "0 0 10px" }}>
+                <h3 style={{ fontFamily: OSWALD, fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: NAVY, margin: "0 0 10px" }}>
                   Morning
                 </h3>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
@@ -893,7 +893,7 @@ function ScheduleContent() {
             )}
             {afternoon.length > 0 && (
               <div>
-                <h3 style={{ fontFamily: OSWALD, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "rgba(11,16,41,0.45)", margin: "0 0 10px" }}>
+                <h3 style={{ fontFamily: OSWALD, fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: NAVY, margin: "0 0 10px" }}>
                   Afternoon
                 </h3>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
@@ -914,6 +914,30 @@ function ScheduleContent() {
           </div>
         )}
       </div>
+
+      {/* Need help? Call bar */}
+      <a
+        href="tel:+18663444955"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 10,
+          width: "100%",
+          maxWidth: 640,
+          margin: "16px auto 0",
+          padding: "16px 20px",
+          background: WHITE,
+          border: `2px solid ${ORANGE}`,
+          borderRadius: 12,
+          textDecoration: "none",
+          cursor: "pointer",
+          transition: "background 0.15s",
+        }}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={NAVY} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span style={{ fontFamily: INTER, fontSize: 15, fontWeight: 600, color: NAVY }}>Need help? Call (866) 344-4955</span>
+      </a>
 
       {/* Confirm sheet */}
       {showConfirm && selectedSlot && (
