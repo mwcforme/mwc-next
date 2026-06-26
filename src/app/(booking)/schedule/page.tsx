@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { MapPin, ChevronRight, ChevronLeft, X, Clock, Mail, Phone } from "lucide-react";
+import { MapPin, ChevronRight, ChevronLeft, ChevronDown, X, Clock, Mail, Phone } from "lucide-react";
 import { FunnelProgressBar } from "@/components/FunnelProgressBar";
 import { BookingRouteGuard } from "@/components/BookingRouteGuard";
 import { getBookingState, patchBookingState } from "@/lib/bookingStore";
@@ -839,10 +839,11 @@ function ScheduleContent() {
             borderRadius: 999,
           }}
         >
-          <span style={{ width: 8, height: 8, borderRadius: "50%", background: ORANGE, flexShrink: 0 }} />
-          <span style={{ fontFamily: INTER, fontSize: 13, fontWeight: 500, color: NAVY }}>
+          <MapPin size={14} strokeWidth={2} style={{ color: ORANGE, flexShrink: 0 }} />
+          <span style={{ fontFamily: INTER, fontSize: 13, fontWeight: 500, color: NAVY, flex: 1 }}>
             {cal.label}
           </span>
+          <ChevronDown size={14} strokeWidth={2} style={{ color: "rgba(11,16,41,0.40)", flexShrink: 0 }} />
         </div>
 
         {/* Next available pill */}

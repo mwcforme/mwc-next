@@ -78,46 +78,229 @@ export default function BookingLayout({
         {children}
       </main>
 
-      {/* Footer */}
-      <footer style={{ background: "#0B1029", color: "rgba(245,240,235,0.70)", padding: "48px 24px 0" }}>
-        <div style={{ maxWidth: 800, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
-          {/* Left */}
-          <div>
-            <img src="/logos/Text_Logo_white.webp" alt="Men's Wellness Centers" width={140} height={22} style={{ height: 22, width: "auto", marginBottom: 12 }} />
-            <p style={{ fontSize: 12, color: "rgba(245,240,235,0.50)" }}>Copyright &copy; 2026</p>
-            <p style={{ fontSize: 12, color: "rgba(245,240,235,0.50)", marginTop: 4 }}>📞 (866) 344-4955</p>
+      {/* Footer — matches TRTFooter from Vite */}
+      <footer style={{ background: "#0B1029", fontFamily: "'Inter', system-ui, sans-serif" }}>
+        <div style={{ padding: "48px 24px 0", maxWidth: 1200, margin: "0 auto" }}>
+
+          {/* Row 1: Logo + Contact — stacks on mobile, 2-col on md+ */}
+          <style>{`
+            @media (max-width: 639px) {
+              .booking-footer-top { grid-template-columns: 1fr !important; }
+              .booking-footer-bottom { flex-direction: column !important; align-items: center !important; }
+            }
+          `}</style>
+          <div
+            className="booking-footer-top"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 32,
+              marginBottom: 40,
+            }}
+          >
+            {/* Brand column */}
+            <div>
+              <img
+                src="/logos/Text_Logo_white.webp"
+                alt="Men's Wellness Centers"
+                width={200}
+                height={40}
+                style={{ height: 40, width: "auto", opacity: 0.9, display: "block" }}
+              />
+              <p style={{ fontSize: 13, color: "rgba(245,240,235,0.45)", marginTop: 12, lineHeight: 1.5 }}>
+                &copy; 2026 Men&rsquo;s Wellness Centers.<br />All rights reserved.
+              </p>
+              <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 6 }}>
+                <a
+                  href="tel:+18663444955"
+                  style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 14, color: "rgba(245,240,235,0.80)", textDecoration: "none" }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8670A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  (866) 344-4955
+                </a>
+              </div>
+            </div>
+
+            {/* Contact column */}
+            <div>
+              <h3
+                style={{
+                  fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                  fontSize: 18,
+                  fontWeight: 700,
+                  color: "#FFFFFF",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  marginBottom: 16,
+                }}
+              >
+                Contact
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {([
+                  { name: "Richmond", phone: "(804) 346-4636", tel: "tel:8043464636" },
+                  { name: "Virginia Beach", phone: "(757) 612-4428", tel: "tel:7576124428" },
+                  { name: "Newport News", phone: "(757) 806-6263", tel: "tel:7578066263" },
+                ] as const).map((loc) => (
+                  <a
+                    key={loc.name}
+                    href={loc.tel}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      color: "rgba(245,240,235,0.75)",
+                      textDecoration: "none",
+                      fontSize: 14,
+                      lineHeight: 1.5,
+                      minHeight: 44,
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8670A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span style={{ fontWeight: 600 }}>{loc.name}:</span>&nbsp;{loc.phone}
+                  </a>
+                ))}
+                <a
+                  href="mailto:info@menswellnesscenters.com"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    color: "rgba(245,240,235,0.75)",
+                    textDecoration: "none",
+                    fontSize: 14,
+                    marginTop: 4,
+                    minHeight: 44,
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8670A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  info@menswellnesscenters.com
+                </a>
+              </div>
+            </div>
           </div>
-          {/* Right */}
-          <div>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" as const, color: "#FFFFFF", marginBottom: 10 }}>Contact</p>
-            <p style={{ fontSize: 12, lineHeight: 1.6, color: "rgba(245,240,235,0.50)" }}>
-              Richmond: 804-346-4636<br/>
-              Virginia Beach: 757-612-4428<br/>
-              Newport News: 757-806-6263
-            </p>
-            <p style={{ fontSize: 12, color: "rgba(245,240,235,0.50)", marginTop: 8 }}>info@menswellnesscenters.com</p>
+
+          {/* Row 2: Trust badge images */}
+          <div
+            style={{
+              borderTop: "1px solid rgba(255,255,255,0.12)",
+              paddingTop: 32,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 40,
+              flexWrap: "wrap",
+            }}
+          >
+            <img
+              src="/images/badges/clia-color.webp"
+              alt="CLIA Certified"
+              width={120}
+              height={52}
+              style={{ height: 52, width: "auto" }}
+              loading="lazy"
+              decoding="async"
+            />
+            <a
+              href="https://www.legitscript.com/websites/?checker_keywords=menswellnesscenters.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/images/badges/legitscript-color.webp"
+                alt="LegitScript Certified"
+                width={110}
+                height={64}
+                style={{ height: 64, width: "auto" }}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <img
+              src="/images/badges/hipaa-color.webp"
+              alt="HIPAA Compliant"
+              width={120}
+              height={52}
+              style={{ height: 52, width: "auto" }}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
-        </div>
 
-        {/* Certifications */}
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: 32, paddingTop: 24, display: "flex", justifyContent: "center", gap: 32, flexWrap: "wrap" as const }}>
-          <span style={{ fontSize: 11, color: "rgba(245,240,235,0.40)", fontWeight: 600, letterSpacing: "0.05em" }}>CLIA CERTIFIED</span>
-          <span style={{ fontSize: 11, color: "rgba(245,240,235,0.40)", fontWeight: 600, letterSpacing: "0.05em" }}>LEGITSCRIPT CERTIFIED</span>
-          <span style={{ fontSize: 11, color: "rgba(245,240,235,0.40)", fontWeight: 600, letterSpacing: "0.05em" }}>HIPAA COMPLIANT</span>
-        </div>
+          {/* Row 3: Legal disclaimers */}
+          <div
+            style={{
+              borderTop: "1px solid rgba(255,255,255,0.12)",
+              marginTop: 32,
+              paddingTop: 24,
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
+            }}
+          >
+            {[
+              "Treatment requires a clinical evaluation and is provided only when medically appropriate.",
+              "Individual results vary. Treatment is provided by licensed providers at Men's Wellness Centers.",
+              "The information presented on this website is provided for general informational purposes only and is not intended to constitute medical advice, diagnosis, or treatment. Men's Wellness Centers does not provide medical advice through this website, and nothing on this website should be relied upon as a substitute for an in-person evaluation, diagnosis, or consultation with a licensed healthcare professional.",
+              "Men's Wellness Centers provides care through in-center visits at its Virginia locations. Medical services are provided following an individualized evaluation and are rendered by licensed medical professionals exercising independent clinical judgment.",
+              "Testimonials and reviews reflect individual experiences only and are not intended to represent typical outcomes or make medical claims.",
+            ].map((text, i) => (
+              <p
+                key={i}
+                style={{
+                  fontSize: 11,
+                  lineHeight: 1.5,
+                  color: "rgba(245,240,235,0.40)",
+                  margin: 0,
+                  overflowWrap: "break-word",
+                }}
+              >
+                {text}
+              </p>
+            ))}
+          </div>
 
-        {/* Disclaimer */}
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: 24, paddingTop: 20, paddingBottom: 20 }}>
-          <p style={{ fontSize: 10, lineHeight: 1.6, color: "rgba(245,240,235,0.30)", maxWidth: 800, margin: "0 auto" }}>
-            Treatment requires a clinical evaluation and is provided only when medically appropriate. Individual results vary. The information on this website is for general informational purposes only and is not medical advice. Men&rsquo;s Wellness Centers provides care through in-center visits at its Virginia locations by licensed medical professionals exercising independent clinical judgment. Testimonials reflect individual experiences and are not intended to represent typical outcomes.
-          </p>
-        </div>
-
-        {/* Legal links */}
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "14px 0", textAlign: "center" as const }}>
-          <p style={{ fontSize: 10, color: "rgba(245,240,235,0.35)", letterSpacing: "0.08em", textTransform: "uppercase" as const }}>
-            &copy; 2026 MEN&rsquo;S WELLNESS CENTERS &nbsp;|&nbsp; SAFETY POLICY &nbsp;|&nbsp; TERMS OF SERVICE &nbsp;|&nbsp; PRIVACY POLICY &nbsp;|&nbsp; HIPAA NOTICE
-          </p>
+          {/* Bottom bar — policy links, stacked on mobile */}
+          <div
+            className="booking-footer-bottom"
+            style={{
+              borderTop: "1px solid rgba(255,255,255,0.12)",
+              marginTop: 24,
+              paddingTop: 16,
+              paddingBottom: 24,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: "0.09em",
+              textTransform: "uppercase" as const,
+              color: "rgba(245,240,235,0.50)",
+            }}
+          >
+            <span>&copy; 2026 Men&rsquo;s Wellness Centers</span>
+            {([
+              { href: "/prescribing-policy", label: "Safety Policy" },
+              { href: "/terms-of-service", label: "Terms of Service" },
+              { href: "https://menswellnesscenters.com/privacy-practices/", label: "Privacy Policy" },
+              { href: "https://menswellnesscenters.com/privacy-practices/#hipaa", label: "HIPAA Notice" },
+            ] as const).map(({ href, label }) => (
+              <a
+                key={label}
+                href={href}
+                style={{
+                  color: "rgba(245,240,235,0.50)",
+                  textDecoration: "none",
+                  minHeight: 44,
+                  display: "inline-flex",
+                  alignItems: "center",
+                }}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
         </div>
       </footer>
     </div>
