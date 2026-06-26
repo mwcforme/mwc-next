@@ -556,7 +556,8 @@ function ScheduleContent() {
 
   // Days state
   const [days, setDays] = useState<DayCell[]>(() => buildDays());
-  const [selectedDayIdx, setSelectedDayIdx] = useState<number>(0);
+  const [selectedDayIdx, setSelectedDayIdx] = useState<number>(-1);
+  const [autoSelected, setAutoSelected] = useState(false);
   const [loadingDays, setLoadingDays] = useState<Set<string>>(new Set());
 
   // Slots state
@@ -585,10 +586,10 @@ function ScheduleContent() {
       const first = days[toFetch[0]];
       const last = days[toFetch[toFetch.length - 1]];
 
-      // ET midnight for start
-      const startDate = new Date(`${first.dateKey}T00:00:00`).getTime();
-      // ET end-of-day for last
-      const endDate = new Date(`${last.dateKey}T23:59:59`).getTime();
+      // Use epoch ms — append America/New_York offset
+      // GHL expects UTC-based epoch ms
+      const startDate = new Date(`${first.dateKey}T00:00:00-04:00`).getTime();
+      const endDate = new Date(`${last.dateKey}T23:59:59-04:00`).getTime();
 
       try {
         const res = await fetch(
@@ -637,8 +638,26 @@ function ScheduleContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Auto-select first day with available slots after initial load
+  useEffect(() => {
+    if (autoSelected) return;
+    const allLoaded = days.every((d) => d.loaded || d.closed);
+    if (!allLoaded) return;
+    const firstAvail = days.findIndex((d) => !d.closed && d.slots.length > 0);
+    if (firstAvail !== -1) {
+      setSelectedDayIdx(firstAvail);
+      setAutoSelected(true);
+    } else if (days.some((d) => d.loaded)) {
+      // All loaded but none have slots — select first non-closed day
+      const firstOpen = days.findIndex((d) => !d.closed);
+      if (firstOpen !== -1) setSelectedDayIdx(firstOpen);
+      setAutoSelected(true);
+    }
+  }, [days, autoSelected]);
+
   // Refetch selected day when changed (if not loaded)
   useEffect(() => {
+    if (selectedDayIdx < 0) return;
     if (!days[selectedDayIdx].loaded && !days[selectedDayIdx].closed) {
       fetchSlots([selectedDayIdx]);
     }
@@ -650,10 +669,10 @@ function ScheduleContent() {
     setSelectedSlot(null);
   }, [selectedDayIdx]);
 
-  const selectedDay = days[selectedDayIdx];
-  const isLoadingSlots = loadingDays.has(selectedDay.dateKey);
+  const selectedDay = selectedDayIdx >= 0 ? days[selectedDayIdx] : null;
+  const isLoadingSlots = selectedDay ? loadingDays.has(selectedDay.dateKey) : true;
 
-  const timeSlots: TimeSlot[] = selectedDay.slots.map(isoToDisplayTime);
+  const timeSlots: TimeSlot[] = selectedDay ? selectedDay.slots.map(isoToDisplayTime) : [];
   const { morning, afternoon } = groupSlots(timeSlots);
 
   // Book appointment
@@ -734,21 +753,59 @@ function ScheduleContent() {
             : `Your physician is ready to help with your ${concernLabel}.`}
         </h1>
 
-        {/* Location pill */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-            padding: "5px 12px",
-            background: "rgba(11,16,41,0.07)",
-            borderRadius: 999,
-          }}
-        >
-          <MapPin size={13} color={ORANGE} strokeWidth={2} />
-          <span style={{ fontFamily: OSWALD, fontSize: 12, fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: "0.06em" }}>
-            {cal.label}
-          </span>
+        {/* Location + Next available pills */}
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" as const }}>
+          {/* Location pill */}
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "6px 14px",
+              background: "#FFFFFF",
+              border: "1px solid #E5E1DC",
+              borderRadius: 999,
+            }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: ORANGE, flexShrink: 0 }} />
+            <span style={{ fontFamily: INTER, fontSize: 13, fontWeight: 500, color: NAVY }}>
+              {cal.label}
+            </span>
+          </div>
+
+          {/* Next available pill */}
+          {(() => {
+            const firstAvailDay = days.find((d) => !d.closed && d.slots.length > 0);
+            if (!firstAvailDay || firstAvailDay.slots.length === 0) return null;
+            const firstSlot = firstAvailDay.slots[0];
+            const dt = new Date(firstSlot);
+            const dayName = dt.toLocaleDateString("en-US", { weekday: "short", timeZone: TIMEZONE });
+            const monthName = dt.toLocaleDateString("en-US", { month: "short", timeZone: TIMEZONE });
+            const dayNum = dt.toLocaleDateString("en-US", { day: "numeric", timeZone: TIMEZONE });
+            const time = dt.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: TIMEZONE });
+            const targetIdx = days.indexOf(firstAvailDay);
+            return (
+              <button
+                type="button"
+                onClick={() => setSelectedDayIdx(targetIdx)}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "6px 14px",
+                  background: "#FFFFFF",
+                  border: "1px solid #E5E1DC",
+                  borderRadius: 999,
+                  cursor: "pointer",
+                }}
+              >
+                <span style={{ color: ORANGE, fontSize: 13 }}>&rarr;</span>
+                <span style={{ fontFamily: INTER, fontSize: 13, color: NAVY }}>
+                  <strong>Next:</strong> {dayName}, {monthName} {dayNum} &middot; {time}
+                </span>
+              </button>
+            );
+          })()}
         </div>
       </div>
 
@@ -781,7 +838,12 @@ function ScheduleContent() {
 
       {/* Slot grid */}
       <div style={{ padding: "0 20px" }}>
-        {selectedDay.closed ? (
+        {!selectedDay ? (
+          <div style={{ display: "flex", justifyContent: "center", padding: "40px 0" }}>
+            <div style={{ width: 32, height: 32, borderRadius: "50%", border: "3px solid rgba(11,16,41,0.15)", borderTopColor: ORANGE, animation: "spin 0.7s linear infinite" }} />
+            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+          </div>
+        ) : selectedDay.closed ? (
           <div style={{ textAlign: "center", padding: "40px 0" }}>
             <p style={{ fontFamily: INTER, fontSize: 15, color: "rgba(11,16,41,0.5)" }}>
               We&rsquo;re closed on Sundays. Please select another day.
