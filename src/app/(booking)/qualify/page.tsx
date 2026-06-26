@@ -112,7 +112,7 @@ function QualifyContent() {
                 borderRadius: 10,
                 border: sel
                   ? `1.5px solid ${ORANGE}`
-                  : "1.5px solid #E5E7EB",
+                  : "1.5px solid #E2E4E8",
                 background: sel ? "rgba(232,103,10,0.10)" : "#FFFFFF",
                 cursor: "pointer",
                 textAlign: "left",
