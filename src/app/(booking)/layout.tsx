@@ -107,16 +107,13 @@ export default function BookingLayout({
                 height={40}
                 style={{ height: 40, width: "auto", opacity: 0.9, display: "block" }}
               />
-              <p style={{ fontSize: 13, color: "rgba(245,240,235,0.45)", marginTop: 12, lineHeight: 1.5 }}>
-                &copy; 2026 Men&rsquo;s Wellness Centers.<br />All rights reserved.
-              </p>
-              <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 6 }}>
+              <p style={{ fontSize: 12, color: "rgba(245,240,235,0.50)", marginTop: 16 }}>Copyright &copy; 2026</p>
+              <div style={{ marginTop: 20 }}>
                 <a
                   href="tel:+18663444955"
-                  style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 14, color: "rgba(245,240,235,0.80)", textDecoration: "none" }}
+                  style={{ fontSize: 14, color: "rgba(245,240,235,0.80)", textDecoration: "none" }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8670A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  (866) 344-4955
+                  ☎ (866) 344-4955
                 </a>
               </div>
             </div>
@@ -136,47 +133,21 @@ export default function BookingLayout({
               >
                 Contact
               </h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                 {([
-                  { name: "Richmond", phone: "(804) 346-4636", tel: "tel:8043464636" },
-                  { name: "Virginia Beach", phone: "(757) 612-4428", tel: "tel:7576124428" },
-                  { name: "Newport News", phone: "(757) 806-6263", tel: "tel:7578066263" },
-                ] as const).map((loc) => (
-                  <a
-                    key={loc.name}
-                    href={loc.tel}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      color: "rgba(245,240,235,0.75)",
-                      textDecoration: "none",
-                      fontSize: 14,
-                      lineHeight: 1.5,
-                      minHeight: 44,
-                    }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8670A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    <span style={{ fontWeight: 600 }}>{loc.name}:</span>&nbsp;{loc.phone}
-                  </a>
+                  { label: "Richmond", tel: "tel:8043464636", num: "804-346-4636" },
+                  { label: "Virginia Beach", tel: "tel:7576124428", num: "757-612-4428" },
+                  { label: "Newport News", tel: "tel:7578066263", num: "757-806-6263" },
+                ] as const).map(({ label, tel, num }) => (
+                  <li key={label} style={{ marginBottom: 4, fontSize: 14, minHeight: 44, color: "rgba(245,240,235,0.75)", display: "flex", alignItems: "center" }}>
+                    {label}:{" "}
+                    <a href={tel} style={{ color: "rgba(245,240,235,0.75)", textDecoration: "none", marginLeft: 4 }}>{num}</a>
+                  </li>
                 ))}
-                <a
-                  href="mailto:info@menswellnesscenters.com"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    color: "rgba(245,240,235,0.75)",
-                    textDecoration: "none",
-                    fontSize: 14,
-                    marginTop: 4,
-                    minHeight: 44,
-                  }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8670A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                  info@menswellnesscenters.com
-                </a>
-              </div>
+                <li style={{ marginBottom: 4, fontSize: 14, minHeight: 44, color: "rgba(245,240,235,0.75)", display: "flex", alignItems: "center" }}>
+                  <a href="mailto:info@menswellnesscenters.com" style={{ color: "rgba(245,240,235,0.75)", textDecoration: "none" }}>info@menswellnesscenters.com</a>
+                </li>
+              </ul>
             </div>
           </div>
 
