@@ -909,16 +909,17 @@ function ScheduleContent() {
               width: 40,
               height: 40,
               borderRadius: "50%",
-              border: "1px solid rgba(11,16,41,0.20)",
-              background: "transparent",
+              border: "none",
+              background: ORANGE,
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
+              boxShadow: "0 2px 8px rgba(232,103,10,0.30)",
             }}
           >
-            <ChevronLeft size={20} color={NAVY} />
+            <ChevronLeft size={20} color={WHITE} />
           </button>
 
           <span
@@ -942,16 +943,17 @@ function ScheduleContent() {
               width: 40,
               height: 40,
               borderRadius: "50%",
-              border: "1px solid rgba(11,16,41,0.20)",
-              background: "transparent",
+              border: "none",
+              background: ORANGE,
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
+              boxShadow: "0 2px 8px rgba(232,103,10,0.30)",
             }}
           >
-            <ChevronRight size={20} color={NAVY} />
+            <ChevronRight size={20} color={WHITE} />
           </button>
         </div>
 
@@ -1088,29 +1090,45 @@ function ScheduleContent() {
           )}
         </div>
 
-        {/* Divider before help bar */}
-        <div style={{ height: 1, background: "rgba(11,16,41,0.08)" }} />
+      </div>
 
-        {/* Need help? Call bar — inside the card */}
-        <a
-          href="tel:+18663444955"
+      {/* Need help? Call bar — standalone card below schedule, matches Vite */}
+      <a
+        href="tel:+18663444955"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 12,
+          padding: "16px 20px",
+          marginTop: 16,
+          background: WHITE,
+          border: `2px solid ${ORANGE}`,
+          borderRadius: 16,
+          textDecoration: "none",
+          cursor: "pointer",
+          width: "100%",
+          boxSizing: "border-box",
+        }}
+      >
+        <span
           style={{
+            width: 36,
+            height: 36,
+            borderRadius: "50%",
+            background: ORANGE,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: 10,
-            padding: "16px 20px",
-            textDecoration: "none",
-            cursor: "pointer",
-            background: "transparent",
+            flexShrink: 0,
           }}
         >
-          <Phone size={18} color={ORANGE} />
-          <span style={{ fontFamily: INTER, fontSize: 15, fontWeight: 600, color: NAVY }}>
-            Need help? Call (866) 344-4955
-          </span>
-        </a>
-      </div>
+          <Phone size={16} color={WHITE} />
+        </span>
+        <span style={{ fontFamily: INTER, fontSize: 15, fontWeight: 600, color: NAVY }}>
+          Need help? Call (866) 344-4955
+        </span>
+      </a>
 
       {/* Confirm sheet */}
       {showConfirm && selectedSlot && (
