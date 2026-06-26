@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { MapPin, ChevronRight, X, Clock, Mail } from "lucide-react";
+import { MapPin, ChevronRight, ChevronLeft, X, Clock, Mail, Phone } from "lucide-react";
 import { FunnelProgressBar } from "@/components/FunnelProgressBar";
 import { BookingRouteGuard } from "@/components/BookingRouteGuard";
 import { getBookingState, patchBookingState } from "@/lib/bookingStore";
@@ -63,7 +63,7 @@ interface TimeSlot {
 /** Get today's date in ET timezone */
 function getTodayET(): Date {
   const now = new Date();
-  const etStr = now.toLocaleDateString("en-CA", { timeZone: TIMEZONE }); // YYYY-MM-DD
+  const etStr = now.toLocaleDateString("en-CA", { timeZone: TIMEZONE });
   const [y, m, d] = etStr.split("-").map(Number);
   return new Date(y, m - 1, d);
 }
@@ -76,14 +76,18 @@ function toDateKey(d: Date): string {
   return `${y}-${m}-${day}`;
 }
 
-/** Build 9-day strip starting from today */
-function buildDays(): DayCell[] {
-  const today = getTodayET();
+/** Add N days to a date */
+function addDays(d: Date, n: number): Date {
+  const result = new Date(d);
+  result.setDate(d.getDate() + n);
+  return result;
+}
+
+/** Build 10-day strip starting from a given date (9 bookable + 1 preview) */
+function buildDaysFrom(start: Date): DayCell[] {
   const days: DayCell[] = [];
-  let offset = 0;
-  while (days.length < 9) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + offset);
+  for (let offset = 0; offset < 10; offset++) {
+    const d = addDays(start, offset);
     days.push({
       date: d,
       dateKey: toDateKey(d),
@@ -91,7 +95,6 @@ function buildDays(): DayCell[] {
       slots: [],
       loaded: false,
     });
-    offset++;
   }
   return days;
 }
@@ -100,7 +103,6 @@ function buildDays(): DayCell[] {
 function parseSlotsResponse(data: Record<string, { slots: string[] }>): Record<string, string[]> {
   const result: Record<string, string[]> = {};
   for (const [key, val] of Object.entries(data)) {
-    // key is like "2026-06-26"
     if (val?.slots && Array.isArray(val.slots)) {
       result[key] = val.slots;
     }
@@ -117,7 +119,6 @@ function isoToDisplayTime(iso: string): TimeSlot {
     hour12: true,
     timeZone: TIMEZONE,
   });
-  // "9:00 AM" → display="9:00", meridiem="AM"
   const parts = timeStr.replace(/\u202f/g, " ").split(" ");
   const display = parts[0];
   const meridiem = parts[1] ?? "";
@@ -165,15 +166,16 @@ function DayChip({
   selected,
   loading,
   onSelect,
+  isToday,
 }: {
   day: DayCell;
   selected: boolean;
   loading: boolean;
   onSelect: () => void;
+  isToday: boolean;
 }) {
   const dow = DOW[day.date.getDay()];
   const dateNum = day.date.getDate();
-  const mon = MONTHS[day.date.getMonth()];
   const slotsLeft = day.slots.length;
   const disabled = day.closed || (day.loaded && slotsLeft === 0);
 
@@ -194,6 +196,9 @@ function DayChip({
     gap: 2,
   };
 
+  // Determine status label for disabled chips
+  const statusLabel = day.closed ? "Closed" : "Call Us";
+
   if (disabled) {
     return (
       <div
@@ -213,7 +218,7 @@ function DayChip({
           {dateNum}
         </span>
         <span style={{ fontFamily: INTER, fontSize: 10, fontWeight: 600, color: NAVY, opacity: 0.5 }}>
-          {day.closed ? "Closed" : "Full"}
+          {statusLabel}
         </span>
       </div>
     );
@@ -235,9 +240,6 @@ function DayChip({
         </span>
         <span style={{ fontFamily: OSWALD, fontSize: 26, fontWeight: 700, lineHeight: 1, color: WHITE }}>
           {dateNum}
-        </span>
-        <span style={{ fontFamily: INTER, fontSize: 10, color: WHITE }}>
-          {mon}
         </span>
         {day.loaded && (
           <span style={{ fontFamily: INTER, fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.85)" }}>
@@ -264,14 +266,11 @@ function DayChip({
       <span style={{ fontFamily: OSWALD, fontSize: 26, fontWeight: 700, lineHeight: 1, color: NAVY }}>
         {dateNum}
       </span>
-      <span style={{ fontFamily: INTER, fontSize: 10, color: "rgba(11,16,41,0.5)" }}>
-        {mon}
-      </span>
       {loading ? (
         <span style={{ fontFamily: INTER, fontSize: 9, color: "rgba(11,16,41,0.3)" }}>...</span>
       ) : day.loaded ? (
         <span style={{ fontFamily: INTER, fontSize: 9, color: slotsLeft > 0 ? "rgba(11,16,41,0.5)" : "#EF4444" }}>
-          {slotsLeft > 0 ? `${slotsLeft} slots` : "Full"}
+          {slotsLeft > 0 ? `${slotsLeft} slots` : (isToday ? "Call Us" : "Full")}
         </span>
       ) : null}
     </button>
@@ -295,7 +294,7 @@ function SlotButton({
       onClick={onSelect}
       style={{
         height: 44,
-        borderRadius: 12,
+        borderRadius: 8,
         border: selected ? `2px solid ${ORANGE}` : `1px solid ${NAVY}`,
         background: selected ? ORANGE : WHITE,
         color: selected ? WHITE : NAVY,
@@ -550,20 +549,23 @@ function ScheduleContent() {
   const symptom = state?.symptom ?? "";
   const location = state?.location ?? "richmond";
 
-  const concernLabel =
-    SYMPTOM_MAP[symptom] ?? SYMPTOM_MAP["other"];
+  const concernLabel = SYMPTOM_MAP[symptom] ?? SYMPTOM_MAP["other"];
   const cal = CALENDARS[location] ?? CALENDARS["richmond"];
 
-  // Days state
-  const [days, setDays] = useState<DayCell[]>(() => buildDays());
+  // ── Week navigation state ────────────────────────────────────────────────
+  const todayET = getTodayET();
+  const [weekStart, setWeekStart] = useState<Date>(() => getTodayET());
+
+  // ── Days state ───────────────────────────────────────────────────────────
+  const [days, setDays] = useState<DayCell[]>(() => buildDaysFrom(getTodayET()));
   const [selectedDayIdx, setSelectedDayIdx] = useState<number>(-1);
   const [autoSelected, setAutoSelected] = useState(false);
   const [loadingDays, setLoadingDays] = useState<Set<string>>(new Set());
 
-  // Slots state
+  // ── Slots state ──────────────────────────────────────────────────────────
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
-  // Confirm state
+  // ── Confirm state ────────────────────────────────────────────────────────
   const [showConfirm, setShowConfirm] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [bookError, setBookError] = useState<string | null>(null);
@@ -571,23 +573,19 @@ function ScheduleContent() {
   // Scroll ref for day strip
   const stripRef = useRef<HTMLDivElement>(null);
 
-  // Fetch slots for a range of days
+  // ── Fetch slots for a range of days ─────────────────────────────────────
   const fetchSlots = useCallback(
-    async (dayIndices: number[]) => {
+    async (dayIndices: number[], currentDays: DayCell[]) => {
       const toFetch = dayIndices.filter(
-        (i) => !days[i].closed && !days[i].loaded && !loadingDays.has(days[i].dateKey)
+        (i) => !currentDays[i].closed && !currentDays[i].loaded && !loadingDays.has(currentDays[i].dateKey)
       );
       if (toFetch.length === 0) return;
 
-      const keys = toFetch.map((i) => days[i].dateKey);
+      const keys = toFetch.map((i) => currentDays[i].dateKey);
       setLoadingDays((prev) => new Set([...prev, ...keys]));
 
-      // Batch: use first/last of the range
-      const first = days[toFetch[0]];
-      const last = days[toFetch[toFetch.length - 1]];
-
-      // Use epoch ms — append America/New_York offset
-      // GHL expects UTC-based epoch ms
+      const first = currentDays[toFetch[0]];
+      const last = currentDays[toFetch[toFetch.length - 1]];
       const startDate = new Date(`${first.dateKey}T00:00:00-04:00`).getTime();
       const endDate = new Date(`${last.dateKey}T23:59:59-04:00`).getTime();
 
@@ -602,9 +600,10 @@ function ScheduleContent() {
         setDays((prev) => {
           const next = [...prev];
           toFetch.forEach((i) => {
+            if (i >= next.length) return;
             const dk = next[i].dateKey;
             const rawSlots = slotsByDate[dk] ?? [];
-            const isToday = i === 0;
+            const isToday = dk === toDateKey(todayET);
             const filtered = filterPastSlots(rawSlots, isToday);
             next[i] = { ...next[i], slots: filtered, loaded: true };
           });
@@ -612,10 +611,10 @@ function ScheduleContent() {
         });
       } catch (err) {
         console.error("fetchSlots error:", err);
-        // Mark as loaded with empty slots on error
         setDays((prev) => {
           const next = [...prev];
           toFetch.forEach((i) => {
+            if (i >= next.length) return;
             next[i] = { ...next[i], slots: [], loaded: true };
           });
           return next;
@@ -628,17 +627,66 @@ function ScheduleContent() {
         });
       }
     },
-    [days, loadingDays, location]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [location, loadingDays]
   );
 
-  // Fetch all 9 days on mount (batch)
+  // ── Rebuild days when weekStart changes ──────────────────────────────────
   useEffect(() => {
-    const allIdx = days.map((_, i) => i);
-    fetchSlots(allIdx);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const newDays = buildDaysFrom(weekStart);
+    setDays(newDays);
+    setLoadingDays(new Set());
+    setSelectedDayIdx(-1);
+    setSelectedSlot(null);
+    setAutoSelected(false);
+    // Fetch all days after state reset (use newDays directly)
+    const allIdx = newDays.map((_, i) => i);
+    const toFetch = allIdx.filter((i) => !newDays[i].closed);
+    if (toFetch.length === 0) return;
 
-  // Auto-select first day with available slots after initial load
+    const first = newDays[toFetch[0]];
+    const last = newDays[toFetch[toFetch.length - 1]];
+    const startDate = new Date(`${first.dateKey}T00:00:00-04:00`).getTime();
+    const endDate = new Date(`${last.dateKey}T23:59:59-04:00`).getTime();
+    const keys = toFetch.map((i) => newDays[i].dateKey);
+
+    setLoadingDays(new Set(keys));
+
+    fetch(`/api/slots?location=${location}&startDate=${startDate}&endDate=${endDate}`)
+      .then((r) => r.ok ? r.json() : Promise.reject("fetch failed"))
+      .then((data: Record<string, { slots: string[] }>) => {
+        const slotsByDate = parseSlotsResponse(data);
+        setDays((prev) => {
+          const next = [...prev];
+          toFetch.forEach((i) => {
+            if (i >= next.length) return;
+            const dk = next[i].dateKey;
+            const rawSlots = slotsByDate[dk] ?? [];
+            const isToday = dk === toDateKey(todayET);
+            const filtered = filterPastSlots(rawSlots, isToday);
+            next[i] = { ...next[i], slots: filtered, loaded: true };
+          });
+          return next;
+        });
+      })
+      .catch((err) => {
+        console.error("fetchSlots error:", err);
+        setDays((prev) => {
+          const next = [...prev];
+          toFetch.forEach((i) => {
+            if (i >= next.length) return;
+            next[i] = { ...next[i], slots: [], loaded: true };
+          });
+          return next;
+        });
+      })
+      .finally(() => {
+        setLoadingDays(new Set());
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weekStart, location]);
+
+  // ── Auto-select first available day ─────────────────────────────────────
   useEffect(() => {
     if (autoSelected) return;
     const allLoaded = days.every((d) => d.loaded || d.closed);
@@ -648,32 +696,55 @@ function ScheduleContent() {
       setSelectedDayIdx(firstAvail);
       setAutoSelected(true);
     } else if (days.some((d) => d.loaded)) {
-      // All loaded but none have slots — select first non-closed day
       const firstOpen = days.findIndex((d) => !d.closed);
       if (firstOpen !== -1) setSelectedDayIdx(firstOpen);
       setAutoSelected(true);
     }
   }, [days, autoSelected]);
 
-  // Refetch selected day when changed (if not loaded)
-  useEffect(() => {
-    if (selectedDayIdx < 0) return;
-    if (!days[selectedDayIdx].loaded && !days[selectedDayIdx].closed) {
-      fetchSlots([selectedDayIdx]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDayIdx]);
-
-  // Clear selected slot when day changes
+  // ── Clear selected slot when day changes ─────────────────────────────────
   useEffect(() => {
     setSelectedSlot(null);
   }, [selectedDayIdx]);
 
+  // ── Week nav ─────────────────────────────────────────────────────────────
+  const goNextWeek = useCallback(() => {
+    setWeekStart((w) => addDays(w, 7));
+  }, []);
+
+  const goPrevWeek = useCallback(() => {
+    setWeekStart((w) => {
+      const prev = addDays(w, -7);
+      // Don't go before today
+      return prev < todayET ? todayET : prev;
+    });
+  }, [todayET]);
+
+  // ── Derived ──────────────────────────────────────────────────────────────
   const selectedDay = selectedDayIdx >= 0 ? days[selectedDayIdx] : null;
   const isLoadingSlots = selectedDay ? loadingDays.has(selectedDay.dateKey) : true;
 
   const timeSlots: TimeSlot[] = selectedDay ? selectedDay.slots.map(isoToDisplayTime) : [];
   const { morning, afternoon } = groupSlots(timeSlots);
+
+  // First available slot info for the "Next:" pill
+  const firstAvailDay = days.find((d) => !d.closed && d.slots.length > 0);
+  const nextAvailInfo = (() => {
+    if (!firstAvailDay || firstAvailDay.slots.length === 0) return null;
+    const firstSlot = firstAvailDay.slots[0];
+    const dt = new Date(firstSlot);
+    const dayName = dt.toLocaleDateString("en-US", { weekday: "short", timeZone: TIMEZONE });
+    const monthName = dt.toLocaleDateString("en-US", { month: "short", timeZone: TIMEZONE });
+    const dayNum = dt.toLocaleDateString("en-US", { day: "numeric", timeZone: TIMEZONE });
+    const time = dt.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: TIMEZONE });
+    const targetIdx = days.indexOf(firstAvailDay);
+    return { label: `${dayName}, ${monthName} ${dayNum} · ${time}`, targetIdx };
+  })();
+
+  // Week header label
+  const weekLabel = days.length >= 9
+    ? `${MONTHS[days[0].date.getMonth()]} ${days[0].date.getDate()} to ${MONTHS[days[8].date.getMonth()]} ${days[8].date.getDate()}`
+    : "";
 
   // Book appointment
   const handleConfirm = async (email?: string) => {
@@ -705,7 +776,6 @@ function ScheduleContent() {
         return;
       }
 
-      // Save confirmed appointment to session storage
       patchBookingState({
         // @ts-expect-error extending state
         confirmedAppointment: {
@@ -728,216 +798,318 @@ function ScheduleContent() {
       style={{
         width: "100%",
         maxWidth: 640,
-        padding: "0 0 60px",
+        padding: "0 16px 60px",
+        boxSizing: "border-box",
       }}
     >
       {/* Progress bar */}
-      <div style={{ padding: "0 20px 8px" }}>
+      <div style={{ padding: "0 0 8px" }}>
         <FunnelProgressBar activeStep={3} />
       </div>
 
-      {/* Heading */}
-      <div style={{ padding: "0 20px 16px" }}>
-        <h1
+      {/* Heading — lighter weight, subtitle style */}
+      <div style={{ padding: "0 0 12px" }}>
+        <p
           style={{
-            fontFamily: OSWALD,
-            fontSize: 22,
-            fontWeight: 700,
+            fontFamily: INTER,
+            fontSize: 16,
+            fontWeight: 400,
             color: NAVY,
-            margin: "0 0 8px",
-            lineHeight: 1.25,
+            margin: 0,
+            lineHeight: 1.5,
           }}
         >
           {firstName
             ? `${firstName}, your physician is ready to help with your ${concernLabel}.`
             : `Your physician is ready to help with your ${concernLabel}.`}
-        </h1>
+        </p>
+      </div>
 
-        {/* Location + Next available pills */}
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" as const }}>
-          {/* Location pill */}
-          <div
+      {/* Location + Next available pills — stacked vertically, full width */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
+        {/* Location pill */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "10px 16px",
+            background: WHITE,
+            border: "1px solid #E5E1DC",
+            borderRadius: 999,
+          }}
+        >
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: ORANGE, flexShrink: 0 }} />
+          <span style={{ fontFamily: INTER, fontSize: 13, fontWeight: 500, color: NAVY }}>
+            {cal.label}
+          </span>
+        </div>
+
+        {/* Next available pill */}
+        {nextAvailInfo && (
+          <button
+            type="button"
+            onClick={() => setSelectedDayIdx(nextAvailInfo.targetIdx)}
             style={{
-              display: "inline-flex",
+              display: "flex",
               alignItems: "center",
-              gap: 6,
-              padding: "6px 14px",
-              background: "#FFFFFF",
+              gap: 8,
+              padding: "10px 16px",
+              background: WHITE,
               border: "1px solid #E5E1DC",
               borderRadius: 999,
+              cursor: "pointer",
+              textAlign: "left",
             }}
           >
-            <span style={{ width: 8, height: 8, borderRadius: "50%", background: ORANGE, flexShrink: 0 }} />
-            <span style={{ fontFamily: INTER, fontSize: 13, fontWeight: 500, color: NAVY }}>
-              {cal.label}
-            </span>
-          </div>
-
-          {/* Next available pill */}
-          {(() => {
-            const firstAvailDay = days.find((d) => !d.closed && d.slots.length > 0);
-            if (!firstAvailDay || firstAvailDay.slots.length === 0) return null;
-            const firstSlot = firstAvailDay.slots[0];
-            const dt = new Date(firstSlot);
-            const dayName = dt.toLocaleDateString("en-US", { weekday: "short", timeZone: TIMEZONE });
-            const monthName = dt.toLocaleDateString("en-US", { month: "short", timeZone: TIMEZONE });
-            const dayNum = dt.toLocaleDateString("en-US", { day: "numeric", timeZone: TIMEZONE });
-            const time = dt.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: TIMEZONE });
-            const targetIdx = days.indexOf(firstAvailDay);
-            return (
-              <button
-                type="button"
-                onClick={() => setSelectedDayIdx(targetIdx)}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  padding: "6px 14px",
-                  background: "#FFFFFF",
-                  border: "1px solid #E5E1DC",
-                  borderRadius: 999,
-                  cursor: "pointer",
-                }}
-              >
-                <span style={{ color: ORANGE, fontSize: 13 }}>&rarr;</span>
-                <span style={{ fontFamily: INTER, fontSize: 13, color: NAVY }}>
-                  <strong>Next:</strong> {dayName}, {monthName} {dayNum} &middot; {time}
-                </span>
-              </button>
-            );
-          })()}
-        </div>
-      </div>
-
-      {/* Day strip */}
-      <div
-        ref={stripRef}
-        style={{
-          display: "flex",
-          gap: 8,
-          overflowX: "auto",
-          padding: "4px 20px 16px",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
-        role="radiogroup"
-        aria-label="Select a day"
-      >
-        {days.map((day, i) => (
-          <DayChip
-            key={day.dateKey}
-            day={day}
-            selected={selectedDayIdx === i}
-            loading={loadingDays.has(day.dateKey)}
-            onSelect={() => {
-              if (!day.closed) setSelectedDayIdx(i);
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Slot grid */}
-      <div style={{ padding: "0 20px" }}>
-        {!selectedDay ? (
-          <div style={{ display: "flex", justifyContent: "center", padding: "40px 0" }}>
-            <div style={{ width: 32, height: 32, borderRadius: "50%", border: "3px solid rgba(11,16,41,0.15)", borderTopColor: ORANGE, animation: "spin 0.7s linear infinite" }} />
-            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-          </div>
-        ) : selectedDay.closed ? (
-          <div style={{ textAlign: "center", padding: "40px 0" }}>
-            <p style={{ fontFamily: INTER, fontSize: 15, color: "rgba(11,16,41,0.5)" }}>
-              We&rsquo;re closed on Sundays. Please select another day.
-            </p>
-          </div>
-        ) : isLoadingSlots ? (
-          <div style={{ display: "flex", justifyContent: "center", padding: "40px 0" }}>
-            <div
+            {/* Orange dot */}
+            <span
               style={{
-                width: 32,
-                height: 32,
+                width: 8,
+                height: 8,
                 borderRadius: "50%",
-                border: `3px solid rgba(11,16,41,0.15)`,
-                borderTopColor: ORANGE,
-                animation: "spin 0.7s linear infinite",
+                background: ORANGE,
+                flexShrink: 0,
               }}
             />
-            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-          </div>
-        ) : timeSlots.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "40px 0" }}>
-            <p style={{ fontFamily: INTER, fontSize: 15, color: "rgba(11,16,41,0.5)" }}>
-              No available slots for this day. Please try another day.
-            </p>
-          </div>
-        ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {morning.length > 0 && (
-              <div>
-                <h3 style={{ fontFamily: OSWALD, fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: NAVY, margin: "0 0 10px" }}>
-                  Morning
-                </h3>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
-                  {morning.map((s) => (
-                    <SlotButton
-                      key={s.iso}
-                      slot={s}
-                      selected={selectedSlot === s.iso}
-                      onSelect={() => {
-                        setSelectedSlot(s.iso);
-                        setShowConfirm(true);
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-            {afternoon.length > 0 && (
-              <div>
-                <h3 style={{ fontFamily: OSWALD, fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: NAVY, margin: "0 0 10px" }}>
-                  Afternoon
-                </h3>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
-                  {afternoon.map((s) => (
-                    <SlotButton
-                      key={s.iso}
-                      slot={s}
-                      selected={selectedSlot === s.iso}
-                      onSelect={() => {
-                        setSelectedSlot(s.iso);
-                        setShowConfirm(true);
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+            <span style={{ fontFamily: INTER, fontSize: 13, color: NAVY, flex: 1 }}>
+              <strong>Next:</strong> {nextAvailInfo.label}
+            </span>
+            {/* Trailing arrow */}
+            <span style={{ color: NAVY, fontSize: 14, flexShrink: 0 }}>→</span>
+          </button>
         )}
       </div>
 
-      {/* Need help? Call bar */}
-      <a
-        href="tel:+18663444955"
+      {/* ── White card: week nav + day strip + time slots + help bar ── */}
+      <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 10,
-          width: "100%",
-          maxWidth: 640,
-          margin: "16px auto 0",
-          padding: "16px 20px",
           background: WHITE,
-          border: `2px solid ${ORANGE}`,
-          borderRadius: 12,
-          textDecoration: "none",
-          cursor: "pointer",
-          transition: "background 0.15s",
+          borderRadius: 16,
+          boxShadow: "0 2px 12px rgba(11,16,41,0.10), 0 1px 3px rgba(11,16,41,0.06)",
+          overflow: "hidden",
         }}
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={NAVY} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <span style={{ fontFamily: INTER, fontSize: 15, fontWeight: 600, color: NAVY }}>Need help? Call (866) 344-4955</span>
-      </a>
+        {/* Week navigation header */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "16px 16px 0",
+            gap: 12,
+          }}
+        >
+          <button
+            type="button"
+            onClick={goPrevWeek}
+            aria-label="Previous week"
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
+              border: "1px solid rgba(11,16,41,0.20)",
+              background: "transparent",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <ChevronLeft size={20} color={NAVY} />
+          </button>
+
+          <span
+            style={{
+              fontFamily: OSWALD,
+              fontSize: 14,
+              fontWeight: 700,
+              color: NAVY,
+              letterSpacing: "0.08em",
+              textAlign: "center",
+            }}
+          >
+            {weekLabel}
+          </span>
+
+          <button
+            type="button"
+            onClick={goNextWeek}
+            aria-label="Next week"
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
+              border: "1px solid rgba(11,16,41,0.20)",
+              background: "transparent",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <ChevronRight size={20} color={NAVY} />
+          </button>
+        </div>
+
+        {/* Day chip strip */}
+        <div
+          ref={stripRef}
+          role="radiogroup"
+          aria-label="Select a day"
+          style={{
+            display: "flex",
+            gap: 8,
+            overflowX: "auto",
+            padding: "12px 16px 16px",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+        >
+          {days.map((day, i) => {
+            const isToday = day.dateKey === toDateKey(todayET);
+            return (
+              <DayChip
+                key={`${weekStart.getTime()}-${day.dateKey}`}
+                day={day}
+                selected={selectedDayIdx === i}
+                loading={loadingDays.has(day.dateKey)}
+                isToday={isToday}
+                onSelect={() => {
+                  if (!day.closed) setSelectedDayIdx(i);
+                }}
+              />
+            );
+          })}
+        </div>
+
+        {/* Divider */}
+        <div style={{ height: 1, background: "rgba(11,16,41,0.08)" }} />
+
+        {/* Slot grid */}
+        <div style={{ padding: "16px" }}>
+          {!selectedDay ? (
+            <div style={{ display: "flex", justifyContent: "center", padding: "40px 0" }}>
+              <div style={{ width: 32, height: 32, borderRadius: "50%", border: "3px solid rgba(11,16,41,0.15)", borderTopColor: ORANGE, animation: "spin 0.7s linear infinite" }} />
+              <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            </div>
+          ) : selectedDay.closed ? (
+            <div style={{ textAlign: "center", padding: "40px 0" }}>
+              <p style={{ fontFamily: INTER, fontSize: 15, color: "rgba(11,16,41,0.5)" }}>
+                We&rsquo;re closed on Sundays. Please select another day.
+              </p>
+            </div>
+          ) : isLoadingSlots ? (
+            <div style={{ display: "flex", justifyContent: "center", padding: "40px 0" }}>
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: "50%",
+                  border: "3px solid rgba(11,16,41,0.15)",
+                  borderTopColor: ORANGE,
+                  animation: "spin 0.7s linear infinite",
+                }}
+              />
+              <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            </div>
+          ) : timeSlots.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "40px 0" }}>
+              <p style={{ fontFamily: INTER, fontSize: 15, color: "rgba(11,16,41,0.5)" }}>
+                No available slots for this day. Please try another day.
+              </p>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {morning.length > 0 && (
+                <div>
+                  <h3
+                    style={{
+                      fontFamily: OSWALD,
+                      fontSize: 13,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: "rgba(11,16,41,0.65)",
+                      margin: "0 0 10px",
+                    }}
+                  >
+                    Morning
+                  </h3>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
+                    {morning.map((s) => (
+                      <SlotButton
+                        key={s.iso}
+                        slot={s}
+                        selected={selectedSlot === s.iso}
+                        onSelect={() => {
+                          setSelectedSlot(s.iso);
+                          setShowConfirm(true);
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+              {afternoon.length > 0 && (
+                <div>
+                  <h3
+                    style={{
+                      fontFamily: OSWALD,
+                      fontSize: 13,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: "rgba(11,16,41,0.65)",
+                      margin: "0 0 10px",
+                    }}
+                  >
+                    Afternoon
+                  </h3>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
+                    {afternoon.map((s) => (
+                      <SlotButton
+                        key={s.iso}
+                        slot={s}
+                        selected={selectedSlot === s.iso}
+                        onSelect={() => {
+                          setSelectedSlot(s.iso);
+                          setShowConfirm(true);
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Divider before help bar */}
+        <div style={{ height: 1, background: "rgba(11,16,41,0.08)" }} />
+
+        {/* Need help? Call bar — inside the card */}
+        <a
+          href="tel:+18663444955"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 10,
+            padding: "16px 20px",
+            textDecoration: "none",
+            cursor: "pointer",
+            background: "transparent",
+          }}
+        >
+          <Phone size={18} color={ORANGE} />
+          <span style={{ fontFamily: INTER, fontSize: 15, fontWeight: 600, color: NAVY }}>
+            Need help? Call (866) 344-4955
+          </span>
+        </a>
+      </div>
 
       {/* Confirm sheet */}
       {showConfirm && selectedSlot && (
