@@ -113,7 +113,7 @@ export default function TRT2Page() {
             {/* RIGHT: Product image */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 600 }} className="hidden lg:flex">
               <img
-                src="/images/trt-vial-mwc-transparent.png"
+                src="/images/trt-vial-mwc-v3.jpg"
                 alt="Testosterone Cypionate"
                 style={{
                   
