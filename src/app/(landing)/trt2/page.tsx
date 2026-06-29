@@ -111,14 +111,14 @@ export default function TRT2Page() {
             </div>
 
             {/* RIGHT: Product image */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 400 }} className="hidden lg:flex">
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 600 }} className="hidden lg:flex">
               <img
                 src="/images/trt-vial-mwc.png"
                 alt="Testosterone Cypionate"
                 style={{
-                  maxHeight: 480,
+                  maxHeight: 600,
                   width: "auto",
-                  maxWidth: "100%",
+                  maxWidth: "110%",
                   filter: "drop-shadow(0 24px 64px rgba(0,0,0,0.40))",
                 }}
               />
@@ -306,7 +306,7 @@ export default function TRT2Page() {
                 background: "var(--color-surface-subtle)",
                 borderRadius: 16,
                 padding: 20,
-                minHeight: 400,
+                minHeight: 600,
               }}
             >
               {["Dylan R.", "Erin C.", "Richard O.", "Josh C."].map((name, i) => (
