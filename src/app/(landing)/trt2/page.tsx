@@ -36,7 +36,7 @@ export default function TRT2Page() {
               padding: "clamp(40px, 6vw, 80px)",
               color: "#F5F0EB",
             }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center"
+            className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-16 items-center"
           >
             {/* LEFT: Copy */}
             <div className="flex flex-col gap-6">
@@ -113,12 +113,11 @@ export default function TRT2Page() {
             {/* RIGHT: Product image */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 600 }} className="hidden lg:flex">
               <img
-                src="/images/trt-vial-mwc.png"
+                src="/images/trt-vial-mwc-v2.jpg"
                 alt="Testosterone Cypionate"
                 style={{
-                  maxHeight: 600,
-                  width: "auto",
-                  maxWidth: "110%",
+                  
+                  width: "100%",
                   filter: "drop-shadow(0 24px 64px rgba(0,0,0,0.40))",
                 }}
               />
@@ -248,7 +247,7 @@ export default function TRT2Page() {
       ════════════════════════════════════════════════════ */}
       <section style={{ paddingTop: 64, paddingBottom: 64, background: "var(--surface)" }}>
         <div style={{ ...MAX_W }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-12 items-center">
             {/* Left: Copy */}
             <div>
               <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
