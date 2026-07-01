@@ -23,7 +23,7 @@ export function CredibilityBand() {
           <div key={value}>
             <div
               style={{
-                fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                 fontSize: "clamp(28px, 5vw, 40px)",
                 fontWeight: 700,
                 color: "#fff",

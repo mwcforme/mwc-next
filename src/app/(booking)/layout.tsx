@@ -16,7 +16,7 @@ export default function BookingLayout({
         background: "#ECEAE6",
         display: "flex",
         flexDirection: "column",
-        fontFamily: "'Inter', system-ui, sans-serif",
+        fontFamily: "var(--font-inter), system-ui, sans-serif",
       }}
     >
       {/* Header */}
@@ -53,7 +53,7 @@ export default function BookingLayout({
             background: "#E8670A",
             color: "#FFFFFF",
             borderRadius: 9999,
-            fontFamily: "'Inter', system-ui, sans-serif",
+            fontFamily: "var(--font-inter), system-ui, sans-serif",
             fontSize: 12,
             fontWeight: 600,
             textDecoration: "none",
@@ -79,7 +79,7 @@ export default function BookingLayout({
       </main>
 
       {/* Footer — matches TRTFooter from Vite */}
-      <footer style={{ background: "#0B1029", fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <footer style={{ background: "#0B1029", fontFamily: "var(--font-inter), system-ui, sans-serif" }}>
         <div style={{ padding: "48px 24px 0", maxWidth: 1200, margin: "0 auto" }}>
 
           {/* Row 1: Logo + Contact — stacks on mobile, 2-col on md+ */}
@@ -122,7 +122,7 @@ export default function BookingLayout({
             <div>
               <h3
                 style={{
-                  fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                  fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                   fontSize: 18,
                   fontWeight: 700,
                   color: "#FFFFFF",

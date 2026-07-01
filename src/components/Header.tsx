@@ -27,7 +27,7 @@ export function Header() {
       }}
     >
       <div
-        className="flex items-center justify-between px-6 mx-auto h-full"
+        className="flex items-center justify-between px-4 md:px-6 mx-auto h-full"
         style={{ maxWidth: 1200 }}
       >
         {/* Logo */}
@@ -37,7 +37,7 @@ export function Header() {
             alt="Men's Wellness Centers"
             width={180}
             height={28}
-            className="h-7 w-auto"
+            className="h-5 md:h-7 w-auto"
           />
         </a>
 
@@ -46,7 +46,7 @@ export function Header() {
           <a
             href="tel:+18663444955"
             className="text-sm font-medium transition-opacity hover:opacity-80"
-            style={{ color: "#F5F0EB", fontFamily: "'Inter', system-ui, sans-serif" }}
+            style={{ color: "#F5F0EB", fontFamily: "var(--font-inter), system-ui, sans-serif" }}
           >
             866-344-4955
           </a>
@@ -59,7 +59,7 @@ export function Header() {
               borderRadius: 60,
               boxShadow: "0 4px 16px rgba(232,103,10,0.40)",
               transition: "background 180ms ease, transform 180ms ease",
-              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+              fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
               fontSize: 14,
               textTransform: "uppercase",
               letterSpacing: "0.07em",
@@ -79,27 +79,40 @@ export function Header() {
           </button>
         </div>
 
-        {/* Mobile: phone icon */}
-        <div className="md:hidden flex items-center">
+        {/* Mobile: dual path — call + book, always one tap away */}
+        <div className="md:hidden flex items-center gap-2.5">
           <a
             href="tel:+18663444955"
             aria-label="Call 866-344-4955"
-            className="relative inline-flex items-center justify-center rounded-full"
+            className="inline-flex items-center justify-center rounded-full"
             style={{
-              width: 52,
-              height: 52,
+              width: 44,
+              height: 44,
+              border: "2px solid #E8670A",
+              color: "#fff",
+            }}
+          >
+            <Phone size={18} strokeWidth={2.5} />
+          </a>
+          <button
+            type="button"
+            onClick={scrollToForm}
+            className="inline-flex items-center whitespace-nowrap cursor-pointer border-none font-bold"
+            style={{
+              height: 44,
+              padding: "0 18px",
+              borderRadius: 60,
               background: "#E8670A",
               color: "#fff",
+              fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
+              fontSize: 13,
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
               boxShadow: "0 4px 16px rgba(232,103,10,0.40)",
             }}
           >
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 rounded-full animate-ping opacity-40"
-              style={{ background: "#E8670A" }}
-            />
-            <Phone size={22} className="relative" strokeWidth={2.5} />
-          </a>
+            Book My Visit
+          </button>
         </div>
       </div>
     </header>

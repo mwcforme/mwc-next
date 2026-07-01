@@ -22,7 +22,7 @@ export function TrustStrip() {
         <span
           key={item}
           style={{
-            fontFamily: "'Inter', system-ui, sans-serif",
+            fontFamily: "var(--font-inter), system-ui, sans-serif",
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.08em",
