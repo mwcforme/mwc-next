@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Phone } from "lucide-react";
 import { useFormModal } from "./FormModalProvider";
 
 export function StickyMobileCTA() {
@@ -49,34 +50,60 @@ export function StickyMobileCTA() {
         transition: "transform 300ms ease",
       }}
     >
-      <button
-        type="button"
-        onClick={openForm}
-        style={{
-          width: "100%",
-          height: 56,
-          background: "#E8670A",
-          color: "#FFFFFF",
-          border: "none",
-          borderRadius: 0,
-          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
-          fontSize: 15,
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.08em",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 8,
-        }}
-      >
-        BOOK YOUR 60-MINUTE VISIT →
-      </button>
+      {/* Dual path: call OR book — both one thumb-tap away (wireframe 18) */}
+      <div style={{ display: "flex", gap: 10 }}>
+        <a
+          href="tel:+18663444955"
+          aria-label="Call 866-344-4955"
+          style={{
+            flexShrink: 0,
+            width: 104,
+            height: 56,
+            border: "2px solid #E8670A",
+            borderRadius: 8,
+            color: "#fff",
+            fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
+            fontSize: 14,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 6,
+          }}
+        >
+          <Phone size={16} strokeWidth={2.5} /> Call
+        </a>
+        <button
+          type="button"
+          onClick={openForm}
+          style={{
+            flex: 1,
+            height: 56,
+            background: "#E8670A",
+            color: "#FFFFFF",
+            border: "none",
+            borderRadius: 8,
+            fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
+            fontSize: 15,
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+          }}
+        >
+          BOOK MY VISIT →
+        </button>
+      </div>
       <p
         style={{
           textAlign: "center",
-          fontFamily: "'Montserrat', system-ui, sans-serif",
+          fontFamily: "var(--font-montserrat), system-ui, sans-serif",
           fontSize: 11,
           color: "#9CA3AF",
           margin: "6px 0 0",

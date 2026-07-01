@@ -61,7 +61,7 @@ function CTAButton({
         borderRadius: 9999,
         background: "#E8670A",
         color: "#FFFFFF",
-        fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+        fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
         fontSize: fs,
         fontWeight: 700,
         textTransform: "uppercase" as const,
@@ -203,7 +203,7 @@ function HeroQuizForm() {
     border: "1.5px solid rgba(255,255,255,0.20)",
     borderRadius: 10,
     color: "#FFFFFF",
-    fontFamily: "'Montserrat', system-ui, sans-serif",
+    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
     fontSize: 15,
     fontWeight: 600,
     cursor: "pointer",
@@ -227,7 +227,7 @@ function HeroQuizForm() {
       {/* Card heading — Round 6 */}
       <p
         style={{
-          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+          fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
           fontSize: 18,
           fontWeight: 700,
           color: "#FFFFFF",
@@ -261,7 +261,7 @@ function HeroQuizForm() {
         <div>
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 14,
               fontWeight: 700,
               color: "rgba(255,255,255,0.85)",
@@ -298,7 +298,7 @@ function HeroQuizForm() {
         <div>
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 14,
               fontWeight: 700,
               color: "rgba(255,255,255,0.85)",
@@ -334,7 +334,7 @@ function HeroQuizForm() {
               background: "none",
               border: "none",
               color: "rgba(255,255,255,0.50)",
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 12,
               cursor: "pointer",
               marginTop: 12,
@@ -368,7 +368,7 @@ function HeroQuizForm() {
               border: `1.5px solid ${nameError ? "#EF4444" : "rgba(255,255,255,0.20)"}`,
               borderRadius: 10,
               color: "#FFFFFF",
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 15,
               outline: "none",
               boxSizing: "border-box" as const,
@@ -389,7 +389,7 @@ function HeroQuizForm() {
               border: `1.5px solid ${phoneError ? "#EF4444" : "rgba(255,255,255,0.20)"}`,
               borderRadius: 10,
               color: "#FFFFFF",
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 15,
               outline: "none",
               boxSizing: "border-box" as const,
@@ -412,7 +412,7 @@ function HeroQuizForm() {
             />
             <span
               style={{
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                 fontSize: 11,
                 lineHeight: 1.5,
                 color: "rgba(255,255,255,0.55)",
@@ -425,7 +425,7 @@ function HeroQuizForm() {
           {/* Round 4: Price anchor */}
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 12,
               color: "rgba(255,255,255,0.50)",
               lineHeight: 1.4,
@@ -447,7 +447,7 @@ function HeroQuizForm() {
               border: "none",
               borderRadius: 9999,
               color: "#FFFFFF",
-              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+              fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
               fontSize: 15,
               fontWeight: 700,
               textTransform: "uppercase" as const,
@@ -475,7 +475,7 @@ function HeroQuizForm() {
               background: "none",
               border: "none",
               color: "rgba(255,255,255,0.50)",
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 12,
               cursor: "pointer",
               padding: 0,
@@ -651,7 +651,7 @@ function CROHeroInner() {
               marginTop: 8,
               textDecoration: "none",
               color: "rgba(255,255,255,0.65)",
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 14,
               fontWeight: 500,
             }}
@@ -681,7 +681,7 @@ function CROHeroInner() {
                   display: "flex",
                   alignItems: "flex-start",
                   gap: 8,
-                  fontFamily: "'Montserrat', system-ui, sans-serif",
+                  fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                   fontSize: 14,
                   lineHeight: 1.55,
                   marginBottom: 6,
@@ -711,7 +711,7 @@ function CROHeroInner() {
           <div className="cro-hero-mobile-cta">
             <p
               style={{
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                 fontSize: 14,
                 color: "rgba(255,255,255,0.75)",
                 marginBottom: 12,
@@ -731,7 +731,7 @@ function CROHeroInner() {
                 marginBottom: 18,
                 textDecoration: "none",
                 color: "rgba(255,255,255,0.65)",
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                 fontSize: 13,
                 fontWeight: 500,
               }}
@@ -760,7 +760,7 @@ function CROHeroInner() {
                 color: "#FFFFFF",
                 border: "none",
                 borderRadius: 9999,
-                fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                 fontSize: 16,
                 fontWeight: 700,
                 textTransform: "uppercase" as const,
@@ -809,7 +809,7 @@ function CROHeroInner() {
           </span>
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 12,
               color: "rgba(255,255,255,0.70)",
               lineHeight: 1.4,
@@ -824,7 +824,7 @@ function CROHeroInner() {
 
       <style>{`
         .cro-hero-headline {
-          font-family: 'Oswald', 'Arial Narrow', sans-serif;
+          font-family: var(--font-oswald), 'Arial Narrow', sans-serif;
           font-weight: 700;
           text-transform: uppercase;
           line-height: 1.08;
@@ -836,7 +836,7 @@ function CROHeroInner() {
         @media (min-width: 1024px) { .cro-hero-headline { font-size: 100px; } }
 
         .cro-hero-body {
-          font-family: 'Montserrat', system-ui, sans-serif;
+          font-family: var(--font-montserrat), system-ui, sans-serif;
           font-size: 16px;
           line-height: 1.7;
           color: #FFFFFF;
@@ -937,7 +937,7 @@ function CROHeader() {
               gap: 8,
               color: "#FFFFFF",
               textDecoration: "none",
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontWeight: 600,
               fontSize: 14,
             }}
@@ -972,7 +972,7 @@ function CROHeader() {
                 color: "#FFFFFF",
                 border: "none",
                 borderRadius: 9999,
-                fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                 fontSize: 14,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1034,7 +1034,7 @@ function CROCredibilityBand() {
             <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
               <div
                 style={{
-                  fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                  fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                   fontWeight: 700,
                   fontSize: "clamp(26px, 4vw, 44px)",
                   color: "#FFFFFF",
@@ -1046,7 +1046,7 @@ function CROCredibilityBand() {
               </div>
               <div
                 style={{
-                  fontFamily: "'Montserrat', system-ui, sans-serif",
+                  fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                   fontSize: 11,
                   fontWeight: 500,
                   textTransform: "uppercase",
@@ -1089,7 +1089,7 @@ function CROCredibilityBand() {
       >
         <p
           style={{
-            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
             fontSize: 12,
             fontWeight: 600,
             textTransform: "uppercase",
@@ -1102,7 +1102,7 @@ function CROCredibilityBand() {
         </p>
         <p
           style={{
-            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
             fontSize: 12,
             color: "rgba(255,255,255,0.50)",
             margin: 0,
@@ -1161,7 +1161,7 @@ function CROServices({ onBookClick }: { onBookClick: () => void }) {
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <h2
           style={{
-            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+            fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
             fontSize: "clamp(22px, 3vw, 32px)",
             fontWeight: 700,
             textTransform: "uppercase",
@@ -1176,7 +1176,7 @@ function CROServices({ onBookClick }: { onBookClick: () => void }) {
 
         <p
           style={{
-            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
             fontSize: 15,
             color: "#374151",
             lineHeight: 1.5,
@@ -1234,7 +1234,7 @@ function CROServices({ onBookClick }: { onBookClick: () => void }) {
               >
                 <p
                   style={{
-                    fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                    fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                     fontSize: 18,
                     fontWeight: 700,
                     color: "#E8670A",
@@ -1246,7 +1246,7 @@ function CROServices({ onBookClick }: { onBookClick: () => void }) {
                 </p>
                 <p
                   style={{
-                    fontFamily: "'Montserrat', system-ui, sans-serif",
+                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                     fontSize: 14,
                     color: "#374151",
                     lineHeight: 1.55,
@@ -1278,7 +1278,7 @@ function CROServices({ onBookClick }: { onBookClick: () => void }) {
           .cro-services-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
         }
         .cro-service-name {
-          font-family: 'Oswald', 'Arial Narrow', sans-serif;
+          font-family: var(--font-oswald), 'Arial Narrow', sans-serif;
           font-weight: 700;
           color: #FFFFFF;
           text-transform: uppercase;
@@ -1335,7 +1335,7 @@ function CROHowItWorks({ onBookClick }: { onBookClick: () => void }) {
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <p
           style={{
-            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.14em",
@@ -1349,7 +1349,7 @@ function CROHowItWorks({ onBookClick }: { onBookClick: () => void }) {
         </p>
         <h2
           style={{
-            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+            fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
             fontSize: "clamp(28px, 5vw, 48px)",
             fontWeight: 700,
             textTransform: "uppercase",
@@ -1388,7 +1388,7 @@ function CROHowItWorks({ onBookClick }: { onBookClick: () => void }) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                  fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                   fontWeight: 700,
                   fontSize: "1.25rem",
                   boxShadow: step.isLast
@@ -1401,7 +1401,7 @@ function CROHowItWorks({ onBookClick }: { onBookClick: () => void }) {
               <div>
                 <p
                   style={{
-                    fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                    fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                     fontWeight: 700,
                     fontSize: 11,
                     textTransform: "uppercase",
@@ -1414,7 +1414,7 @@ function CROHowItWorks({ onBookClick }: { onBookClick: () => void }) {
                 </p>
                 <h3
                   style={{
-                    fontFamily: "'Montserrat', system-ui, sans-serif",
+                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                     fontWeight: 700,
                     fontSize: "1.125rem",
                     color: "#0B1029",
@@ -1425,7 +1425,7 @@ function CROHowItWorks({ onBookClick }: { onBookClick: () => void }) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "'Montserrat', system-ui, sans-serif",
+                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                     fontSize: 15,
                     color: "#374151",
                     lineHeight: 1.65,
@@ -1489,7 +1489,7 @@ function CROManifesto({ onBookClick }: { onBookClick: () => void }) {
         <div>
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 12,
               fontWeight: 700,
               letterSpacing: "0.14em",
@@ -1503,7 +1503,7 @@ function CROManifesto({ onBookClick }: { onBookClick: () => void }) {
 
           <h2
             style={{
-              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+              fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
               fontSize: "clamp(28px, 5vw, 52px)",
               fontWeight: 700,
               textTransform: "uppercase",
@@ -1519,7 +1519,7 @@ function CROManifesto({ onBookClick }: { onBookClick: () => void }) {
 
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 15,
               color: "#374151",
               lineHeight: 1.7,
@@ -1533,7 +1533,7 @@ function CROManifesto({ onBookClick }: { onBookClick: () => void }) {
           </p>
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 15,
               color: "#374151",
               lineHeight: 1.7,
@@ -1565,7 +1565,7 @@ function CROManifesto({ onBookClick }: { onBookClick: () => void }) {
             />
             <p
               style={{
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                 fontSize: 15,
                 color: "#374151",
                 fontStyle: "italic",
@@ -1580,7 +1580,7 @@ function CROManifesto({ onBookClick }: { onBookClick: () => void }) {
             </p>
             <p
               style={{
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                 fontSize: "0.875rem",
                 fontWeight: 700,
                 color: "#0B1029",
@@ -1591,7 +1591,7 @@ function CROManifesto({ onBookClick }: { onBookClick: () => void }) {
             </p>
             <p
               style={{
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                 fontSize: "0.75rem",
                 color: "#6B7280",
               }}
@@ -1606,7 +1606,7 @@ function CROManifesto({ onBookClick }: { onBookClick: () => void }) {
           </CTAButton>
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: "0.75rem",
               color: "#6B7280",
               marginTop: 12,
@@ -1682,7 +1682,7 @@ function CROTestimonialsPlaceholder() {
             <GoogleIcon />
             <span
               style={{
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                 fontSize: 14,
                 fontWeight: 700,
                 color: "#FFFFFF",
@@ -1697,7 +1697,7 @@ function CROTestimonialsPlaceholder() {
             </span>
             <span
               style={{
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                 fontSize: 13,
                 color: "rgba(255,255,255,0.55)",
               }}
@@ -1707,7 +1707,7 @@ function CROTestimonialsPlaceholder() {
           </div>
           <h2
             style={{
-              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+              fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
               fontSize: "clamp(28px, 5vw, 48px)",
               fontWeight: 700,
               textTransform: "uppercase",
@@ -1760,7 +1760,7 @@ function CROTestimonialsPlaceholder() {
                 </div>
                 <span
                   style={{
-                    fontFamily: "'Montserrat', system-ui, sans-serif",
+                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                     fontSize: 10,
                     fontWeight: 700,
                     letterSpacing: "0.08em",
@@ -1777,7 +1777,7 @@ function CROTestimonialsPlaceholder() {
 
               <p
                 style={{
-                  fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                  fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                   fontSize: 20,
                   fontWeight: 700,
                   color: "#FFFFFF",
@@ -1790,7 +1790,7 @@ function CROTestimonialsPlaceholder() {
 
               <p
                 style={{
-                  fontFamily: "'Montserrat', system-ui, sans-serif",
+                  fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                   fontSize: 14,
                   color: "rgba(255,255,255,0.70)",
                   lineHeight: 1.65,
@@ -1812,7 +1812,7 @@ function CROTestimonialsPlaceholder() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                    fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                     fontSize: 14,
                     fontWeight: 700,
                     color: "#E8670A",
@@ -1825,7 +1825,7 @@ function CROTestimonialsPlaceholder() {
                 <div>
                   <p
                     style={{
-                      fontFamily: "'Montserrat', system-ui, sans-serif",
+                      fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                       fontSize: 13,
                       fontWeight: 700,
                       color: "#FFFFFF",
@@ -1836,7 +1836,7 @@ function CROTestimonialsPlaceholder() {
                   </p>
                   <p
                     style={{
-                      fontFamily: "'Montserrat', system-ui, sans-serif",
+                      fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                       fontSize: 11,
                       color: "#9CA3AF",
                       margin: 0,
@@ -1859,7 +1859,7 @@ function CROTestimonialsPlaceholder() {
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 14,
               fontWeight: 600,
               color: "rgba(255,255,255,0.70)",
@@ -1918,7 +1918,7 @@ function CROEverythingIncluded() {
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <p
           style={{
-            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.14em",
@@ -1932,7 +1932,7 @@ function CROEverythingIncluded() {
         </p>
         <h2
           style={{
-            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+            fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
             fontSize: "clamp(28px, 5vw, 52px)",
             fontWeight: 700,
             textTransform: "uppercase",
@@ -1966,7 +1966,7 @@ function CROEverythingIncluded() {
           >
             <h3
               style={{
-                fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                 fontSize: 20,
                 fontWeight: 700,
                 color: "#0B1029",
@@ -1996,7 +1996,7 @@ function CROEverythingIncluded() {
                   </span>
                   <span
                     style={{
-                      fontFamily: "'Montserrat', system-ui, sans-serif",
+                      fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                       fontSize: 14,
                       color: "#374151",
                     }}
@@ -2009,7 +2009,7 @@ function CROEverythingIncluded() {
             {/* Round 4: price anchor on light bg */}
             <p
               style={{
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                 fontSize: 12,
                 color: "#6B7280",
                 marginTop: 16,
@@ -2033,7 +2033,7 @@ function CROEverythingIncluded() {
           >
             <h3
               style={{
-                fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                 fontSize: 20,
                 fontWeight: 700,
                 color: "#6B7280",
@@ -2063,7 +2063,7 @@ function CROEverythingIncluded() {
                   </span>
                   <span
                     style={{
-                      fontFamily: "'Montserrat', system-ui, sans-serif",
+                      fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                       fontSize: 14,
                       color: "#6B7280",
                     }}
@@ -2129,7 +2129,7 @@ function CROLocations() {
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <p
           style={{
-            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.14em",
@@ -2143,7 +2143,7 @@ function CROLocations() {
         </p>
         <h2
           style={{
-            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+            fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
             fontSize: "clamp(28px, 5vw, 52px)",
             fontWeight: 700,
             textTransform: "uppercase",
@@ -2197,7 +2197,7 @@ function CROLocations() {
                       color: "#FFFFFF",
                       fontSize: 11,
                       fontWeight: 700,
-                      fontFamily: "'Montserrat', system-ui, sans-serif",
+                      fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                       padding: "3px 10px",
                       borderRadius: 6,
                       textTransform: "uppercase",
@@ -2210,7 +2210,7 @@ function CROLocations() {
 
                 <p
                   style={{
-                    fontFamily: "'Montserrat', system-ui, sans-serif",
+                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                     fontSize: 11,
                     fontWeight: 700,
                     textTransform: "uppercase",
@@ -2224,7 +2224,7 @@ function CROLocations() {
 
                 <h3
                   style={{
-                    fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                    fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                     fontSize: 24,
                     fontWeight: 700,
                     color: isSelected ? "#FFFFFF" : "#0B1029",
@@ -2240,7 +2240,7 @@ function CROLocations() {
                     display: "flex",
                     alignItems: "center",
                     gap: 6,
-                    fontFamily: "'Montserrat', system-ui, sans-serif",
+                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                     fontSize: 13,
                     color: isSelected ? "rgba(255,255,255,0.65)" : "#9CA3AF",
                   }}
@@ -2251,7 +2251,7 @@ function CROLocations() {
 
                 <p
                   style={{
-                    fontFamily: "'Montserrat', system-ui, sans-serif",
+                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                     fontSize: 14,
                     color: isSelected ? "rgba(255,255,255,0.75)" : "#374151",
                     margin: 0,
@@ -2265,7 +2265,7 @@ function CROLocations() {
 
                 <div
                   style={{
-                    fontFamily: "'Montserrat', system-ui, sans-serif",
+                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                     fontSize: 14,
                     color: isSelected ? "#F5F0EB" : "#0B1029",
                     fontWeight: 600,
@@ -2295,7 +2295,7 @@ function CROLocations() {
 
                 <p
                   style={{
-                    fontFamily: "'Montserrat', system-ui, sans-serif",
+                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                     fontSize: 12,
                     color: isSelected ? "rgba(255,255,255,0.45)" : "#9CA3AF",
                     textAlign: "center",
@@ -2311,7 +2311,7 @@ function CROLocations() {
 
         <p
           style={{
-            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
             fontSize: 14,
             color: "#6B7280",
             textAlign: "center",
@@ -2374,7 +2374,7 @@ function CROFaq() {
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
         <p
           style={{
-            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "0.14em",
@@ -2388,7 +2388,7 @@ function CROFaq() {
         </p>
         <h2
           style={{
-            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+            fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
             fontSize: "clamp(28px, 5vw, 44px)",
             fontWeight: 700,
             textTransform: "uppercase",
@@ -2433,7 +2433,7 @@ function CROFaq() {
                 >
                   <span
                     style={{
-                      fontFamily: "'Montserrat', system-ui, sans-serif",
+                      fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                       fontSize: 17,
                       fontWeight: 600,
                       color: "#0B1029",
@@ -2467,7 +2467,7 @@ function CROFaq() {
                   <div
                     style={{
                       padding: "0 24px 20px",
-                      fontFamily: "'Montserrat', system-ui, sans-serif",
+                      fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                       fontSize: 15,
                       lineHeight: 1.7,
                       color: "#374151",
@@ -2515,7 +2515,7 @@ function CROFinalCTA() {
         <div style={{ position: "relative", zIndex: 1 }}>
           <h2
             style={{
-              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+              fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
               fontSize: "clamp(28px, 5vw, 52px)",
               fontWeight: 700,
               lineHeight: 1.05,
@@ -2531,7 +2531,7 @@ function CROFinalCTA() {
 
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 16,
               lineHeight: 1.6,
               color: "rgba(255,255,255,0.75)",
@@ -2575,7 +2575,7 @@ function CROFinalCTA() {
                   border: "1px solid rgba(255,255,255,0.15)",
                   borderRadius: 8,
                   color: "#FFFFFF",
-                  fontFamily: "'Montserrat', system-ui, sans-serif",
+                  fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                   fontSize: 14,
                   fontWeight: 600,
                   cursor: "pointer",
@@ -2599,7 +2599,7 @@ function CROFinalCTA() {
                   border: "1px solid rgba(255,255,255,0.15)",
                   borderRadius: 8,
                   color: "#FFFFFF",
-                  fontFamily: "'Montserrat', system-ui, sans-serif",
+                  fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                   fontSize: 14,
                   fontWeight: 600,
                   cursor: "pointer",
@@ -2613,7 +2613,7 @@ function CROFinalCTA() {
 
           <p
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 13,
               color: "rgba(255,255,255,0.50)",
               marginTop: 28,
@@ -2646,7 +2646,7 @@ function CROFooter() {
     <footer
       style={{
         background: "#0B1029",
-        fontFamily: "'Montserrat', system-ui, sans-serif",
+        fontFamily: "var(--font-montserrat), system-ui, sans-serif",
       }}
     >
       <div style={{ padding: "48px 24px 0", maxWidth: 1200, margin: "0 auto" }}>
@@ -2663,7 +2663,7 @@ function CROFooter() {
           <div>
             <p
               style={{
-                fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                 fontSize: 22,
                 fontWeight: 700,
                 color: "#FFFFFF",
@@ -2690,7 +2690,7 @@ function CROFooter() {
           <div>
             <h3
               style={{
-                fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                 fontSize: 18,
                 fontWeight: 700,
                 color: "#FFFFFF",
@@ -2875,7 +2875,7 @@ function CROStickyMobileCTA() {
           color: "#FFFFFF",
           border: "none",
           borderRadius: 0,
-          fontFamily: "'Oswald', sans-serif",
+          fontFamily: "var(--font-oswald), sans-serif",
           fontSize: 15,
           fontWeight: 700,
           textTransform: "uppercase",
@@ -2892,7 +2892,7 @@ function CROStickyMobileCTA() {
       <p
         style={{
           textAlign: "center",
-          fontFamily: "'Montserrat', sans-serif",
+          fontFamily: "var(--font-montserrat), sans-serif",
           fontSize: 11,
           color: "#9CA3AF",
           margin: "6px 0 0",
@@ -2935,7 +2935,7 @@ function CRODesktopStickyBar() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "0 32px",
-        fontFamily: "'Montserrat', system-ui, sans-serif",
+        fontFamily: "var(--font-montserrat), system-ui, sans-serif",
         transform: visible ? "translateY(0)" : "translateY(100%)",
         transition: "transform 300ms ease",
       }}
@@ -2943,7 +2943,7 @@ function CRODesktopStickyBar() {
     >
       <span
         style={{
-          fontFamily: "'Montserrat', system-ui, sans-serif",
+          fontFamily: "var(--font-montserrat), system-ui, sans-serif",
           fontWeight: 700,
           color: "#FFFFFF",
           fontSize: 14,
@@ -2963,7 +2963,7 @@ function CRODesktopStickyBar() {
           color: "#FFFFFF",
           border: "none",
           borderRadius: 9999,
-          fontFamily: "'Oswald', sans-serif",
+          fontFamily: "var(--font-oswald), sans-serif",
           fontSize: 14,
           fontWeight: 700,
           textTransform: "uppercase",

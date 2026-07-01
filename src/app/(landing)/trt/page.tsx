@@ -4,8 +4,7 @@ import {
   Star,
   CheckCircle2,
   Zap,
-  Brain,
-  Smile,
+  Heart,
   Dumbbell,
   ShieldCheck,
   FlaskConical,
@@ -14,17 +13,19 @@ import {
   MapPin,
   Phone,
   Clock,
-  Heart,
   XCircle,
   User,
+  BadgeCheck,
+  Stethoscope,
 } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 import { DesktopStickyBar } from "@/components/DesktopStickyBar";
 import { TRTFAQAccordion } from "@/components/TRTFAQAccordion";
-import { HeroCTA } from "@/components/HeroCTA";
+import { TRTSubnav } from "@/components/TRTSubnav";
 import { CtaButton } from "@/components/CtaButton";
+import { LeadForm } from "@/components/LeadForm";
 
 export const metadata: Metadata = {
   title: "Testosterone Replacement Therapy in Virginia | Men's Wellness Centers",
@@ -64,29 +65,6 @@ const NOT_HERE_ITEMS = [
   "No mid-level providers handling hormone decisions",
 ];
 
-const OUTCOMES = [
-  {
-    Icon: Zap,
-    title: "Restored Energy",
-    body: "Wake up feeling refreshed and maintain consistent energy throughout the day.",
-  },
-  {
-    Icon: Brain,
-    title: "Mental Clarity",
-    body: "Improved focus, sharper thinking, and reduced brain fog.",
-  },
-  {
-    Icon: Smile,
-    title: "Better Mood",
-    body: "More balanced mood, reduced irritability, and improved sense of well-being.",
-  },
-  {
-    Icon: Dumbbell,
-    title: "Physical Performance",
-    body: "Increased strength, faster recovery, and improved body composition.",
-  },
-];
-
 const TESTIMONIALS = [
   {
     quote:
@@ -117,21 +95,21 @@ const LOCATIONS = [
     address: "4050 Innslake Dr, Suite 360",
     cityState: "Glen Allen, VA 23060",
     phone: "866-344-4955",
-    mapUrl: "https://maps.google.com/?q=4050+Innslake+Dr+Suite+360+Glen+Allen+VA",
+    mapQuery: "4050 Innslake Dr Suite 360 Glen Allen VA 23060",
   },
   {
     city: "Virginia Beach",
     address: "996 First Colonial Road",
     cityState: "Virginia Beach, VA 23454",
     phone: "866-344-4955",
-    mapUrl: "https://maps.google.com/?q=996+First+Colonial+Road+Virginia+Beach+VA",
+    mapQuery: "996 First Colonial Road Virginia Beach VA 23454",
   },
   {
     city: "Newport News",
     address: "827 Diligence Drive, Suite 206",
     cityState: "Newport News, VA 23606",
     phone: "866-344-4955",
-    mapUrl: "https://maps.google.com/?q=827+Diligence+Drive+Suite+206+Newport+News+VA",
+    mapQuery: "827 Diligence Drive Suite 206 Newport News VA 23606",
   },
 ];
 
@@ -175,20 +153,20 @@ export default function TRTPage() {
       <Header />
 
       {/* ════════════════════════════════════════════════════
-          1. HERO (Dark navy gradient, Marek-inspired)
+          02. HERO + INLINE LEAD FORM (above fold)
       ════════════════════════════════════════════════════ */}
       <section
         style={{
           background: "linear-gradient(135deg, #04081A 0%, #0B1029 50%, #0F1535 100%)",
-          paddingTop: 40,
-          paddingBottom: 56,
+          paddingTop: 32,
+          paddingBottom: 48,
           position: "relative",
           overflow: "hidden",
         }}
       >
         <div
           style={{ ...MAX_W }}
-          className="grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-10 lg:gap-16 items-center"
+          className="grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-8 lg:gap-16 items-center"
         >
           {/* LEFT: Copy */}
           <div className="flex flex-col gap-5">
@@ -201,7 +179,7 @@ export default function TRTPage() {
               </span>
             </div>
 
-            {/* Headline */}
+            {/* Headline — matches ad creative (message match) */}
             <h1
               style={{
                 fontSize: "clamp(32px, 3.6vw, 52px)",
@@ -212,18 +190,18 @@ export default function TRTPage() {
                 textTransform: "uppercase",
               }}
             >
-              <span style={{ display: "block", whiteSpace: "nowrap" }}>Your GP Said You&rsquo;re Fine.</span>
-              <span style={{ display: "block", whiteSpace: "nowrap" }}>You Don&rsquo;t Feel Fine.</span>
+              <span className="block">Your GP Said You&rsquo;re Fine.</span>
+              <span className="block">You Don&rsquo;t Feel Fine.</span>
             </h1>
 
-            {/* Single supporting line */}
+            {/* Proof subhead — 11yr / 10,000+ = instant trust */}
             <p style={{ fontSize: 18, lineHeight: 1.6, color: "#C8C4BE", maxWidth: 520 }}>
-              We specialize exclusively in men&rsquo;s hormone health, ED, and weight loss.
-              In-person. Physician-led. Same-day availability.
+              11 years. 10,000+ Virginia members. 60-minute in-person visit,
+              same-day labs in 15 minutes.
             </p>
 
-            {/* Trust badges */}
-            <div className="flex flex-wrap gap-3">
+            {/* Trust badges (desktop; form card carries them on mobile) */}
+            <div className="hidden sm:flex flex-wrap gap-3">
               {["No referral needed", "Same-day availability", "FSA and HSA accepted"].map((badge) => (
                 <span
                   key={badge}
@@ -244,55 +222,61 @@ export default function TRTPage() {
                 </span>
               ))}
             </div>
-
-            {/* CTA */}
-            <div style={{ marginTop: 8 }}>
-              <HeroCTA />
-            </div>
-
           </div>
 
-          {/* RIGHT: Vial product shot */}
-          <div className="hidden lg:flex" style={{ alignItems: "center", justifyContent: "center", minHeight: 480, padding: 20 }}>
-            <img
-              src="/images/trt-vial-mwc.png"
-              alt="Men's Wellness Centers Testosterone Cypionate 200mg/mL"
-              style={{ maxHeight: 520, width: "auto", maxWidth: "100%", display: "block", filter: "drop-shadow(0 24px 64px rgba(0,0,0,0.60))" }}
-            />
+          {/* RIGHT: Inline lead form — form + phone above the fold (CRO rule) */}
+          <div className="flex justify-center lg:justify-end">
+            <LeadForm formId="hero" source="trt-lander" variant="cro" />
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════
-          9.1 STAT BAR - Dark navy (Marek-inspired)
+          03. TRUST STRIP — "is this legit?"
       ════════════════════════════════════════════════════ */}
-      <section style={{ background: "#080D1F", paddingTop: 40, paddingBottom: 40 }}>
+      <section style={{ background: "#080D1F", paddingTop: 36, paddingBottom: 36 }}>
         <div style={{ ...MAX_W }}>
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8">
             {[
-              { value: "15 MIN", label: "LAB RESULTS" },
-              { value: "10,000+", label: "VIRGINIA MEMBERS" },
-              { value: "4.9\u2605", label: "191 GOOGLE REVIEWS" },
-              ].map(({ value, label }, i) => (
+              { value: "11", label: "YEARS IN VIRGINIA" },
+              { value: "10K+", label: "MEMBERS SEEN" },
+              { value: "4.9★", label: "191+ GOOGLE REVIEWS" },
+              { value: null, label: "LEGITSCRIPT CERTIFIED" },
+            ].map(({ value, label }, i) => (
               <div
                 key={label}
+                className={i < 3 ? "lg:border-r" : ""}
                 style={{
                   textAlign: "center",
                   padding: "0 16px",
-                  borderRight: i < 2 ? "1px solid #1E244A" : undefined,
+                  borderColor: "#1E244A",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <div
-                  style={{
-                    fontSize: "clamp(32px, 5vw, 48px)",
-                    fontWeight: 700,
-                    color: "#F5F0EB",
-                    letterSpacing: "-0.01em",
-                    lineHeight: 1,
-                  }}
-                >
-                  {value}
-                </div>
+                {value ? (
+                  <div
+                    style={{
+                      fontSize: "clamp(30px, 4.5vw, 44px)",
+                      fontWeight: 700,
+                      color: "#F5F0EB",
+                      letterSpacing: "-0.01em",
+                      lineHeight: 1,
+                      fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
+                    }}
+                  >
+                    {value}
+                  </div>
+                ) : (
+                  <img
+                    src="/images/badges/legitscript.webp"
+                    alt="LegitScript certified"
+                    style={{ height: 40, width: "auto" }}
+                    loading="lazy"
+                  />
+                )}
                 <div
                   style={{
                     fontSize: 11,
@@ -300,7 +284,7 @@ export default function TRTPage() {
                     letterSpacing: "0.10em",
                     textTransform: "uppercase",
                     color: "rgba(255,255,255,0.65)",
-                    marginTop: 6,
+                    marginTop: 8,
                   }}
                 >
                   {label}
@@ -312,9 +296,14 @@ export default function TRTPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          9.2 SERVICE TRIPTYCH - Cream
+          04. STICKY ANCHOR SUBNAV (desktop)
       ════════════════════════════════════════════════════ */}
-      <section id="why-different" style={{ ...SECTION_PAD }} className="bg-surface">
+      <TRTSubnav />
+
+      {/* ════════════════════════════════════════════════════
+          05. SERVICE TRIPTYCH — "are they generalists?"
+      ════════════════════════════════════════════════════ */}
+      <section id="services" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-surface">
         <div style={MAX_W}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={LABEL_STYLE}>WHY MWC IS DIFFERENT</p>
@@ -324,7 +313,6 @@ export default function TRTPage() {
                 fontSize: 17,
                 color: "var(--color-ink-soft)",
                 lineHeight: 1.65,
-                marginTop: 14,
                 maxWidth: 680,
                 margin: "14px auto 0",
               }}
@@ -337,30 +325,24 @@ export default function TRTPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                Icon: Zap,
                 tag: "LOW TESTOSTERONE",
                 heading: "Get your energy back",
                 body: "Physician-led hormone evaluation with same-day labs. Personalized protocols when clinically appropriate.",
+                img: "/images/cro/hero-trt-v4.jpg",
               },
               {
-                Icon: Heart,
                 tag: "SEXUAL HEALTH",
                 heading: "Perform with confidence again",
                 body: "An in-person evaluation with a Virginia-licensed provider, same-day. FDA-approved options reviewed when clinically appropriate.",
+                img: "/images/cro/hero-ed-v2.jpg",
               },
               {
-                Icon: Dumbbell,
                 tag: "MEDICAL WEIGHT LOSS",
                 heading: "Drop the weight that won't budge",
                 body: "Physician-led, lab-guided weight loss monitored at your local Men's Wellness Centers. GLP-1 medications when clinically appropriate.",
+                img: "/images/cro/hero-wl-v3.jpg",
               },
-            ].map(({ Icon, tag, heading, body }, idx) => {
-              const cardImages = [
-                "/images/cro/hero-trt-v4.jpg",
-                "/images/cro/hero-ed-v2.jpg",
-                "/images/cro/hero-wl-v3.jpg",
-              ];
-              return (
+            ].map(({ tag, heading, body, img }) => (
               <div
                 key={tag}
                 style={{
@@ -374,15 +356,9 @@ export default function TRTPage() {
                 }}
               >
                 {/* Image area */}
-                <div
-                  style={{
-                    height: 200,
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
+                <div style={{ height: 200, position: "relative", overflow: "hidden" }}>
                   <img
-                    src={cardImages[idx]}
+                    src={img}
                     alt={heading}
                     loading="lazy"
                     style={{
@@ -393,7 +369,6 @@ export default function TRTPage() {
                       display: "block",
                     }}
                   />
-                  {/* Tag chip */}
                   <div
                     style={{
                       position: "absolute",
@@ -425,16 +400,10 @@ export default function TRTPage() {
                   >
                     {heading}
                   </h3>
-                  <p
-                    style={{
-                      fontSize: 14,
-                      color: "var(--color-ink-soft)",
-                      lineHeight: 1.6,
-                      flex: 1,
-                    }}
-                  >
+                  <p style={{ fontSize: 14, color: "var(--color-ink-soft)", lineHeight: 1.6, flex: 1 }}>
                     {body}
                   </p>
+                  {/* Card CTA = "Reserve", not "Learn more" */}
                   <a
                     href="#hero-form"
                     style={{
@@ -448,20 +417,23 @@ export default function TRTPage() {
                       textDecoration: "none",
                     }}
                   >
-                    Learn more <ChevronRight size={14} strokeWidth={2.5} />
+                    Reserve my visit <ChevronRight size={14} strokeWidth={2.5} />
                   </a>
                 </div>
               </div>
-              );
-            })}
+            ))}
+          </div>
+
+          <div style={{ textAlign: "center", marginTop: 40 }}>
+            <CtaButton label="Reserve My 60-Min Visit" />
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════
-          9.3 PROCESS 3-STEP - now navy
+          06. THE PROCESS (one visit) — "will this take all day?"
       ════════════════════════════════════════════════════ */}
-      <section style={{ ...SECTION_PAD }} className="bg-navy">
+      <section id="process" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-navy">
         <div style={MAX_W}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={{ ...LABEL_STYLE, color: "#E8670A" }}>THE PROCESS</p>
@@ -479,6 +451,7 @@ export default function TRTPage() {
                 num: "02",
                 title: "Your provider prepares before you arrive",
                 body: "Your physician sees your intake and history ahead of time, so your first visit is focused on results, not paperwork.",
+                callout: "CLIA-certified lab on-site · results in 15 minutes",
               },
               {
                 num: "03",
@@ -521,6 +494,28 @@ export default function TRTPage() {
                     <p style={{ fontSize: 15, color: "#B0ADA8", lineHeight: 1.65 }}>
                       {step.body}
                     </p>
+                    {step.callout && (
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 8,
+                          marginTop: 12,
+                          background: "rgba(232,103,10,0.12)",
+                          border: "1px solid rgba(232,103,10,0.40)",
+                          borderRadius: 100,
+                          padding: "6px 14px",
+                          fontSize: 12,
+                          fontWeight: 700,
+                          letterSpacing: "0.04em",
+                          textTransform: "uppercase",
+                          color: "#F5F0EB",
+                        }}
+                      >
+                        <FlaskConical size={14} color="#E8670A" strokeWidth={2} />
+                        {step.callout}
+                      </span>
+                    )}
                   </div>
                 </div>
                 {i < 2 && (
@@ -531,65 +526,18 @@ export default function TRTPage() {
           </div>
 
           <div style={{ textAlign: "center", marginTop: 40 }}>
-            <CtaButton />
+            <CtaButton label="Book My No-Cost Consultation" />
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════
-          9.4 LABS MIGHT BE NORMAL - Cream, 2-col
+          07. MEET YOUR VIRGINIA PROVIDERS — "who's treating me?"
       ════════════════════════════════════════════════════ */}
-      <section style={{ ...SECTION_PAD }} className="bg-surface">
+      <section id="providers" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-surface">
         <div style={MAX_W}>
-          <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16 items-center">
-            {/* Left: 60% */}
-            <div>
-              <p style={LABEL_STYLE}>IF THIS SOUNDS FAMILIAR</p>
-              <h2 style={H2_STYLE}>Your labs might be normal. You still don&rsquo;t feel right.</h2>
-              <p style={{ ...BODY_STYLE, color: "var(--color-ink-soft)" }}>
-                Standard reference ranges are built around the average man. They tell you whether
-                you&rsquo;re sick, not whether you&rsquo;re thriving. At Men&rsquo;s Wellness Centers,
-                your physician interprets your numbers in the context of your symptoms, your training,
-                and your life. Not against a chart.
-              </p>
-
-              {/* Inline quote box */}
-              <div
-                style={{
-                  marginTop: 24,
-                  background: "var(--color-surface-elevated)",
-                  border: "1px solid var(--color-navy-line)",
-                  borderRadius: 12,
-                  padding: 20,
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: 15,
-                    color: "var(--color-ink-soft)",
-                    lineHeight: 1.65,
-                    fontStyle: "italic",
-                  }}
-                >
-                  &ldquo;I went to two GPs who told me my levels were fine. After one visit at
-                  Men&rsquo;s Wellness Centers I had answers and a plan.&rdquo;
-                </p>
-                <p
-                  style={{
-                    marginTop: 10,
-                    fontSize: 12,
-                    fontWeight: 700,
-                    color: "var(--color-ink-muted)",
-                    letterSpacing: "0.04em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  R.T., Richmond. Verified member.
-                </p>
-              </div>
-            </div>
-
-            {/* Right: 40% — team photo */}
+          <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 lg:gap-16 items-center">
+            {/* Left: team photo */}
             <div
               style={{
                 borderRadius: 12,
@@ -625,24 +573,143 @@ export default function TRTPage() {
                 </p>
               </div>
             </div>
+
+            {/* Right: credentials */}
+            <div>
+              <p style={LABEL_STYLE}>MEET YOUR VIRGINIA PROVIDERS</p>
+              <h2 style={H2_STYLE}>You&rsquo;ll know exactly who&rsquo;s treating you.</h2>
+              <p style={{ ...BODY_STYLE, color: "var(--color-ink-soft)" }}>
+                Every evaluation, every protocol, and every dose adjustment at Men&rsquo;s Wellness
+                Centers is overseen by a Virginia-licensed provider who works exclusively in
+                men&rsquo;s health. You meet them in person, at your local center, on your first visit.
+              </p>
+
+              <div className="flex flex-col" style={{ marginTop: 28, gap: 14 }}>
+                {[
+                  {
+                    Icon: BadgeCheck,
+                    title: "Virginia-licensed providers",
+                    body: "Licensed in the Commonwealth of Virginia. Credentials and licensure available at every center.",
+                  },
+                  {
+                    Icon: Stethoscope,
+                    title: "Men's hormone health is their only focus",
+                    body: "Not a general practice rotation. Your provider evaluates men's hormone panels every single day.",
+                  },
+                  {
+                    Icon: Clock,
+                    title: "11 years serving Virginia men",
+                    body: "The same local team, in the same centers — not a rotating cast of telehealth contractors.",
+                  },
+                ].map(({ Icon, title, body }) => (
+                  <div
+                    key={title}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 14,
+                      background: "var(--color-surface-elevated)",
+                      border: "1px solid var(--color-navy-line)",
+                      borderRadius: 10,
+                      padding: "16px 18px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: 8,
+                        background: "var(--color-accent-tint)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Icon size={18} color="var(--color-accent)" strokeWidth={1.75} />
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: "var(--color-ink)" }}>{title}</p>
+                      <p style={{ fontSize: 13, color: "var(--color-ink-soft)", lineHeight: 1.55, marginTop: 4 }}>
+                        {body}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════
-          3. SYMPTOMS - now navy
+          08. INSIDE OUR CENTERS — "real place or mail-order?"
       ════════════════════════════════════════════════════ */}
       <section style={{ ...SECTION_PAD }} className="bg-navy">
         <div style={MAX_W}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <p style={{ ...LABEL_STYLE, color: "#E8670A" }}>INSIDE OUR CENTERS</p>
+            <h2 style={{ ...H2_STYLE, color: "#fff" }}>A real clinic. Not a shipping label.</h2>
+            <p
+              style={{
+                fontSize: 16,
+                color: "rgba(255,255,255,0.75)",
+                lineHeight: 1.65,
+                maxWidth: 600,
+                margin: "14px auto 0",
+              }}
+            >
+              Three brick-and-mortar centers across Virginia. Walk in, meet your provider,
+              get your labs drawn — all under one roof.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {[
+              { img: "/images/cro/doctor-consult.webp", label: "Private consultation rooms" },
+              { img: "/images/clinic-lab-draw.webp", label: "On-site lab draw station" },
+              { img: "/images/man-gym-confident.webp", label: "Real storefronts. Walk right in." },
+            ].map(({ img, label }) => (
+              <div key={label} style={{ borderRadius: 12, overflow: "hidden", position: "relative", aspectRatio: "4/3" }}>
+                <img
+                  src={img}
+                  alt={label}
+                  loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: "32px 16px 14px",
+                    background: "linear-gradient(to top, rgba(11,16,41,0.85) 0%, transparent 100%)",
+                  }}
+                >
+                  <p style={{ color: "rgba(255,255,255,0.92)", fontSize: 13, fontWeight: 600 }}>{label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════
+          09. SYMPTOM CHECKLIST — self-identification
+      ════════════════════════════════════════════════════ */}
+      <section style={{ ...SECTION_PAD }} className="bg-surface">
+        <div style={MAX_W}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: Image */}
+            {/* Left: member portrait (45–55 demographic) */}
             <div
               className="hidden lg:block relative"
               style={{ borderRadius: 16, overflow: "hidden", aspectRatio: "4/5" }}
             >
               <img
-                src="/images/trt-hero-man.jpg"
-                alt="Confident man after TRT treatment at Men's Wellness Centers"
+                src="/images/patient-trt.webp"
+                alt="Men's Wellness Centers member"
+                loading="lazy"
                 style={{
                   width: "100%",
                   height: "100%",
@@ -650,14 +717,13 @@ export default function TRTPage() {
                   objectPosition: "center top",
                 }}
               />
-              {/* Overlay badge */}
               <div
                 style={{
                   position: "absolute",
                   bottom: 24,
                   left: 24,
                   right: 24,
-                  background: "#1E244A",
+                  background: "rgba(11,16,41,0.90)",
                   backdropFilter: "blur(8px)",
                   borderRadius: 10,
                   padding: "14px 18px",
@@ -680,14 +746,14 @@ export default function TRTPage() {
 
             {/* Right: Symptoms */}
             <div>
-              <p style={{ ...LABEL_STYLE, color: "#E8670A" }}>Do Any of These Sound Familiar?</p>
-              <h2 style={{ ...H2_STYLE, color: "#fff" }}>
-                Low Testosterone Has Real Symptoms.{" "}
-                You Deserve Real Answers.
+              <p style={LABEL_STYLE}>Do Any of These Sound Familiar?</p>
+              <h2 style={H2_STYLE}>
+                Your labs might be &ldquo;normal.&rdquo; You still don&rsquo;t feel right.
               </h2>
-              <p style={{ ...BODY_STYLE, color: "#B0ADA8" }}>
+              <p style={{ ...BODY_STYLE, color: "var(--color-ink-soft)" }}>
                 These aren&rsquo;t signs of aging you just have to accept. They&rsquo;re symptoms
-                of a hormonal imbalance that can be identified, measured, and treated.
+                of a hormonal imbalance that can be identified, measured, and treated — and your
+                physician interprets your numbers against your symptoms and your life, not just a chart.
               </p>
 
               <div className="flex flex-col" style={{ marginTop: 28, gap: 14 }}>
@@ -701,7 +767,7 @@ export default function TRTPage() {
                         width: 22,
                         height: 22,
                         borderRadius: "50%",
-                        background: "rgba(232,103,10,0.15)",
+                        background: "rgba(232,103,10,0.12)",
                         border: "1.5px solid rgba(232,103,10,0.50)",
                         display: "flex",
                         alignItems: "center",
@@ -716,7 +782,7 @@ export default function TRTPage() {
                       style={{
                         fontSize: 15,
                         fontWeight: 500,
-                        color: "#B0ADA8",
+                        color: "var(--color-ink-soft)",
                         lineHeight: 1.5,
                       }}
                     >
@@ -727,7 +793,7 @@ export default function TRTPage() {
               </div>
 
               <div style={{ marginTop: 32 }}>
-                <CtaButton />
+                <CtaButton label="Book My No-Cost Consultation" />
               </div>
             </div>
           </div>
@@ -735,18 +801,18 @@ export default function TRTPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          9.6 INCLUDED + NOT HERE - 2-col restructure
+          10. INCLUDED + NOT HERE — cost / hidden fees objection
       ════════════════════════════════════════════════════ */}
-      <section style={{ ...SECTION_PAD }} className="bg-surface">
+      <section style={{ ...SECTION_PAD }} className="bg-navy">
         <div style={MAX_W}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             {/* Left: What's Included */}
             <div>
-              <p style={LABEL_STYLE}>What&rsquo;s Included</p>
-              <h2 style={{ ...H2_STYLE, fontSize: "clamp(26px, 3.5vw, 38px)" }}>
+              <p style={{ ...LABEL_STYLE, color: "#E8670A" }}>What&rsquo;s Included</p>
+              <h2 style={{ ...H2_STYLE, color: "#fff", fontSize: "clamp(26px, 3.5vw, 38px)" }}>
                 No Hidden Costs. No Surprises.
               </h2>
-              <p style={{ ...BODY_STYLE, color: "var(--color-ink-soft)" }}>
+              <p style={{ ...BODY_STYLE, color: "#B0ADA8" }}>
                 Your no-cost consultation covers everything you need to understand what&rsquo;s
                 going on and what to do about it.
               </p>
@@ -759,8 +825,8 @@ export default function TRTPage() {
                       display: "flex",
                       alignItems: "center",
                       gap: 14,
-                      background: "var(--color-surface-elevated)",
-                      border: "1px solid var(--color-navy-line)",
+                      background: "#161B3A",
+                      border: "1px solid #1E244A",
                       borderRadius: 10,
                       padding: "14px 18px",
                     }}
@@ -770,7 +836,7 @@ export default function TRTPage() {
                         width: 36,
                         height: 36,
                         borderRadius: 8,
-                        background: "var(--color-accent-tint)",
+                        background: "rgba(232,103,10,0.12)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -779,13 +845,7 @@ export default function TRTPage() {
                     >
                       <Icon size={18} color="var(--color-accent)" strokeWidth={1.75} />
                     </div>
-                    <span
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 600,
-                        color: "var(--color-ink)",
-                      }}
-                    >
+                    <span style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>
                       {label}
                     </span>
                   </div>
@@ -796,8 +856,8 @@ export default function TRTPage() {
             {/* Right: NOT HERE */}
             <div
               style={{
-                background: "var(--color-surface-elevated)",
-                border: "1px solid var(--color-navy-line)",
+                background: "#161B3A",
+                border: "1px solid #1E244A",
                 borderRadius: 16,
                 padding: "28px 24px",
               }}
@@ -808,7 +868,7 @@ export default function TRTPage() {
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "var(--color-ink-muted)",
+                  color: "rgba(255,255,255,0.55)",
                   marginBottom: 8,
                 }}
               >
@@ -818,7 +878,7 @@ export default function TRTPage() {
                 style={{
                   fontSize: 22,
                   fontWeight: 700,
-                  color: "var(--color-ink)",
+                  color: "#fff",
                   textTransform: "uppercase",
                   letterSpacing: "0.01em",
                   marginBottom: 24,
@@ -837,20 +897,20 @@ export default function TRTPage() {
                         width: 28,
                         height: 28,
                         borderRadius: "50%",
-                        background: "var(--color-surface-subtle)",
+                        background: "rgba(255,255,255,0.06)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         flexShrink: 0,
                       }}
                     >
-                      <XCircle size={15} color="var(--color-ink-muted)" strokeWidth={1.75} />
+                      <XCircle size={15} color="rgba(255,255,255,0.45)" strokeWidth={1.75} />
                     </div>
                     <span
                       style={{
                         fontSize: 14,
                         fontWeight: 500,
-                        color: "var(--color-ink-soft)",
+                        color: "#B0ADA8",
                         lineHeight: 1.4,
                       }}
                     >
@@ -865,12 +925,12 @@ export default function TRTPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          9.5 THREE PILLARS - now navy
+          11. POSITIONING — local-vs-local, never name competitors
       ════════════════════════════════════════════════════ */}
-      <section style={{ ...SECTION_PAD }} className="bg-navy">
+      <section style={{ ...SECTION_PAD }} className="bg-surface">
         <div style={MAX_W}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ ...H2_STYLE, color: "#fff" }}>Physician-led. Virginia-local. Built for men.</h2>
+            <h2 style={H2_STYLE}>Physician-led. Virginia-local. Built for men.</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -893,8 +953,8 @@ export default function TRTPage() {
               <div
                 key={title}
                 style={{
-                  background: "#161B3A",
-                  border: "1px solid #1E244A",
+                  background: "var(--color-surface-elevated)",
+                  border: "1px solid var(--color-navy-line)",
                   borderRadius: 12,
                   padding: 24,
                   textAlign: "center",
@@ -905,33 +965,27 @@ export default function TRTPage() {
                     width: 56,
                     height: 56,
                     borderRadius: "50%",
-                    background: "#ffffff",
+                    background: "var(--color-navy)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     margin: "0 auto 16px",
                   }}
                 >
-                  <Icon size={24} color="#0B1029" strokeWidth={1.75} />
+                  <Icon size={24} color="#fff" strokeWidth={1.75} />
                 </div>
                 <h3
                   style={{
                     fontSize: 15,
                     fontWeight: 700,
-                    color: "#ffffff",
+                    color: "var(--color-ink)",
                     letterSpacing: "0.04em",
                     marginBottom: 10,
                   }}
                 >
                   {title}
                 </h3>
-                <p
-                  style={{
-                    fontSize: 14,
-                    color: "#B0ADA8",
-                    lineHeight: 1.65,
-                  }}
-                >
+                <p style={{ fontSize: 14, color: "var(--color-ink-soft)", lineHeight: 1.65 }}>
                   {body}
                 </p>
               </div>
@@ -941,120 +995,9 @@ export default function TRTPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          9.7 FIRST VISIT DETAIL - Navy, 6-item grid
+          12. REVIEWS — "are testimonials fake?"
       ════════════════════════════════════════════════════ */}
-      <section style={{ ...SECTION_PAD }} className="bg-navy">
-        <div style={MAX_W}>
-          <div style={{ textAlign: "center", marginBottom: 52 }}>
-            <p style={{ ...LABEL_STYLE }}>YOUR FIRST VISIT</p>
-            <h2
-              style={{
-                ...H2_STYLE,
-                color: "#fff",
-              }}
-            >
-              What to expect at your first visit.
-            </h2>
-            <p
-              style={{
-                fontSize: 16,
-                color: "rgba(255,255,255,0.75)",
-                lineHeight: 1.65,
-                marginTop: 14,
-                maxWidth: 600,
-                margin: "14px auto 0",
-              }}
-            >
-              Your physician sees your intake before you arrive. Your first 60 minutes are
-              focused on you, not paperwork.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              {
-                num: "01",
-                title: "ARRIVE 5 MINUTES EARLY",
-                body: "Park in the lot. Walk in. Your physician is ready at the top of the hour.",
-              },
-              {
-                num: "02",
-                title: "SAME-DAY IN-CENTER LABS",
-                body: "Bloodwork drawn on site. Results in 15 minutes. No third-party lab waiting.",
-              },
-              {
-                num: "03",
-                title: "60-MINUTE PHYSICIAN VISIT",
-                body: "A full clinical evaluation with a Virginia-licensed physician. No timer on the wall.",
-              },
-              {
-                num: "04",
-                title: "PERSONALIZED PROTOCOL",
-                body: "Your physician reviews your labs and history and builds a plan when medically appropriate.",
-              },
-              {
-                num: "05",
-                title: "TRANSPARENT PRICING",
-                body: "You see the cost before you commit. No insurance billing. FSA and HSA accepted.",
-              },
-              {
-                num: "06",
-                title: "ONGOING SUPPORT",
-                body: "Lab monitoring, dose adjustments, and provider access between visits. Included in your plan.",
-              },
-            ].map((item) => (
-              <div
-                key={item.num}
-                style={{
-                  background: "#161B3A",
-                  border: "1px solid #1E244A",
-                  borderRadius: 12,
-                  padding: 20,
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 24,
-                    fontWeight: 700,
-                    color: "var(--color-accent)",
-                    marginBottom: 10,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {item.num}
-                </div>
-                <h3
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "#fff",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.04em",
-                    lineHeight: 1.3,
-                    marginBottom: 8,
-                  }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#B0ADA8",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {item.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════
-          6. TESTIMONIALS (existing, keep)
-      ════════════════════════════════════════════════════ */}
-      <section style={{ ...SECTION_PAD }} className="bg-surface">
+      <section id="reviews" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-surface">
         <div style={MAX_W}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={LABEL_STYLE}>Real Members</p>
@@ -1095,22 +1038,10 @@ export default function TRTPage() {
                   &ldquo;{quote}&rdquo;
                 </p>
                 <div>
-                  <p
-                    style={{
-                      fontSize: 13,
-                      fontWeight: 700,
-                      color: "var(--color-ink)",
-                    }}
-                  >
+                  <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-ink)" }}>
                     {name}
                   </p>
-                  <p
-                    style={{
-                      fontSize: 12,
-                      color: "var(--color-ink-muted)",
-                      marginTop: 2,
-                    }}
-                  >
+                  <p style={{ fontSize: 12, color: "var(--color-ink-muted)", marginTop: 2 }}>
                     {location} &middot; Verified Member
                   </p>
                 </div>
@@ -1118,7 +1049,7 @@ export default function TRTPage() {
             ))}
           </div>
 
-          {/* Google rating bar */}
+          {/* Google rating bar — links to live reviews */}
           <div style={{ marginTop: 48, display: "flex", justifyContent: "center" }}>
             <a
               href="https://www.google.com/maps/search/Men%27s+Wellness+Centers"
@@ -1140,14 +1071,8 @@ export default function TRTPage() {
                   <Star key={i} size={15} fill="var(--color-star)" stroke="var(--color-star)" aria-hidden />
                 ))}
               </span>
-              <span
-                style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: "var(--color-ink)",
-                }}
-              >
-                4.9 out of 5 &middot; 191 verified Google reviews
+              <span style={{ fontSize: 13, fontWeight: 600, color: "var(--color-ink)" }}>
+                4.9 out of 5 &middot; 191+ verified Google reviews &middot; read them live
               </span>
             </a>
           </div>
@@ -1155,62 +1080,65 @@ export default function TRTPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          9.8 SECONDARY CTA BAND - Cream with navy card
+          13. "DONE COMPARING?" + REPEAT FORM — mid-page conversion
       ════════════════════════════════════════════════════ */}
       <section style={{ ...SECTION_PAD }} className="bg-surface">
-        <div style={{ ...MAX_W, maxWidth: 1024 }}>
+        <div style={{ ...MAX_W, maxWidth: 1100 }}>
           <div
-            className="bg-navy rounded-2xl"
+            className="bg-navy rounded-2xl grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 items-center"
             style={{
-              padding: "clamp(32px, 6vw, 40px) clamp(24px, 5vw, 40px)",
-              textAlign: "center",
+              padding: "clamp(32px, 6vw, 48px) clamp(24px, 5vw, 48px)",
             }}
           >
-            <h3
-              style={{
-                fontSize: "clamp(22px, 4vw, 34px)",
-                fontWeight: 700,
-                color: "#fff",
-                textTransform: "uppercase",
-                letterSpacing: "-0.01em",
-                lineHeight: 1.1,
-                marginBottom: 12,
-              }}
-            >
-              Done comparing? Most men book here.
-            </h3>
-            <p
-              style={{
-                fontSize: 14,
-                color: "rgba(255,255,255,0.75)",
-                lineHeight: 1.65,
-                marginBottom: 28,
-                maxWidth: 560,
-                margin: "12px auto 28px",
-              }}
-            >
-              Three Virginia centers. Physician-led. Locally owned. The opposite of mail-order
-              telehealth.
-            </p>
-            <CtaButton />
-            <p
-              style={{
-                marginTop: 16,
-                fontSize: 12,
-                color: "rgba(255,255,255,0.60)",
-                letterSpacing: "0.04em",
-              }}
-            >
-              No referral needed &nbsp;|&nbsp; Same-day availability &nbsp;|&nbsp; FSA and HSA accepted
-            </p>
+            <div>
+              <h3
+                style={{
+                  fontSize: "clamp(24px, 4vw, 36px)",
+                  fontWeight: 700,
+                  color: "#fff",
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
+                  lineHeight: 1.1,
+                  marginBottom: 12,
+                }}
+              >
+                Done comparing? Most men book here.
+              </h3>
+              <p
+                style={{
+                  fontSize: 15,
+                  color: "rgba(255,255,255,0.75)",
+                  lineHeight: 1.65,
+                  maxWidth: 480,
+                }}
+              >
+                Three Virginia centers. Physician-led. The opposite of mail-order telehealth.
+              </p>
+              {/* Proof line above the button (wireframe 13) */}
+              <p
+                style={{
+                  marginTop: 20,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.85)",
+                }}
+              >
+                11 years &nbsp;&middot;&nbsp; 10,000+ members &nbsp;&middot;&nbsp; Locally owned
+              </p>
+            </div>
+            <div className="flex justify-center lg:justify-end">
+              <LeadForm formId="midpage" source="trt-lander-midpage" variant="cro" />
+            </div>
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════
-          8. LOCATIONS (existing, keep)
+          14. LOCATIONS + MAPS — "are they near me?"
       ════════════════════════════════════════════════════ */}
-      <section style={{ ...SECTION_PAD }} className="bg-surface">
+      <section id="locations" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-surface">
         <div style={MAX_W}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={LABEL_STYLE}>Our Centers</p>
@@ -1221,80 +1149,81 @@ export default function TRTPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {LOCATIONS.map(({ city, address, cityState, phone, mapUrl }) => (
+            {LOCATIONS.map(({ city, address, cityState, phone, mapQuery }) => (
               <div
                 key={city}
                 style={{
                   background: "var(--color-surface-elevated)",
                   border: "1px solid var(--color-navy-line)",
                   borderRadius: 12,
-                  padding: "28px 24px",
+                  overflow: "hidden",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 0,
                 }}
               >
-                <div
-                  style={{
-                    height: 3,
-                    background: "var(--color-accent)",
-                    borderRadius: 2,
-                    marginBottom: 20,
-                    width: 40,
-                  }}
+                {/* Embedded map (keyless Google embed) */}
+                <iframe
+                  title={`Map to Men's Wellness Centers ${city}`}
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=14&output=embed`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  style={{ width: "100%", height: 170, border: 0, display: "block" }}
                 />
-                <h3
-                  style={{
-                    fontSize: 22,
-                    fontWeight: 700,
-                    color: "var(--color-ink)",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.01em",
-                    marginBottom: 16,
-                  }}
-                >
-                  {city}
-                </h3>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
-                  <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                    <MapPin size={16} color="var(--color-accent)" strokeWidth={1.75} style={{ marginTop: 2, flexShrink: 0 }} />
-                    <p style={{ fontSize: 14, color: "var(--color-ink-soft)", lineHeight: 1.5 }}>
-                      {address}<br />{cityState}
-                    </p>
+                <div style={{ padding: "24px", display: "flex", flexDirection: "column", flex: 1 }}>
+                  <h3
+                    style={{
+                      fontSize: 22,
+                      fontWeight: 700,
+                      color: "var(--color-ink)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.01em",
+                      marginBottom: 16,
+                    }}
+                  >
+                    {city}
+                  </h3>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
+                    <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                      <MapPin size={16} color="var(--color-accent)" strokeWidth={1.75} style={{ marginTop: 2, flexShrink: 0 }} />
+                      <p style={{ fontSize: 14, color: "var(--color-ink-soft)", lineHeight: 1.5 }}>
+                        {address}<br />{cityState}
+                      </p>
+                    </div>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <Phone size={16} color="var(--color-accent)" strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                      <a href="tel:+18663444955" style={{ fontSize: 14, color: "var(--color-ink-soft)", textDecoration: "none" }}>
+                        {phone}
+                      </a>
+                    </div>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <Clock size={16} color="var(--color-accent)" strokeWidth={1.75} style={{ flexShrink: 0 }} />
+                      <span style={{ fontSize: 14, color: "var(--color-ink-soft)" }}>
+                        Same-day appointments available
+                      </span>
+                    </div>
                   </div>
-                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                    <Phone size={16} color="var(--color-accent)" strokeWidth={1.75} style={{ flexShrink: 0 }} />
-                    <a href="tel:+18663444955" style={{ fontSize: 14, color: "var(--color-ink-soft)", textDecoration: "none" }}>
-                      {phone}
-                    </a>
-                  </div>
-                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                    <Clock size={16} color="var(--color-accent)" strokeWidth={1.75} style={{ flexShrink: 0 }} />
-                    <span style={{ fontSize: 14, color: "var(--color-ink-soft)" }}>
-                      Same-day appointments available
-                    </span>
-                  </div>
+
+                  <a
+                    href={`https://maps.google.com/?q=${encodeURIComponent(mapQuery)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      marginTop: 20,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: "var(--color-accent)",
+                      textDecoration: "none",
+                      letterSpacing: "0.02em",
+                    }}
+                  >
+                    Get Directions <ChevronRight size={14} strokeWidth={2.5} />
+                  </a>
                 </div>
-
-                <a
-                  href={mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    marginTop: 20,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 6,
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: "var(--color-accent)",
-                    textDecoration: "none",
-                    letterSpacing: "0.02em",
-                  }}
-                >
-                  Get Directions <ChevronRight size={14} strokeWidth={2.5} />
-                </a>
               </div>
             ))}
           </div>
@@ -1302,9 +1231,9 @@ export default function TRTPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          7. FAQ - now navy
+          15. FAQ — objection handling
       ════════════════════════════════════════════════════ */}
-      <section style={{ ...SECTION_PAD }} className="bg-navy">
+      <section id="faq" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-navy">
         <div style={MAX_W}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={{ ...LABEL_STYLE, color: "#E8670A" }}>Common Questions</p>
@@ -1318,7 +1247,7 @@ export default function TRTPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          9. FINAL CTA + 9.9 REASSURANCE LINES
+          16. FINAL CTA — last push
       ════════════════════════════════════════════════════ */}
       <section style={{ padding: "clamp(48px, 8vw, 80px) 20px" }} className="bg-surface">
         <div style={{ ...MAX_W, maxWidth: 720 }}>
@@ -1350,19 +1279,46 @@ export default function TRTPage() {
                 fontSize: 17,
                 color: "rgba(255,255,255,0.75)",
                 lineHeight: 1.65,
-                marginBottom: 36,
+                marginBottom: 12,
               }}
             >
               Your first visit is no-cost. On-site labs. Same-day results. No referral needed.
-              Virginia&rsquo;s only specialty men&rsquo;s health practice with 3 locations.
+            </p>
+            {/* Proof line — 11 years, 10,000+ members, locally owned */}
+            <p
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.85)",
+                marginBottom: 32,
+              }}
+            >
+              11 years &nbsp;&middot;&nbsp; 10,000+ members &nbsp;&middot;&nbsp; Locally owned
             </p>
 
-            <CtaButton size="lg" />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
+              <CtaButton size="lg" label="Book My No-Cost Consultation" />
+              <a
+                href="tel:+18663444955"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: "rgba(255,255,255,0.85)",
+                }}
+              >
+                <Phone size={15} strokeWidth={2} /> Or call 866-344-4955
+              </a>
+            </div>
 
-            {/* 9.9 Reassurance lines */}
+            {/* Reassurance lines */}
             <div
               style={{
-                marginTop: 16,
+                marginTop: 20,
                 display: "flex",
                 flexDirection: "column",
                 gap: 4,

@@ -97,7 +97,7 @@ export function LocationRadioGroup({
               />
               <span
                 style={{
-                  fontFamily: "'Montserrat', system-ui, sans-serif",
+                  fontFamily: "var(--font-montserrat), system-ui, sans-serif",
                   fontSize: 14,
                   fontWeight: 600,
                   color: labelColor,

@@ -53,7 +53,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${oswald.variable} ${montserrat.variable} ${inter.variable} antialiased overflow-x-hidden`}
-        style={{ background: "#0B1029", color: "#F5F0EB", fontFamily: "'Montserrat', system-ui, sans-serif" }}
+        style={{ background: "#0B1029", color: "#F5F0EB", fontFamily: "var(--font-montserrat), system-ui, sans-serif" }}
       >
         {children}
       </body>

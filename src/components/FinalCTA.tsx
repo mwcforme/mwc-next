@@ -15,7 +15,7 @@ export function FinalCTA() {
     >
       <h2
         style={{
-          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+          fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
           fontWeight: 700,
           textTransform: "uppercase",
           fontSize: "clamp(28px, 5vw, 48px)",
@@ -26,7 +26,7 @@ export function FinalCTA() {
       >
         Stop Guessing.<br />Get Answers.
       </h2>
-      <p style={{ fontSize: 16, color: "#B0ADA8", marginBottom: 32, fontFamily: "'Montserrat', system-ui, sans-serif" }}>
+      <p style={{ fontSize: 16, color: "#B0ADA8", marginBottom: 32, fontFamily: "var(--font-montserrat), system-ui, sans-serif" }}>
         No-cost visit. Same-day availability.
       </p>
       <button
@@ -42,7 +42,7 @@ export function FinalCTA() {
           borderRadius: 60,
           background: "#E8670A",
           color: "#fff",
-          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+          fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
           fontSize: 16,
           fontWeight: 700,
           letterSpacing: "0.08em",

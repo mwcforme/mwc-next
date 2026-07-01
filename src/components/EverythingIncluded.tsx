@@ -39,7 +39,7 @@ export function EverythingIncluded() {
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         <div
           style={{
-            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
             fontSize: 13,
             fontWeight: 700,
             letterSpacing: "0.14em",
@@ -52,7 +52,7 @@ export function EverythingIncluded() {
         </div>
         <h2
           style={{
-            fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+            fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
             fontWeight: 700,
             textTransform: "uppercase",
             fontSize: "clamp(24px, 4vw, 40px)",
@@ -105,7 +105,7 @@ export function EverythingIncluded() {
                 {CHECK_SVG}
               </div>
               <div>
-                <strong style={{ fontSize: 15, fontWeight: 600, color: "#0B1029", display: "block", fontFamily: "'Montserrat', system-ui, sans-serif" }}>
+                <strong style={{ fontSize: 15, fontWeight: 600, color: "#0B1029", display: "block", fontFamily: "var(--font-montserrat), system-ui, sans-serif" }}>
                   {title}
                 </strong>
                 <span style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.4 }}>{desc}</span>

@@ -23,7 +23,7 @@ export function HowItWorks() {
         <div style={{ textAlign: "center" }}>
           <div
             style={{
-              fontFamily: "'Montserrat', system-ui, sans-serif",
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               fontSize: 13,
               fontWeight: 700,
               letterSpacing: "0.14em",
@@ -36,7 +36,7 @@ export function HowItWorks() {
           </div>
           <h2
             style={{
-              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+              fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
               fontWeight: 700,
               textTransform: "uppercase",
               fontSize: "clamp(24px, 4vw, 40px)",
@@ -89,7 +89,7 @@ export function HowItWorks() {
                   borderRadius: "50%",
                   background: "rgba(232,103,10,0.12)",
                   color: "#E8670A",
-                  fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                  fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                   fontSize: 18,
                   fontWeight: 700,
                   marginBottom: 16,
@@ -99,7 +99,7 @@ export function HowItWorks() {
               </div>
               <h3
                 style={{
-                  fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+                  fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
                   fontSize: 18,
                   fontWeight: 700,
                   textTransform: "uppercase",
@@ -109,7 +109,7 @@ export function HowItWorks() {
               >
                 {title}
               </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.55, color: "#B0ADA8", fontFamily: "'Montserrat', system-ui, sans-serif" }}>{desc}</p>
+              <p style={{ fontSize: 14, lineHeight: 1.55, color: "#B0ADA8", fontFamily: "var(--font-montserrat), system-ui, sans-serif" }}>{desc}</p>
             </div>
           ))}
         </div>

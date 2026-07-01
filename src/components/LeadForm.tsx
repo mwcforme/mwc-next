@@ -170,7 +170,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
     border: "none",
     outline: "none",
     color: isCro ? "#0B1029" : "#fff",
-    fontFamily: "'Inter', system-ui, sans-serif",
+    fontFamily: "var(--font-inter), system-ui, sans-serif",
     fontSize: 15,
     fontWeight: 400,
   };
@@ -185,7 +185,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
 
   return (
     <div
-      id={isCro ? "hero-form" : `${formId}-card`}
+      id={isCro && formId === "hero" ? "hero-form" : `${formId}-card`}
       style={{
         background: isCro ? "#FFFFFF" : "rgba(255,255,255,0.07)",
         backdropFilter: isCro ? "none" : "blur(24px)",
@@ -219,7 +219,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
 
       <h2
         style={{
-          fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+          fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
           fontWeight: 700,
           fontSize: 20,
           lineHeight: 1.15,
@@ -231,7 +231,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
       >
         {isCro ? "CLAIM YOUR NO-COST VISIT" : "Start Feeling Like Yourself Again."}
       </h2>
-      <p style={{ fontSize: 13, color: isCro ? "#374151" : "#F5F0EB", lineHeight: 1.4, marginBottom: 8, fontFamily: "'Montserrat', system-ui, sans-serif" }}>
+      <p style={{ fontSize: 13, color: isCro ? "#374151" : "#F5F0EB", lineHeight: 1.4, marginBottom: 8, fontFamily: "var(--font-montserrat), system-ui, sans-serif" }}>
         No-cost 60-minute visit. Same-day labs. No insurance needed. FSA &amp; HSA accepted.
       </p>
 
@@ -311,7 +311,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
               marginTop: 4,
               border: "none",
               borderRadius: isCro ? 9999 : 60,
-              fontFamily: "'Oswald', 'Arial Narrow', sans-serif",
+              fontFamily: "var(--font-oswald), 'Arial Narrow', sans-serif",
               fontSize: 15,
               fontWeight: 700,
               letterSpacing: "0.08em",
@@ -345,7 +345,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
               </>
             ) : (
               <>
-                {isCro ? "BOOK MY 60-MINUTE VISIT" : "Book My No-Cost Visit"}{" "}
+                {isCro ? "CHECK AVAILABILITY" : "Book My No-Cost Visit"}{" "}
                 <ArrowRight size={16} strokeWidth={2.5} />
               </>
             )}
@@ -361,6 +361,23 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
             </p>
           )}
 
+          {/* CRO-only: response-time confirmation */}
+          {isCro && (
+            <p
+              style={{
+                fontSize: 12,
+                marginTop: 8,
+                textAlign: "center",
+                lineHeight: 1.5,
+                fontWeight: 600,
+                color: "#374151",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+              }}
+            >
+              A real Virginia team member calls you within 1 business hour.
+            </p>
+          )}
+
           {/* CRO-only: testimonial quote at bottom */}
           {isCro && (
             <p
@@ -371,7 +388,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
                 lineHeight: 1.5,
                 fontStyle: "italic",
                 color: "#6B7280",
-                fontFamily: "'Montserrat', system-ui, sans-serif",
+                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
               }}
             >
               &ldquo;I&rsquo;ve been to two GPs who told me my levels were fine. After one visit here I had answers and a plan. Game-changer for me.&rdquo; R.T., Richmond &middot; Verified member
