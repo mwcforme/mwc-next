@@ -31,6 +31,8 @@ export const metadata: Metadata = {
   title: "Testosterone Replacement Therapy in Virginia | Men's Wellness Centers",
   description:
     "Provider-supervised TRT at 3 Virginia locations. Labs drawn on-site. Results reviewed same visit. Same-day availability in Richmond, Virginia Beach and Newport News.",
+  // Paid-ads lander: keep out of organic search to avoid duplicate/competing results
+  robots: { index: false, follow: false },
 };
 
 /* ────────────────────────────────────────────────────────── */
@@ -150,7 +152,7 @@ const BODY_STYLE: React.CSSProperties = {
 export default function TRTPage() {
   return (
     <main className="bg-surface" style={{ minHeight: "100vh", paddingTop: 64, width: "100%" }}>
-      <Header />
+      <Header exitLinks={false} />
 
       {/* ════════════════════════════════════════════════════
           02. HERO + INLINE LEAD FORM (above fold)

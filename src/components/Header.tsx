@@ -3,7 +3,12 @@
 import { useState, useEffect } from "react";
 import { Phone, ArrowRight } from "lucide-react";
 
-export function Header() {
+interface HeaderProps {
+  /** Paid-ads mode: logo is not a link — no exit paths off the lander. */
+  exitLinks?: boolean;
+}
+
+export function Header({ exitLinks = true }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -30,16 +35,28 @@ export function Header() {
         className="flex items-center justify-between px-4 md:px-6 mx-auto h-full"
         style={{ maxWidth: 1200 }}
       >
-        {/* Logo */}
-        <a href="https://menswellnesscenters.com" aria-label="Men's Wellness Centers home" className="inline-flex">
-          <img
-            src="/logos/Text_Logo_white.webp"
-            alt="Men's Wellness Centers"
-            width={180}
-            height={28}
-            className="h-5 md:h-7 w-auto"
-          />
-        </a>
+        {/* Logo — plain image in ads mode so paid traffic can't exit */}
+        {exitLinks ? (
+          <a href="https://menswellnesscenters.com" aria-label="Men's Wellness Centers home" className="inline-flex">
+            <img
+              src="/logos/Text_Logo_white.webp"
+              alt="Men's Wellness Centers"
+              width={180}
+              height={28}
+              className="h-5 md:h-7 w-auto"
+            />
+          </a>
+        ) : (
+          <span className="inline-flex">
+            <img
+              src="/logos/Text_Logo_white.webp"
+              alt="Men's Wellness Centers"
+              width={180}
+              height={28}
+              className="h-5 md:h-7 w-auto"
+            />
+          </span>
+        )}
 
         {/* Desktop right */}
         <div className="hidden md:flex items-center gap-4">
