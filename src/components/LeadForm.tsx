@@ -59,6 +59,8 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
 
   useEffect(() => {
     const detected = autoDetectLocation();
+    // One-shot URL-based default after mount; intentional.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (detected) setLocation(detected);
   }, []);
 

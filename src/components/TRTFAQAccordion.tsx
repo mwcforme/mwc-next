@@ -11,7 +11,7 @@ import { Plus, Minus } from "lucide-react";
 const FAQS = [
   {
     q: "How much does it cost?",
-    a: "Your first visit — a 60-minute in-person evaluation with same-day labs — is no-cost. If treatment is medically appropriate, your provider walks you through transparent pricing before you commit to anything. No surprise bills, no hidden fees, no subscription.",
+    a: "Your first visit, a 60-minute in-person evaluation with same-day labs, is no-cost. If treatment is medically appropriate, your provider walks you through transparent pricing before you commit to anything. No surprise bills, no hidden fees, no subscription.",
   },
   {
     q: "Do you take insurance?",
@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: "Do I need a referral?",
-    a: "No. You can book directly — no referral from a GP, no prior labs required. Bloodwork is drawn on-site at your visit with results in about 15 minutes.",
+    a: "No. You can book directly. No referral from a GP, no prior labs required. Bloodwork is drawn on-site at your visit with results in about 15 minutes.",
   },
   {
     q: "How fast will I see results?",

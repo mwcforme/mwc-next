@@ -669,6 +669,8 @@ function ScheduleContent() {
   // ── Rebuild days when weekStart changes ──────────────────────────────────
   useEffect(() => {
     const newDays = buildDaysFrom(weekStart);
+    // Derived-state reset when the visible week changes; intentional one-shot.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDays(newDays);
     setLoadingDays(new Set());
     setSelectedDayIdx(-1);
@@ -728,6 +730,8 @@ function ScheduleContent() {
     if (!allLoaded) return;
     const firstAvail = days.findIndex((d) => !d.closed && d.slots.length > 0);
     if (firstAvail !== -1) {
+      // Auto-select once after async slot data lands; guarded by autoSelected.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedDayIdx(firstAvail);
       setAutoSelected(true);
     } else if (days.some((d) => d.loaded)) {
@@ -739,6 +743,8 @@ function ScheduleContent() {
 
   // ── Clear selected slot when day changes ─────────────────────────────────
   useEffect(() => {
+    // Reset dependent selection when the day changes; intentional.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedSlot(null);
   }, [selectedDayIdx]);
 

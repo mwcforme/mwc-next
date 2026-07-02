@@ -355,7 +355,7 @@ export default function HomePage() {
               <div key={h} className="ccard">
                 <div className="img" style={{ backgroundImage: `url('${img}')` }} />
                 <div className="body">
-                  <h4>{h}</h4>
+                  <h3>{h}</h3>
                   <p>{p}</p>
                 </div>
               </div>
@@ -535,7 +535,7 @@ export default function HomePage() {
           <div className="faq">
             {FAQS.map(({ q, a, open }) => (
               <details key={q} open={open}>
-                <summary>{q} <span className="pm">+</span></summary>
+                <summary>{q} <span className="pm" aria-hidden="true">+</span></summary>
                 <div className="ans">{a}</div>
               </details>
             ))}
@@ -566,11 +566,11 @@ export default function HomePage() {
               <img src="/logos/Text_Logo_white.webp" alt="Men's Wellness Centers" className="foot-logo" />
               <p style={{ fontSize: 12.5, lineHeight: 1.6 }}>
                 Locally owned in Virginia since 2014. Physician-led men&rsquo;s health across
-                three centers. Find your edge over age.
+                three centers. Find Your Edge Over Age.
               </p>
             </div>
             <div>
-              <h4>Services</h4>
+              <h3>Services</h3>
               <ul>
                 <li><a href="#services">Testosterone therapy</a></li>
                 <li><a href="#services">Men&rsquo;s sexual health</a></li>
@@ -578,7 +578,7 @@ export default function HomePage() {
               </ul>
             </div>
             <div>
-              <h4>Centers</h4>
+              <h3>Centers</h3>
               <ul>
                 <li><a href="#locations">Richmond</a></li>
                 <li><a href="#locations">Virginia Beach</a></li>
@@ -586,7 +586,7 @@ export default function HomePage() {
               </ul>
             </div>
             <div>
-              <h4>Legal</h4>
+              <h3>Legal</h3>
               <ul>
                 <li><a href="https://menswellnesscenters.com/privacy-practices/" target="_blank" rel="noopener noreferrer">Privacy practices</a></li>
                 <li><a href="https://menswellnesscenters.com/privacy-practices/" target="_blank" rel="noopener noreferrer">HIPAA notice</a></li>
