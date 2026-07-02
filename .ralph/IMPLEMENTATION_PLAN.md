@@ -23,8 +23,10 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       practice."). No "free"/"patients"/"guy" in visible copy; testimonial
       first-person and TCPA/disclaimer text untouched. FAQ questions voiced as
       the visitor ("Do I need a referral?") left as user-voice convention.)
-- [ ] Verify LegitScript badge + required disclosures + working legal links in
-      the homepage footer. Skill: mwc-brand-cro-compliance + accesslint-audit.
+- [x] Verify LegitScript badge + required disclosures + working legal links in
+      the homepage footer. (Verified: LegitScript seal present, clinical-evaluation
+      disclosure present, Privacy/HIPAA/Terms/Telehealth links target
+      menswellnesscenters.com correctly.) Skill: mwc-brand-cro-compliance + accesslint-audit.
 
 ## P0 — Accessibility (WCAG 2.2 AA)
 - [x] Fix every serious/critical axe violation on `/`: contrast, label
