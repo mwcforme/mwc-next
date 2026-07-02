@@ -56,3 +56,17 @@ city testimonials only; no invented providers/reviews.
 - Un-layered universal CSS resets override Tailwind utilities (cascade layers).
 - `LeadForm`/`ProtoLeadForm` ids: `hero-form` anchor is load-bearing for sticky CTAs.
 - Full-page screenshots need a scroll pass first (lazy images).
+- `/images/cro/hero-trt-v4.jpg` is a screenshot of a UI card with baked-in headline
+  text; at `background-size: cover` it renders as a card-within-a-card bug.
+  Use `hero-trt-v3.jpg` (same photo, clean). Audit image assets by opening them,
+  not by filename.
+- home.css now defines an elevation/shape system in `.proto` vars
+  (`--shadow-card`, `--shadow-card-hover`, `--shadow-float`, `--card-edge`,
+  `--dark-card-bg`, `--dark-card-line`; containers 14px / controls 8px / pills 999).
+  New cards should consume these vars, not ad-hoc shadows; keep shadows
+  navy-tinted, never pure black on the cream surface.
+- Decorative orange dots in eyebrows are hidden via `.proto .eyebrow .dot`
+  (taste-skill: dots only for real semantic state). Eyebrow copy itself is
+  frozen content; quiet it with CSS, don't delete the spans.
+- maps.google.com iframes are blocked in this sandbox; `.loccard .map` has a
+  navy gradient fallback so local screenshots look intentional. Maps render in prod.
