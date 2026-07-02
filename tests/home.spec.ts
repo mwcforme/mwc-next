@@ -43,6 +43,24 @@ test.describe("homepage smoke", () => {
 });
 
 test.describe("accessibility", () => {
+  test("keyboard: Tab reaches header BOOK MY VISIT with a visible focus outline", async ({ page }) => {
+    await page.goto("/");
+    const cta = page.locator("header a", { hasText: "BOOK MY VISIT" });
+    await expect(cta).toBeVisible();
+    // Header order is: phone link, CALL, BOOK MY VISIT — allow slack for UA differences.
+    let reached = false;
+    for (let i = 0; i < 10; i++) {
+      await page.keyboard.press("Tab");
+      if (await cta.evaluate((el) => el === document.activeElement)) {
+        reached = true;
+        break;
+      }
+    }
+    expect(reached, "header BOOK MY VISIT should be keyboard-reachable within 10 tabs").toBe(true);
+    const outlineStyle = await cta.evaluate((el) => getComputedStyle(el).outlineStyle);
+    expect(outlineStyle).not.toBe("none");
+  });
+
   test("axe: no serious or critical violations on /", async ({ page }) => {
     await page.goto("/");
     await page.waitForTimeout(500);

@@ -39,12 +39,40 @@
 .proto .hdr-right { display: flex; align-items: center; gap: 14px; }
 .proto .phone { display: flex; align-items: center; gap: 7px; color: #fff; font-size: 14px; font-weight: 600; letter-spacing: 0.3px; }
 .proto .phone svg { width: 16px; height: 16px; fill: var(--orange); }
-.proto .btn { display: inline-block; background: var(--orange); color: var(--navy); font-family: var(--font-oswald), sans-serif; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 6px; border: none; cursor: pointer; text-align: center; transition: 0.15s; }
+.proto .btn { display: inline-block; background: var(--orange); color: var(--navy); font-family: var(--font-oswald), sans-serif; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 6px; border: none; cursor: pointer; text-align: center; transition: background-color 0.15s, border-color 0.15s, color 0.15s; }
 .proto .btn:hover { background: var(--orange-h); }
 .proto .btn.ghost { background: transparent; border: 1.5px solid var(--orange); color: #fff; }
 .proto .btn.ghost:hover { background: rgba(232, 103, 10, 0.12); }
 .proto .btn.light { background: #fff; color: var(--navy); }
 .proto .btn.sm { padding: 9px 14px; font-size: 13px; }
+
+/* ---- keyboard focus visibility ---- */
+/* Base: navy outline on light surfaces (orange CTAs, links, cards). */
+.proto a:focus-visible,
+.proto .btn:focus-visible,
+.proto .loc-opt:focus-visible,
+.proto .faq summary:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+/* On dark/navy sections a navy outline is invisible; use white. */
+.proto .hdr a:focus-visible,
+.proto .hdr .btn:focus-visible,
+.proto .hero a:focus-visible,
+.proto .on-navy a:focus-visible,
+.proto .on-navy .btn:focus-visible,
+.proto .repeat-cta a:focus-visible,
+.proto .final-inner a:focus-visible,
+.proto footer a:focus-visible,
+.proto .faq summary:focus-visible {
+  outline-color: #fff;
+}
+/* The white form card sits inside dark sections; back to navy there. */
+.proto .form-card a:focus-visible,
+.proto .form-card .btn:focus-visible,
+.proto .form-card .loc-opt:focus-visible {
+  outline-color: var(--navy);
+}
 
 /* ---- hero ---- */
 .proto .hero { background: radial-gradient(120% 120% at 75% 10%, #1a2148 0%, var(--navy) 55%, #060920 100%); color: #fff; overflow: hidden; position: relative; }
@@ -66,7 +94,7 @@
 .proto .form-card { background: #fff; border-radius: 12px; padding: 24px 22px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); }
 .proto .hero .form-card { width: 75%; margin-left: auto; margin-right: auto; }
 .proto .form-card .ftop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-.proto .form-card h3 { color: var(--ink); font-size: 18px; }
+.proto .form-card h2 { color: var(--ink); font-size: 18px; }
 .proto .form-card .fsub { font-size: 12px; color: #5b6470; margin-bottom: 14px; }
 .proto .field { margin-bottom: 11px; }
 .proto .field label { display: block; font-size: 11px; font-weight: 600; color: #4a4f5a; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -76,7 +104,7 @@
 .proto .ferr { font-size: 11px; color: #dc2626; margin: -6px 0 10px; }
 .proto .loc-label { font-size: 11px; font-weight: 600; color: #4a4f5a; margin: 4px 0 7px; text-transform: uppercase; letter-spacing: 0.5px; }
 .proto .loc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; margin-bottom: 14px; }
-.proto .loc-opt { border: 1.5px solid #e2e0db; border-radius: 7px; padding: 9px 4px; font-size: 11px; text-align: center; cursor: pointer; font-weight: 600; color: #4a4f5a; background: #fff; transition: 0.12s; font-family: var(--font-montserrat), sans-serif; }
+.proto .loc-opt { border: 1.5px solid #e2e0db; border-radius: 7px; padding: 9px 4px; font-size: 11px; text-align: center; cursor: pointer; font-weight: 600; color: #4a4f5a; background: #fff; transition: background-color 0.12s, border-color 0.12s, color 0.12s; font-family: var(--font-montserrat), sans-serif; }
 .proto .loc-opt:hover { border-color: var(--orange); color: var(--orange); }
 .proto .loc-opt.sel { border-color: var(--orange); background: rgba(232, 103, 10, 0.08); color: var(--orange); }
 .proto .form-card .btn { width: 100%; padding: 14px; }
@@ -138,7 +166,7 @@
 .proto .ccard { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); }
 .proto .ccard .img { height: 150px; background: #0a0f28 linear-gradient(135deg, #161b3a, #060920); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, 0.35); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
 .proto .ccard .body { padding: 16px 18px; }
-.proto .ccard h4 { color: #fff; font-size: 14px; margin-bottom: 3px; }
+.proto .ccard h3 { color: #fff; font-size: 14px; margin-bottom: 3px; }
 .proto .ccard p { font-size: 12px; color: var(--body-gray); }
 
 /* symptoms */
@@ -185,6 +213,7 @@
 .proto .repeat-cta h2 { font-size: clamp(24px, 3.2vw, 36px); margin-bottom: 10px; }
 .proto .repeat-cta .proof-line { color: var(--orange); font-family: var(--font-oswald), sans-serif; font-size: 15px; letter-spacing: 1px; margin-bottom: 24px; text-transform: uppercase; }
 .proto .repeat-cta .form-card { max-width: 420px; margin: 0 auto; text-align: left; }
+.proto .repeat-cta .form-card h2 { font-size: 18px; margin-bottom: 0; }
 
 /* locations */
 .proto .loc3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -217,7 +246,7 @@
 /* footer */
 .proto footer { background: var(--navy); color: var(--body-gray); padding: 48px 0 30px; border-top: 1px solid var(--line); }
 .proto .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 30px; margin-bottom: 34px; }
-.proto .foot-grid h4 { color: #fff; font-size: 14px; margin-bottom: 12px; }
+.proto .foot-grid h3 { color: #fff; font-size: 14px; margin-bottom: 12px; }
 .proto .foot-grid ul { list-style: none; }
 .proto .foot-grid li { font-size: 12.5px; margin-bottom: 7px; }
 .proto .foot-grid a:hover { color: #fff; }

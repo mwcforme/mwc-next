@@ -29,10 +29,20 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
 ## P0 — Accessibility (WCAG 2.2 AA)
 - [x] Fix every serious/critical axe violation on `/`: contrast, label
       associations, focus visibility, alt text, landmarks. Skill: accesslint-audit.
-- [ ] Keyboard operability: all interactive elements reachable; visible focus
+- [x] Keyboard operability: all interactive elements reachable; visible focus
       rings on orange CTAs (2px navy outline, offset 2). Skill: accesslint-audit.
-- [ ] aria-labels on all icon-only buttons/links; heading levels ascend without
+      (Result: :focus-visible rules in home.css — navy outline on light surfaces,
+      white on navy sections (header, on-navy CTAs, FAQ summaries, footer), navy
+      again inside the white form card. Scoped `.btn`/`.loc-opt` transition-all to
+      background/border/color so focus rings appear instantly instead of fading in.
+      Verified live: all interactive elements are real a/button/input/summary;
+      keyboard test added to tests/home.spec.ts.)
+- [x] aria-labels on all icon-only buttons/links; heading levels ascend without
       gaps (one h1). Skill: accesslint-audit.
+      (Result: no icon-only controls exist, so no aria-labels needed; decorative
+      FAQ "+" glyph marked aria-hidden. Heading gaps fixed: form-card h3→h2
+      (was h1→h3 in hero), ccard h4→h3, footer column h4→h3. Verified live:
+      one h1, zero gaps across all 39 headings.)
 
 ## P1 — CRO (mobile-first, 390px)
 - [ ] Hero at 390px: headline + subhead + primary CTA visible above the fold;

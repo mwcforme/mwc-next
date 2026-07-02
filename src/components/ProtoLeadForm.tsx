@@ -115,7 +115,7 @@ export function ProtoLeadForm({
   return (
     <div className="form-card" id={formId}>
       <div className="ftop">
-        <h3>{heading}</h3>
+        <h2>{heading}</h2>
         <span className="stars">★★★★★</span>
       </div>
       <p className="fsub">{subline}</p>
