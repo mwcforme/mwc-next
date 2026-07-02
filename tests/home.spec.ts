@@ -29,7 +29,8 @@ test.describe("homepage smoke", () => {
     await page.evaluate(() => window.scrollTo(0, 1500));
     const bar = page.locator(".mobile-bar");
     await expect(bar).toBeVisible();
-    await expect(bar.locator("a[href^='tel:']")).toBeVisible();
+    await expect(bar.locator("a.btn[href^='tel:']")).toBeVisible();
+    await expect(bar.locator("a.bar-phone[href^='tel:']")).toBeVisible();
     await ctx.close();
   });
 

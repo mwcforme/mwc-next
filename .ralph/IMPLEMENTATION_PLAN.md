@@ -47,10 +47,17 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
 ## P1 — CRO (mobile-first, 390px)
 - [ ] Hero at 390px: headline + subhead + primary CTA visible above the fold;
       compress hero spacing if needed. Skill: anthropic-frontend-design.
-- [ ] Differentiate the 3 service CTAs: "Reserve Hormone Visit", "Reserve ED
+- [x] Differentiate the 3 service CTAs: "Reserve Hormone Visit", "Reserve ED
       Visit", "Reserve Weight-Loss Visit". Skill: ui-ux-pro-max.
-- [ ] Add tap-to-call phone number to the mobile sticky bar subtext or header
+      (Result: service-card map data now carries a `cta` field per card; labels
+      verified at 1440px and 390px. Reserve verb per brand rules.)
+- [x] Add tap-to-call phone number to the mobile sticky bar subtext or header
       (fallback Richmond). Skill: ui-ux-pro-max.
+      (Result: visible tap-to-call line "(866) 344-4955 · Same-day availability"
+      added above the sticky-bar buttons; tel: link, 11px, 24px min tap height,
+      navy-light for contrast, generic focus-visible ring applies. Bar stays
+      fixed and compact (~95px); footer padding-bottom bumped 96→120px so the
+      LegitScript seal clears it. Main line used, Richmond fallback not needed.)
 - [ ] Trust strip: confirm order/content LegitScript · Physician-Led · Locally
       Owned · Transparent Pricing fits brand; adjust labels. Skill: ui-ux-pro-max.
 - [ ] Form confirmation UX: inline success state copy per brand skill after

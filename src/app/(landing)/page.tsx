@@ -223,24 +223,27 @@ export default function HomePage() {
                 img: "/images/cro/hero-trt-v4.jpg",
                 h: "Get your energy back",
                 p: "Physician-led hormone evaluation with same-day labs. Personalized protocols when clinically appropriate.",
+                cta: "Reserve Hormone Visit",
               },
               {
                 img: "/images/cro/hero-ed-v2.jpg",
                 h: "Perform with confidence again",
                 p: "An in-person evaluation with a Virginia-licensed provider, same-day. FDA-approved options reviewed when clinically appropriate.",
+                cta: "Reserve ED Visit",
               },
               {
                 img: "/images/cro/hero-wl-v3.jpg",
                 h: "Drop the weight that won't budge",
                 p: "Physician-led, lab-guided weight loss monitored at your local center. GLP-1 medications when clinically appropriate.",
+                cta: "Reserve Weight-Loss Visit",
               },
-            ].map(({ img, h, p }) => (
+            ].map(({ img, h, p, cta }) => (
               <div key={h} className="card">
                 <div className="img" style={{ backgroundImage: `url('${img}')` }} />
                 <div className="body">
                   <h3>{h}</h3>
                   <p>{p}</p>
-                  <a href="#hero-form" className="btn sm">Reserve my visit</a>
+                  <a href="#hero-form" className="btn sm">{cta}</a>
                 </div>
               </div>
             ))}
@@ -608,6 +611,7 @@ export default function HomePage() {
 
       {/* MOBILE STICKY BAR */}
       <div className="mobile-bar">
+        <a href="tel:+18663444955" className="bar-phone">(866) 344-4955 &middot; Same-day availability</a>
         <div className="grid">
           <a href="tel:+18663444955" className="btn ghost">Call</a>
           <a href="#hero-form" className="btn">Book my visit</a>
