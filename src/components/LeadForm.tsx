@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { User, Phone, ArrowRight, Loader2, AlertCircle, Star } from "lucide-react";
+import { User, Phone, MapPin, ArrowRight, Loader2, AlertCircle, Star } from "lucide-react";
 import { LocationRadioGroup, type LocationKey } from "./LocationRadioGroup";
 import { TCPADisclaimer } from "./TCPADisclaimer";
 import { patchBookingState } from "@/lib/bookingStore";
@@ -40,13 +40,16 @@ interface LeadFormProps {
   dark?: boolean;
   /** CRO variant: star rating at top, CRO heading/CTA, testimonial at bottom, always-orange pill button */
   variant?: "trt" | "cro";
+  /** Wireframe 4-field spec: name, phone, ZIP, location */
+  showZip?: boolean;
 }
 
-export function LeadForm({ formId = "hero", source = "next-lander", dark = true, variant }: LeadFormProps) {
+export function LeadForm({ formId = "hero", source = "next-lander", dark = true, variant, showZip = false }: LeadFormProps) {
   const isCro = variant === "cro" || dark === false;
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [zip, setZip] = useState("");
   const [location, setLocation] = useState<LocationKey | "">("");
   const [tcpa, setTcpa] = useState(false);
   const router = useRouter();
@@ -61,9 +64,10 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
 
   const nameOk = name.trim().length >= 2;
   const phoneOk = phone.replace(/\D/g, "").length === 10;
+  const zipOk = !showZip || zip.length === 5;
   const locOk = !!location;
   const tcpaOk = tcpa;
-  const canSubmit = nameOk && phoneOk && locOk && tcpaOk && !submitting;
+  const canSubmit = nameOk && phoneOk && zipOk && locOk && tcpaOk && !submitting;
   // CRO: button is always orange regardless of form completeness
   const btnEnabled = isCro ? !submitting : canSubmit;
 
@@ -75,6 +79,11 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
   const handlePhoneChange = (v: string) => {
     setPhone(formatPhone(v));
     if (errors.phone) setErrors((e) => ({ ...e, phone: "" }));
+  };
+
+  const handleZipChange = (v: string) => {
+    setZip(v.replace(/\D/g, "").slice(0, 5));
+    if (errors.zip) setErrors((e) => ({ ...e, zip: "" }));
   };
 
   const handleLocationChange = (key: LocationKey) => {
@@ -91,6 +100,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
     const newErrors: Record<string, string> = {};
     if (name.trim().length < 2) newErrors.name = "Please enter your name.";
     if (phone.replace(/\D/g, "").length !== 10) newErrors.phone = "Please enter a valid 10-digit phone number.";
+    if (showZip && zip.length !== 5) newErrors.zip = "Please enter a 5-digit ZIP code.";
     if (!location) newErrors.location = "Please select a location.";
     if (!tcpa) newErrors.tcpa = "Please agree to the terms to continue.";
     setErrors(newErrors);
@@ -112,6 +122,7 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
       firstName,
       lastName,
       phone,
+      ...(showZip && zip ? { zip } : {}),
       location,
       source,
       landing_page: typeof window !== "undefined" ? window.location.href : "",
@@ -283,6 +294,32 @@ export function LeadForm({ formId = "hero", source = "next-lander", dark = true,
               </p>
             )}
           </div>
+
+          {/* ZIP (wireframe 4-field spec) */}
+          {showZip && (
+            <div>
+              <div style={inputWrapStyle("zip")}>
+                <span style={iconStyle}>
+                  <MapPin size={16} strokeWidth={1.75} />
+                </span>
+                <input
+                  type="text"
+                  placeholder="ZIP code"
+                  inputMode="numeric"
+                  autoComplete="postal-code"
+                  value={zip}
+                  onChange={(e) => handleZipChange(e.target.value)}
+                  style={inputStyle}
+                  aria-label="Your ZIP code"
+                />
+              </div>
+              {errors.zip && (
+                <p role="alert" className="flex items-center gap-1 text-xs mt-1" style={{ color: "#DC2626" }}>
+                  <AlertCircle size={12} strokeWidth={2} /> {errors.zip}
+                </p>
+              )}
+            </div>
+          )}
 
           {/* Location */}
           <LocationRadioGroup
