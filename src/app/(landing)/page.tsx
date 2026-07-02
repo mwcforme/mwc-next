@@ -2,6 +2,9 @@
  * Homepage at `/` — ported from the approved prototype at
  * mwc-deploy.vercel.app/prototype (design source of truth), wired to the
  * real booking funnel via ProtoLeadForm.
+ *
+ * Iter 13: full taste redesign. Copy, section order, and conversion
+ * architecture are frozen; composition, grids, and type scale are new.
  */
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -143,6 +146,27 @@ const FAQS = [
   },
 ];
 
+const SERVICES = [
+  {
+    img: "/images/cro/hero-trt-v3.jpg",
+    h: "Get your energy back",
+    p: "Physician-led hormone evaluation with same-day labs. Personalized protocols when clinically appropriate.",
+    cta: "Reserve Hormone Visit",
+  },
+  {
+    img: "/images/cro/hero-ed-v2.jpg",
+    h: "Perform with confidence again",
+    p: "An in-person evaluation with a Virginia-licensed provider, same-day. FDA-approved options reviewed when clinically appropriate.",
+    cta: "Reserve ED Visit",
+  },
+  {
+    img: "/images/cro/hero-wl-v3.jpg",
+    h: "Drop the weight that won’t budge",
+    p: "Physician-led, lab-guided weight loss monitored at your local center. GLP-1 medications when clinically appropriate.",
+    cta: "Reserve Weight-Loss Visit",
+  },
+];
+
 /* ── page ── */
 
 export default function HomePage() {
@@ -180,12 +204,12 @@ export default function HomePage() {
           className="vial-wrap"
           width={1109}
           height={1419}
-          sizes="230px"
+          sizes="210px"
           priority
         />
         <div className="wrap">
           <div className="hero-grid">
-            <div>
+            <div className="hero-copy">
               <span className="eyebrow"><span className="dot" /> Physician-led in Virginia</span>
               <h1>
                 Your GP said you&rsquo;re fine. <span className="o">You don&rsquo;t feel fine.</span>
@@ -206,7 +230,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="hero-form-col">
               <ProtoLeadForm formId="hero-form" source="home-hero" />
             </div>
           </div>
@@ -234,42 +258,33 @@ export default function HomePage() {
               men&rsquo;s health. Not a general practice. Not a med spa. Not telehealth.
             </p>
           </div>
-          <div className="cards3">
-            {[
-              {
-                img: "/images/cro/hero-trt-v3.jpg",
-                h: "Get your energy back",
-                p: "Physician-led hormone evaluation with same-day labs. Personalized protocols when clinically appropriate.",
-                cta: "Reserve Hormone Visit",
-              },
-              {
-                img: "/images/cro/hero-ed-v2.jpg",
-                h: "Perform with confidence again",
-                p: "An in-person evaluation with a Virginia-licensed provider, same-day. FDA-approved options reviewed when clinically appropriate.",
-                cta: "Reserve ED Visit",
-              },
-              {
-                img: "/images/cro/hero-wl-v3.jpg",
-                h: "Drop the weight that won’t budge",
-                p: "Physician-led, lab-guided weight loss monitored at your local center. GLP-1 medications when clinically appropriate.",
-                cta: "Reserve Weight-Loss Visit",
-              },
-            ].map(({ img, h, p, cta }) => (
-              <div key={h} className="card">
-                <div className="img" style={{ backgroundImage: `url('${img}')` }} />
-                <div className="body">
-                  <h3>{h}</h3>
-                  <p>{p}</p>
-                  <a href="#hero-form" className="btn sm">{cta}</a>
-                </div>
+          <div className="svc-grid">
+            <article className="svc feature">
+              <div className="img" style={{ backgroundImage: `url('${SERVICES[0].img}')` }} />
+              <div className="body">
+                <h3>{SERVICES[0].h}</h3>
+                <p>{SERVICES[0].p}</p>
+                <a href="#hero-form" className="btn sm">{SERVICES[0].cta}</a>
               </div>
-            ))}
+            </article>
+            <div className="svc-side">
+              {SERVICES.slice(1).map(({ img, h, p, cta }) => (
+                <article key={h} className="svc row">
+                  <div className="img" style={{ backgroundImage: `url('${img}')` }} />
+                  <div className="body">
+                    <h3>{h}</h3>
+                    <p>{p}</p>
+                    <a href="#hero-form" className="btn sm">{cta}</a>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* PROCESS */}
-      <section className="sec on-navy" id="process" style={{ background: "var(--navy)" }}>
+      <section className="sec on-navy proc-sec" id="process">
         <div className="wrap">
           <div className="sec-head">
             <span className="eyebrow dark"><span className="dot" /> The process</span>
@@ -278,23 +293,23 @@ export default function HomePage() {
           <div className="steps3">
             {[
               {
-                num: "STEP 01",
+                n: "01",
                 h: "Book in under 2 minutes",
                 p: "Pick a time at your local Richmond, Newport News, or Virginia Beach center. Confidential. No obligation.",
               },
               {
-                num: "STEP 02",
+                n: "02",
                 h: "Your provider prepares before you arrive",
                 p: "Your physician sees your intake and history ahead of time, so your first visit is focused on results, not paperwork.",
               },
               {
-                num: "STEP 03",
+                n: "03",
                 h: "Leave with your personal plan",
                 p: "A 60-minute in-person visit. Same-day labs. A treatment plan reviewed when medically appropriate.",
               },
-            ].map(({ num, h, p }) => (
-              <div key={num} className="step">
-                <div className="num">{num}</div>
+            ].map(({ n, h, p }) => (
+              <div key={n} className="step">
+                <div className="num"><span className="k">STEP</span> <span className="n">{n}</span></div>
                 <h3>{h}</h3>
                 <p>{p}</p>
               </div>
@@ -344,7 +359,7 @@ export default function HomePage() {
       </section>
 
       {/* INSIDE THE CENTERS */}
-      <section className="sec on-navy" id="centers" style={{ background: "var(--navy)" }}>
+      <section className="sec on-navy cent-sec" id="centers">
         <div className="wrap">
           <div className="sec-head">
             <span className="eyebrow dark"><span className="dot" /> Brick and mortar</span>
@@ -385,7 +400,7 @@ export default function HomePage() {
       </section>
 
       {/* SYMPTOMS */}
-      <section className="sec on-navy" id="symptoms" style={{ background: "var(--navy-mid)" }}>
+      <section className="sec on-navy sym-sec" id="symptoms">
         <div className="wrap">
           <div className="sec-head">
             <span className="eyebrow dark"><span className="dot" /> If this sounds familiar</span>
@@ -405,14 +420,16 @@ export default function HomePage() {
                 sizes="(max-width: 860px) 100vw, 40vw"
               />
             </div>
-            <ul className="sym-list">
-              {SYMPTOMS.map((s) => (
-                <li key={s}><CheckIcon /> {s}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="center-cta">
-            <a href="#hero-form" className="btn">Book my no-cost consultation</a>
+            <div className="sym-right">
+              <ul className="sym-list">
+                {SYMPTOMS.map((s) => (
+                  <li key={s}><CheckIcon /> {s}</li>
+                ))}
+              </ul>
+              <div className="center-cta">
+                <a href="#hero-form" className="btn">Book my no-cost consultation</a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -450,7 +467,7 @@ export default function HomePage() {
       </section>
 
       {/* DIFFERENTIATORS */}
-      <section className="sec on-navy" style={{ background: "var(--navy)" }}>
+      <section className="sec on-navy diff-sec">
         <div className="wrap">
           <div className="sec-head">
             <h2>Physician-led. Virginia-local. Built for men.</h2>
@@ -490,34 +507,49 @@ export default function HomePage() {
             <p>4.9 out of 5 across 191+ verified Google reviews.</p>
           </div>
           <div className="rev3">
-            {REVIEWS.map(({ quote, who }) => (
-              <div key={who} className="rev">
-                <div className="gmark">
-                  <div className="g"><GoogleG /></div>
-                  <span>Google</span>
-                </div>
-                <div className="stars">★★★★★</div>
-                <p>&ldquo;{quote}&rdquo;</p>
-                <div className="who">{who}</div>
+            <div className="rev lead">
+              <div className="gmark">
+                <div className="g"><GoogleG /></div>
+                <span>Google</span>
               </div>
-            ))}
+              <div className="stars">★★★★★</div>
+              <p>&ldquo;{REVIEWS[0].quote}&rdquo;</p>
+              <div className="who">{REVIEWS[0].who}</div>
+            </div>
+            <div className="rev-side">
+              {REVIEWS.slice(1).map(({ quote, who }) => (
+                <div key={who} className="rev">
+                  <div className="gmark">
+                    <div className="g"><GoogleG /></div>
+                    <span>Google</span>
+                  </div>
+                  <div className="stars">★★★★★</div>
+                  <p>&ldquo;{quote}&rdquo;</p>
+                  <div className="who">{who}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* REPEAT CTA + FORM */}
       <section className="sec repeat-cta">
-        <div className="wrap">
-          <div className="proof-line">11 years &middot; 10,000+ members &middot; Locally owned</div>
-          <h2 className="on-navy">Done comparing? Most men book here.</h2>
-          <p className="on-navy" style={{ color: "var(--body-gray)", marginBottom: 30 }}>
-            Three Virginia centers. Physician-led. The opposite of mail-order telehealth.
-          </p>
-          <ProtoLeadForm
-            formId="midpage-form"
-            source="home-midpage"
-            subline="You’ll hear back within one business hour."
-          />
+        <div className="wrap repeat-grid">
+          <div className="repeat-copy">
+            <div className="proof-line">11 years &middot; 10,000+ members &middot; Locally owned</div>
+            <h2 className="on-navy">Done comparing? Most men book here.</h2>
+            <p className="on-navy repeat-sub">
+              Three Virginia centers. Physician-led. The opposite of mail-order telehealth.
+            </p>
+          </div>
+          <div className="repeat-form-col">
+            <ProtoLeadForm
+              formId="midpage-form"
+              source="home-midpage"
+              subline="You’ll hear back within one business hour."
+            />
+          </div>
         </div>
       </section>
 
@@ -528,9 +560,9 @@ export default function HomePage() {
             <span className="eyebrow dark"><span className="dot" /> Our centers</span>
             <h2>3 Virginia locations. All taking new members.</h2>
           </div>
-          <div className="loc3">
+          <div className="loc-list">
             {LOCATIONS.map(({ city, addr, tel, telLabel, mapQuery }) => (
-              <div key={city} className="loccard">
+              <div key={city} className="locrow">
                 <div className="map">
                   <iframe
                     title={`Map to Men’s Wellness Centers ${city}`}
@@ -539,9 +571,11 @@ export default function HomePage() {
                     referrerPolicy="no-referrer-when-downgrade"
                   />
                 </div>
-                <div className="body">
+                <div className="loc-main">
                   <h3>{city}</h3>
                   <p className="addr">{addr}</p>
+                </div>
+                <div className="loc-act">
                   <a href={`tel:${tel}`} className="phone"><PhoneIcon />{telLabel}</a>
                   <a href="#hero-form" className="btn sm">Book {city}</a>
                 </div>
@@ -552,8 +586,8 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="sec on-navy" id="faq" style={{ background: "var(--navy)" }}>
-        <div className="wrap">
+      <section className="sec on-navy" id="faq">
+        <div className="wrap faq-grid">
           <div className="sec-head">
             <span className="eyebrow dark"><span className="dot" /> Common questions</span>
             <h2>Answers before you even call</h2>
@@ -573,12 +607,14 @@ export default function HomePage() {
       <section className="sec final">
         <div className="wrap">
           <div className="final-inner">
-            <span className="real">Speak to a real Virginia team member, not a chatbot.</span>
-            <h2>Stop accepting &ldquo;normal&rdquo; when you don&rsquo;t feel normal.</h2>
-            <p>
-              Your first visit is no-cost. On-site labs. Same-day results. No referral needed.
-              Virginia&rsquo;s specialty men&rsquo;s health practice with 3 locations.
-            </p>
+            <div className="final-copy">
+              <span className="real">Speak to a real Virginia team member, not a chatbot.</span>
+              <h2>Stop accepting &ldquo;normal&rdquo; when you don&rsquo;t feel normal.</h2>
+              <p>
+                Your first visit is no-cost. On-site labs. Same-day results. No referral needed.
+                Virginia&rsquo;s specialty men&rsquo;s health practice with 3 locations.
+              </p>
+            </div>
             <a href="#hero-form" className="btn">Book my no-cost consultation</a>
           </div>
         </div>
@@ -597,7 +633,7 @@ export default function HomePage() {
                 height={115}
                 sizes="148px"
               />
-              <p style={{ fontSize: 12.5, lineHeight: 1.6 }}>
+              <p className="foot-about">
                 Locally owned in Virginia since 2014. Physician-led men&rsquo;s health across
                 three centers. Find Your Edge Over Age.
               </p>
