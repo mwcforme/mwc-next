@@ -16,7 +16,6 @@ import {
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
-import { HeroCTA } from "@/components/HeroCTA";
 import { CtaButton } from "@/components/CtaButton";
 
 export const metadata: Metadata = {
@@ -221,7 +220,6 @@ export default function WhatWeDoPage() {
           {/* CTA Button */}
           <CtaButton
             label="Book Your No-Cost Consultation"
-            href="/book"
             className="w-full sm:w-auto"
           />
 
@@ -320,7 +318,6 @@ export default function WhatWeDoPage() {
                   </p>
                   <CtaButton
                     label="Learn More"
-                    href="/book"
                     variant="outline"
                   />
                 </div>
@@ -484,7 +481,7 @@ export default function WhatWeDoPage() {
                     {location.driveTime}
                   </p>
                 </div>
-                <CtaButton label="Book Visit" href="/book" variant="outline" />
+                <CtaButton label="Book Visit" variant="outline" />
               </div>
             ))}
           </div>
@@ -505,7 +502,6 @@ export default function WhatWeDoPage() {
           </p>
           <CtaButton
             label="Book Your Consultation Today"
-            href="/book"
             className="w-full sm:w-auto"
           />
           <p className="mt-6 text-sm text-blue-100 dark:text-blue-300">
