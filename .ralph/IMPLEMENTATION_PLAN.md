@@ -45,8 +45,13 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       one h1, zero gaps across all 39 headings.)
 
 ## P1 — CRO (mobile-first, 390px)
-- [ ] Hero at 390px: headline + subhead + primary CTA visible above the fold;
+- [x] Hero at 390px: headline + subhead + primary CTA visible above the fold;
       compress hero spacing if needed. Skill: anthropic-frontend-design.
+      (Result: already compliant, no compression needed. Measured at 390x844:
+      h1 bottom 213px, .sub bottom 323px, hero stars 459px, form-card top 489px
+      with heading + name/phone fields above the fold; header BOOK MY VISIT at
+      13-51px. 390px Playwright test strengthened to assert h1 AND .sub are
+      fully within the 844px viewport.)
 - [x] Differentiate the 3 service CTAs: "Reserve Hormone Visit", "Reserve ED
       Visit", "Reserve Weight-Loss Visit". Skill: ui-ux-pro-max.
       (Result: service-card map data now carries a `cta` field per card; labels
@@ -58,10 +63,16 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       navy-light for contrast, generic focus-visible ring applies. Bar stays
       fixed and compact (~95px); footer padding-bottom bumped 96→120px so the
       LegitScript seal clears it. Main line used, Richmond fallback not needed.)
-- [ ] Trust strip: confirm order/content LegitScript · Physician-Led · Locally
+- [x] Trust strip: confirm order/content LegitScript · Physician-Led · Locally
       Owned · Transparent Pricing fits brand; adjust labels. Skill: ui-ux-pro-max.
-- [ ] Form confirmation UX: inline success state copy per brand skill after
+      (Verification-only: kept numeric proof strip (stronger social proof);
+      LegitScript already present. No label changes.)
+- [x] Form confirmation UX: inline success state copy per brand skill after
       submit (before redirect). Skill: mwc-brand-cro-compliance.
+      (Result: while submitting, button reads "Confirming your visit..." and a
+      status line appears below it: "A real Virginia team member will call you
+      within one business hour." (.fine at 11px, role=status). Redirect timing
+      unchanged, non-blocking.)
 
 ## P2 — UX polish
 - [ ] Motion pass on `/`: entrance fades <= 300ms, respect
