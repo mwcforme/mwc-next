@@ -566,7 +566,7 @@ export default function HomePage() {
               <img src="/logos/Text_Logo_white.webp" alt="Men's Wellness Centers" className="foot-logo" />
               <p style={{ fontSize: 12.5, lineHeight: 1.6 }}>
                 Locally owned in Virginia since 2014. Physician-led men&rsquo;s health across
-                three centers. Find your edge over age.
+                three centers. Find Your Edge Over Age.
               </p>
             </div>
             <div>

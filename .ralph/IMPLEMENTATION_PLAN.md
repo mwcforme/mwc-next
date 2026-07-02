@@ -11,9 +11,11 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       (@axe-core/playwright) asserting 0 serious/critical on `/`. Skill: vercel-web-design-guidelines + accesslint.
 
 ## P0 — Brand & Compliance sweep
-- [ ] Audit every visible string on `/` against mwc-brand-cro-compliance
+- [x] Audit every visible string on `/` against mwc-brand-cro-compliance
       (em-dashes, "guy", "free", "clinic", "patients", first person, tagline
       casing "Find Your Edge Over Age."). Fix in one pass. Skill: mwc-brand-cro-compliance.
+      (Result: one violation, footer tagline casing; all other banned-token hits
+      were code comments/image paths, not visible copy.)
 - [ ] Same sweep for `/trt`, `/lp/trt`, `/what-we-do` shared copy. Skill: mwc-brand-cro-compliance.
 - [ ] Verify LegitScript badge + required disclosures + working legal links in
       the homepage footer. Skill: mwc-brand-cro-compliance + accesslint-audit.
