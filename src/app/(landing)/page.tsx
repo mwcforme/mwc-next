@@ -4,6 +4,7 @@
  * real booking funnel via ProtoLeadForm.
  */
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ProtoLeadForm } from "@/components/ProtoLeadForm";
 import "./home.css";
 
@@ -151,7 +152,15 @@ export default function HomePage() {
       <header className="hdr">
         <div className="wrap hdr-in">
           <span>
-            <img src="/logos/Text_Logo_white.webp" alt="Men’s Wellness Centers" className="logo" />
+            <Image
+              src="/logos/Text_Logo_white.webp"
+              alt="Men’s Wellness Centers"
+              className="logo"
+              width={500}
+              height={115}
+              sizes="131px"
+              priority
+            />
           </span>
           <div className="hdr-right">
             <a href="tel:+18663444955" className="phone">
@@ -165,7 +174,15 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="hero">
-        <img src="/images/trt-vial.webp" alt="" className="vial-wrap" />
+        <Image
+          src="/images/trt-vial.webp"
+          alt=""
+          className="vial-wrap"
+          width={1109}
+          height={1419}
+          sizes="230px"
+          priority
+        />
         <div className="wrap">
           <div className="hero-grid">
             <div>
@@ -380,7 +397,13 @@ export default function HomePage() {
           </div>
           <div className="sym-grid">
             <div className="sym-portrait">
-              <img src="/images/patient-trt.webp" alt="Men’s Wellness Centers member" />
+              <Image
+                src="/images/patient-trt.webp"
+                alt="Men’s Wellness Centers member"
+                width={1024}
+                height={697}
+                sizes="(max-width: 860px) 100vw, 40vw"
+              />
             </div>
             <ul className="sym-list">
               {SYMPTOMS.map((s) => (
@@ -566,7 +589,14 @@ export default function HomePage() {
         <div className="wrap">
           <div className="foot-grid">
             <div>
-              <img src="/logos/Text_Logo_white.webp" alt="Men’s Wellness Centers" className="foot-logo" />
+              <Image
+                src="/logos/Text_Logo_white.webp"
+                alt="Men’s Wellness Centers"
+                className="foot-logo"
+                width={500}
+                height={115}
+                sizes="148px"
+              />
               <p style={{ fontSize: 12.5, lineHeight: 1.6 }}>
                 Locally owned in Virginia since 2014. Physician-led men&rsquo;s health across
                 three centers. Find Your Edge Over Age.

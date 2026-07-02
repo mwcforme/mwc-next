@@ -116,7 +116,7 @@
 .proto .tcpa-row a { color: var(--navy); text-decoration: underline; }
 
 /* vial */
-.proto .vial-wrap { position: absolute; right: -30px; bottom: -10px; width: 230px; opacity: 0.9; pointer-events: none; z-index: 1; transform: rotate(8deg); }
+.proto .vial-wrap { position: absolute; right: -30px; bottom: -10px; width: 230px; height: auto; opacity: 0.9; pointer-events: none; z-index: 1; transform: rotate(8deg); }
 
 /* ---- hero entrance (load-only, CSS-only) ----
    Fade + 12px rise on the hero stack, staggered 0/60/120/180ms.

@@ -118,9 +118,35 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       3 locations." Superlative "only" removed, rhythm kept.)
 
 ## P3 — Perf
-- [ ] next/image for homepage images with sizes+priority (hero vial priority,
+- [x] next/image for homepage images with sizes+priority (hero vial priority,
       below-fold lazy). Skill: vercel-react-best-practices.
-- [ ] Font loading: confirm next/font subsets/weights are minimal;
+      (Result: the 4 real `<img>` on `/` converted — header logo + hero vial
+      with `priority`, symptoms portrait + footer logo default-lazy. Intrinsic
+      dims read from file headers: logo 500×115, vial 1109×1419, portrait
+      1024×697. sizes: logo 131px, vial 230px, portrait "(max-width: 860px)
+      100vw, 40vw", foot logo 148px. `.vial-wrap` got height:auto since only
+      width was styled and next/image adds a height attribute. CSS
+      background-image cards (services/ccards) intentionally left as-is.
+      Verified on `next start`: optimizer 200s, priority imgs eager, others
+      loading=lazy; before/after full-page shots pixel-equivalent at 1440
+      and 390 (portrait 495×420 / 346×320, logos 130×30 / 148×34 unchanged).)
+- [x] Font loading: confirm next/font subsets/weights are minimal;
       display=swap. Skill: vercel-react-best-practices.
-- [ ] Lighthouse run recorded to .ralph/artifacts/; fix any easy CLS/LCP wins.
+      (Verification-only, no change. All three loaders already
+      subsets:["latin"] + display:"swap". Checked every fontWeight/font-weight
+      in src/: css has 500/600/700, inline styles have 400/500/600/700 (plus
+      800 on trt/lp-trt/what-we-do and 900 on trt2, which render synthetic
+      bold since only ≤700 is loaded — adding weights is out of scope).
+      Oswald/Montserrat/Inter are each applied at container scope (home.css,
+      CROPage, Header/LeadForm/TrustStrip, booking layout) with descendants
+      spanning all four loaded weights, so no declared weight has zero
+      usages; nothing safe to drop.)
+- [x] Lighthouse run recorded to .ralph/artifacts/; fix any easy CLS/LCP wins.
       Skill: vercel-react-best-practices.
+      (Recorded .ralph/artifacts/lh-home.json against local `next start`:
+      Performance 91, Accessibility 98, Best Practices 100, SEO 100.
+      LCP 3.5s (lab throttling + cold local optimizer), CLS 0, FCP 1.1s,
+      TBT 50ms, SI 1.1s. CLS 0 < 0.05 threshold → no fix required; the a11y
+      98 is landmark-one-main (moderate; the axe serious/critical gate on `/`
+      remains 0). No easy LCP win left inside scope — hero images already
+      priority + right-sized.)
