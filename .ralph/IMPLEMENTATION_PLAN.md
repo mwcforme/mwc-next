@@ -75,12 +75,27 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       unchanged, non-blocking.)
 
 ## P2 — UX polish
-- [ ] Motion pass on `/`: entrance fades <= 300ms, respect
+- [x] Motion pass on `/`: entrance fades <= 300ms, respect
       prefers-reduced-motion. Skill: bencium-innovative-ux-designer.
-- [ ] Section rhythm: consistent vertical spacing scale (48/64/96) in home.css.
+      (Result: CSS-only load entrance on the hero stack, h1/.sub/.pills/
+      .form-card fade+rise 12px, 260ms ease-out, staggered 0/60/120/180ms,
+      fill-mode both. Keyframes + animation rules live entirely inside
+      `@media (prefers-reduced-motion: no-preference)`, verified live:
+      reduced-motion computes animation-name none / opacity 1 with zero hidden
+      frames. No scroll-triggered animation (unreliable without JS); nothing
+      else animates.)
+- [x] Section rhythm: consistent vertical spacing scale (48/64/96) in home.css.
       Skill: anthropic-frontend-design.
-- [ ] Typographic pass: quote marks, dashes, spacing per typography skill on
+      (Result: .sec padding normalized 62px→64px desktop, 46px→48px mobile.
+      Trust strip intentionally kept compact at 18px; hero-grid untouched.
+      Verified via full-page screenshots at 1440 and 390, no breakage.)
+- [x] Typographic pass: quote marks, dashes, spacing per typography skill on
       homepage copy. Skill: typography.
+      (Result: 13 straight apostrophes in visible copy replaced with U+2019 —
+      review quotes, "won't budge" card, provider bios, FAQ answers, midpage
+      form subline, plus user-facing metadata title, logo/portrait alt text,
+      and map iframe titles. Curly quotes, real middots, and &ldquo;/&rdquo;
+      already correct elsewhere; no em-dashes or double spaces found.)
 - [ ] Componentize repeated service card into `ServiceCard` with variants
       (hormone|ed|weightloss). Skill: vercel-composition-patterns.
       DEFERRED: refactor-only, no user-visible value; revisit when a second

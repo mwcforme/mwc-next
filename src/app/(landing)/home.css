@@ -118,6 +118,26 @@
 /* vial */
 .proto .vial-wrap { position: absolute; right: -30px; bottom: -10px; width: 230px; opacity: 0.9; pointer-events: none; z-index: 1; transform: rotate(8deg); }
 
+/* ---- hero entrance (load-only, CSS-only) ----
+   Fade + 12px rise on the hero stack, staggered 0/60/120/180ms.
+   Everything lives inside the no-preference query, so reduced-motion
+   users get the static page with zero hidden frames. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes proto-hero-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .proto .hero h1,
+  .proto .hero .sub,
+  .proto .hero .pills,
+  .proto .hero .form-card {
+    animation: proto-hero-rise 260ms ease-out both;
+  }
+  .proto .hero .sub { animation-delay: 60ms; }
+  .proto .hero .pills { animation-delay: 120ms; }
+  .proto .hero .form-card { animation-delay: 180ms; }
+}
+
 /* trust strip */
 .proto .trust { background: var(--navy-mid); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .proto .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); padding: 18px 0; }
@@ -127,7 +147,7 @@
 .proto .trust-grid .small { font-size: 10px; color: var(--body-gray); text-transform: uppercase; letter-spacing: 0.6px; margin-top: 5px; }
 
 /* section base */
-.proto .sec { padding: 62px 0; }
+.proto .sec { padding: 64px 0; }
 .proto .sec-head { text-align: center; margin-bottom: 40px; }
 .proto .sec-head .eyebrow.dark { background: #fff; border: 1px solid #e0ddd6; color: var(--ink); }
 .proto .sec-head .eyebrow.dark .dot { background: var(--orange); }
@@ -273,7 +293,7 @@
   .proto .trust-grid .t { border-bottom: 1px solid var(--line); padding: 10px 6px; }
   .proto .sym-grid { grid-template-columns: 1fr; gap: 24px; }
   .proto .sym-portrait img { height: 320px; }
-  .proto .sec { padding: 46px 0; }
+  .proto .sec { padding: 48px 0; }
   .proto .phone { display: none; }
   .proto .loccard .phone { display: flex; }
   .proto .mobile-bar { display: block; }

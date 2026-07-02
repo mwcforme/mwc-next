@@ -8,7 +8,7 @@ import { ProtoLeadForm } from "@/components/ProtoLeadForm";
 import "./home.css";
 
 export const metadata: Metadata = {
-  title: "Men's Wellness Centers | TRT in Virginia",
+  title: "Men’s Wellness Centers | TRT in Virginia",
   description:
     "Provider-supervised testosterone replacement therapy at 3 Virginia locations. 60-minute in-person visit. Same-day labs. No insurance needed.",
 };
@@ -75,7 +75,7 @@ const NOT_HERE = [
 const REVIEWS = [
   {
     quote:
-      "I went to two GPs who told me my levels were fine. After one visit at Men's Wellness Centers I had answers and a plan.",
+      "I went to two GPs who told me my levels were fine. After one visit at Men’s Wellness Centers I had answers and a plan.",
     who: "R.T. · Richmond, VA",
   },
   {
@@ -85,7 +85,7 @@ const REVIEWS = [
   },
   {
     quote:
-      "Within 6 weeks I felt like myself again. Energy is back. Focus is back. I only wish I'd found them sooner.",
+      "Within 6 weeks I felt like myself again. Energy is back. Focus is back. I only wish I’d found them sooner.",
     who: "J.K. · Newport News, VA",
   },
 ];
@@ -130,15 +130,15 @@ const FAQS = [
   },
   {
     q: "Do you take insurance?",
-    a: "Men's health and hormone optimization services are typically not covered by most insurance plans. Men's Wellness Centers offers transparent self-pay pricing. HSA and FSA cards are accepted, and documentation can be provided if you choose to submit claims independently.",
+    a: "Men’s health and hormone optimization services are typically not covered by most insurance plans. Men’s Wellness Centers offers transparent self-pay pricing. HSA and FSA cards are accepted, and documentation can be provided if you choose to submit claims independently.",
   },
   {
     q: "Do I need a referral?",
-    a: "No referral is required. You can schedule directly with Men's Wellness Centers. Same-day appointments are often available at all three Virginia centers.",
+    a: "No referral is required. You can schedule directly with Men’s Wellness Centers. Same-day appointments are often available at all three Virginia centers.",
   },
   {
     q: "Is my information private?",
-    a: "Yes. Men's Wellness Centers is a HIPAA-compliant medical practice. All personal and medical information is handled in accordance with applicable privacy regulations.",
+    a: "Yes. Men’s Wellness Centers is a HIPAA-compliant medical practice. All personal and medical information is handled in accordance with applicable privacy regulations.",
   },
 ];
 
@@ -151,7 +151,7 @@ export default function HomePage() {
       <header className="hdr">
         <div className="wrap hdr-in">
           <span>
-            <img src="/logos/Text_Logo_white.webp" alt="Men's Wellness Centers" className="logo" />
+            <img src="/logos/Text_Logo_white.webp" alt="Men’s Wellness Centers" className="logo" />
           </span>
           <div className="hdr-right">
             <a href="tel:+18663444955" className="phone">
@@ -233,7 +233,7 @@ export default function HomePage() {
               },
               {
                 img: "/images/cro/hero-wl-v3.jpg",
-                h: "Drop the weight that won't budge",
+                h: "Drop the weight that won’t budge",
                 p: "Physician-led, lab-guided weight loss monitored at your local center. GLP-1 medications when clinically appropriate.",
                 cta: "Reserve Weight-Loss Visit",
               },
@@ -304,7 +304,7 @@ export default function HomePage() {
             {[
               {
                 creds: "MD · Virginia-licensed",
-                p: "Board-certified. 10+ years in men's health and hormone optimization.",
+                p: "Board-certified. 10+ years in men’s health and hormone optimization.",
               },
               {
                 creds: "DO · Virginia-licensed",
@@ -312,7 +312,7 @@ export default function HomePage() {
               },
               {
                 creds: "MD · Virginia-licensed",
-                p: "Men's sexual health and weight loss. Locally owned since 2014.",
+                p: "Men’s sexual health and weight loss. Locally owned since 2014.",
               },
             ].map(({ creds, p }, i) => (
               <div key={i} className="prov">
@@ -380,7 +380,7 @@ export default function HomePage() {
           </div>
           <div className="sym-grid">
             <div className="sym-portrait">
-              <img src="/images/patient-trt.webp" alt="Men's Wellness Centers member" />
+              <img src="/images/patient-trt.webp" alt="Men’s Wellness Centers member" />
             </div>
             <ul className="sym-list">
               {SYMPTOMS.map((s) => (
@@ -493,7 +493,7 @@ export default function HomePage() {
           <ProtoLeadForm
             formId="midpage-form"
             source="home-midpage"
-            subline="You'll hear back within one business hour."
+            subline="You’ll hear back within one business hour."
           />
         </div>
       </section>
@@ -510,7 +510,7 @@ export default function HomePage() {
               <div key={city} className="loccard">
                 <div className="map">
                   <iframe
-                    title={`Map to Men's Wellness Centers ${city}`}
+                    title={`Map to Men’s Wellness Centers ${city}`}
                     src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=14&output=embed`}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -566,7 +566,7 @@ export default function HomePage() {
         <div className="wrap">
           <div className="foot-grid">
             <div>
-              <img src="/logos/Text_Logo_white.webp" alt="Men's Wellness Centers" className="foot-logo" />
+              <img src="/logos/Text_Logo_white.webp" alt="Men’s Wellness Centers" className="foot-logo" />
               <p style={{ fontSize: 12.5, lineHeight: 1.6 }}>
                 Locally owned in Virginia since 2014. Physician-led men&rsquo;s health across
                 three centers. Find Your Edge Over Age.
