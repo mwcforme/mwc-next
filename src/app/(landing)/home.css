@@ -64,6 +64,7 @@
 
 /* form */
 .proto .form-card { background: #fff; border-radius: 12px; padding: 24px 22px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); }
+.proto .hero .form-card { width: 75%; margin-left: auto; margin-right: auto; }
 .proto .form-card .ftop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .proto .form-card h3 { color: var(--ink); font-size: 18px; }
 .proto .form-card .fsub { font-size: 12px; color: #5b6470; margin-bottom: 14px; }
@@ -234,6 +235,7 @@
 
 @media (max-width: 860px) {
   .proto .hero-grid { grid-template-columns: 1fr; gap: 30px; padding: 38px 0 90px; }
+  .proto .hero .form-card { width: 100%; }
   .proto .vial-wrap { display: none; }
   .proto .cards3, .proto .steps3, .proto .prov3, .proto .center3, .proto .compare, .proto .diff3, .proto .rev3, .proto .loc3, .proto .foot-grid { grid-template-columns: 1fr; }
   .proto .trust-grid { grid-template-columns: 1fr 1fr; }
