@@ -269,7 +269,7 @@ export default function TRT2Page() {
                 Men Are Getting Results
               </h2>
               <p style={{ fontSize: 18, lineHeight: 1.7, color: "var(--color-ink-soft)", marginTop: 20, maxWidth: 480 }}>
-                Physician-supervised treatment. Same-day labs. Measurable results. These aren't before/afters from 12 months—these are typical 8-week transformations.
+                Physician-supervised treatment. Same-day labs. Measurable results. These aren&apos;t before/afters from 12 months. These are typical 8-week transformations.
               </p>
               <button
                 style={{

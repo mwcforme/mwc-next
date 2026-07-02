@@ -26,6 +26,7 @@ import {
   MessageCircle,
   Quote,
 } from "lucide-react";
+import Link from "next/link";
 import { useFormModal } from "./FormModalProvider";
 
 // ─── Shared CTA Button ───────────────────────────────────────────────────────
@@ -919,13 +920,13 @@ function CROHeader() {
             : "1px solid transparent",
         }}
       >
-        <a href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+        <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
           <img
             src="/logos/Text_Logo_white.webp"
             alt="Men's Wellness Centers"
             style={{ width: 160, height: "auto" }}
           />
-        </a>
+        </Link>
 
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <a

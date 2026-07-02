@@ -60,6 +60,9 @@ export default function ConfirmedPage() {
   useEffect(() => {
     const state = getBookingState();
     if (state) {
+      // One-shot hydration from sessionStorage after mount; cannot run during
+      // SSR render without a hydration mismatch.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFirstName(state.identity?.firstName ?? "");
       // @ts-expect-error confirmedAppointment is patched in by schedule page
       const appt = state.confirmedAppointment as {

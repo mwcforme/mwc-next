@@ -22,6 +22,8 @@ export function BookingRouteGuard({ children }: BookingRouteGuardProps) {
     if (!state || !state.identity?.firstName) {
       router.replace("/");
     } else {
+      // One-shot gate after reading sessionStorage post-mount; intentional.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setReady(true);
     }
   }, [router]);

@@ -48,17 +48,7 @@ function QualifyContent() {
       symptom: symptomMap[value],
     });
     // Fire analytics event
-    if (typeof window !== "undefined") {
-      // @ts-expect-error dataLayer may not be typed
-      window.dataLayer = window.dataLayer || [];
-      // @ts-expect-error dataLayer may not be typed
-      window.dataLayer.push({
-        event: "generate_lead",
-        lead_value: 100,
-        lead_currency: "USD",
-        lead_source: "qualify_page",
-      });
-    }
+    pushLeadEvent();
     // Auto-advance after 280ms
     setTimeout(() => router.push("/duration"), 280);
   };
@@ -160,6 +150,18 @@ function QualifyContent() {
   );
 }
 
+function pushLeadEvent() {
+  if (typeof window === "undefined") return;
+  const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push({
+    event: "generate_lead",
+    lead_value: 100,
+    lead_currency: "USD",
+    lead_source: "qualify_page",
+  });
+}
+
 export default function QualifyPage() {
   return (
     <BookingRouteGuard>
@@ -167,3 +169,5 @@ export default function QualifyPage() {
     </BookingRouteGuard>
   );
 }
+
+

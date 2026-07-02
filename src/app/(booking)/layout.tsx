@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Book Your Visit | Men's Wellness Centers",
@@ -32,7 +33,7 @@ export default function BookingLayout({
           flexShrink: 0,
         }}
       >
-        <a href="/" aria-label="Men's Wellness Centers home" style={{ display: "inline-flex" }}>
+        <Link href="/" aria-label="Men's Wellness Centers home" style={{ display: "inline-flex" }}>
           <img
             src="/logos/Text_Logo_white.webp"
             alt="Men's Wellness Centers"
@@ -40,7 +41,7 @@ export default function BookingLayout({
             height={25}
             style={{ height: 25, width: "auto" }}
           />
-        </a>
+        </Link>
 
         <a
           href="tel:+18663444955"
