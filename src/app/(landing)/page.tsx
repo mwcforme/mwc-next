@@ -237,7 +237,7 @@ export default function HomePage() {
           <div className="cards3">
             {[
               {
-                img: "/images/cro/hero-trt-v4.jpg",
+                img: "/images/cro/hero-trt-v3.jpg",
                 h: "Get your energy back",
                 p: "Physician-led hormone evaluation with same-day labs. Personalized protocols when clinically appropriate.",
                 cta: "Reserve Hormone Visit",
@@ -579,7 +579,7 @@ export default function HomePage() {
               Your first visit is no-cost. On-site labs. Same-day results. No referral needed.
               Virginia&rsquo;s specialty men&rsquo;s health practice with 3 locations.
             </p>
-            <a href="#hero-form" className="btn light">Book my no-cost consultation</a>
+            <a href="#hero-form" className="btn">Book my no-cost consultation</a>
           </div>
         </div>
       </section>
