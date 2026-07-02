@@ -3,9 +3,6 @@ import {
   ChevronRight,
   Star,
   CheckCircle2,
-  Zap,
-  Heart,
-  Dumbbell,
   ShieldCheck,
   FlaskConical,
   FileText,
@@ -15,6 +12,7 @@ import {
   Clock,
   XCircle,
   User,
+  UserRound,
   BadgeCheck,
   Stethoscope,
 } from "lucide-react";
@@ -26,17 +24,18 @@ import { TRTFAQAccordion } from "@/components/TRTFAQAccordion";
 import { TRTSubnav } from "@/components/TRTSubnav";
 import { CtaButton } from "@/components/CtaButton";
 import { LeadForm } from "@/components/LeadForm";
+import { ReviewsCarousel } from "@/components/ReviewsCarousel";
 
 export const metadata: Metadata = {
-  title: "Testosterone Replacement Therapy in Virginia | Men's Wellness Centers",
+  title: "TRT in Virginia — Claim Your No-Cost Visit | Men's Wellness Centers",
   description:
-    "Provider-supervised TRT at 3 Virginia locations. Labs drawn on-site. Results reviewed same visit. Same-day availability in Richmond, Virginia Beach and Newport News.",
-  // Paid-ads lander: keep out of organic search to avoid duplicate/competing results
+    "Physician-led TRT at 3 Virginia centers. 60-minute in-person visit, same-day labs in 15 minutes. No referral needed. Same-day availability.",
+  // Paid-media lander — stays out of organic search
   robots: { index: false, follow: false },
 };
 
 /* ────────────────────────────────────────────────────────── */
-/*  Constants                                                 */
+/*  Constants (wireframe: MWC TRT CRO Landing Page)           */
 /* ────────────────────────────────────────────────────────── */
 
 const SYMPTOMS = [
@@ -67,27 +66,30 @@ const NOT_HERE_ITEMS = [
   "No mid-level providers handling hormone decisions",
 ];
 
-const TESTIMONIALS = [
+const PROVIDERS = [
   {
-    quote:
-      "I've been to two GPs who told me my levels were fine. After one visit here I had answers and a plan. Game-changer.",
-    name: "R.T.",
-    location: "Richmond, VA",
-    stars: 5,
+    role: "Medical Director",
+    lines: [
+      "Virginia-licensed physician",
+      "Men's hormone health exclusively",
+      "Oversees every protocol and dose adjustment",
+    ],
   },
   {
-    quote:
-      "Same-day labs changed everything. I walked in not knowing what was wrong and left with a real treatment plan the same day.",
-    name: "D.M.",
-    location: "Virginia Beach, VA",
-    stars: 5,
+    role: "Lead Provider — Richmond",
+    lines: [
+      "Virginia-licensed provider",
+      "Daily hormone panel evaluations",
+      "In-person at your first visit",
+    ],
   },
   {
-    quote:
-      "Within 6 weeks I felt like myself again. Energy is back. Focus is back. I only wish I'd found them sooner.",
-    name: "J.K.",
-    location: "Newport News, VA",
-    stars: 5,
+    role: "Lead Provider — Hampton Roads",
+    lines: [
+      "Virginia-licensed provider",
+      "Serving Virginia Beach and Newport News",
+      "Same local team for 11 years",
+    ],
   },
 ];
 
@@ -146,16 +148,17 @@ const BODY_STYLE: React.CSSProperties = {
 };
 
 /* ────────────────────────────────────────────────────────── */
-/*  Page                                                      */
+/*  Page — full wireframe spec, sections 01–18                */
 /* ────────────────────────────────────────────────────────── */
 
-export default function TRTPage() {
+export default function TRTPaidLanderPage() {
   return (
     <main className="bg-surface" style={{ minHeight: "100vh", paddingTop: 64, width: "100%" }}>
+      {/* 01. STICKY HEADER — logo + phone only, no exit links */}
       <Header exitLinks={false} />
 
       {/* ════════════════════════════════════════════════════
-          02. HERO + INLINE LEAD FORM (above fold)
+          02. HERO + INLINE LEAD FORM (above fold, 4 fields)
       ════════════════════════════════════════════════════ */}
       <section
         style={{
@@ -172,8 +175,6 @@ export default function TRTPage() {
         >
           {/* LEFT: Copy */}
           <div className="flex flex-col gap-5">
-
-            {/* Eyebrow */}
             <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 w-fit" style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)" }}>
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--color-accent)", display: "inline-block", flexShrink: 0 }} />
               <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#F5F0EB" }}>
@@ -196,13 +197,12 @@ export default function TRTPage() {
               <span className="block">You Don&rsquo;t Feel Fine.</span>
             </h1>
 
-            {/* Proof subhead — 11yr / 10,000+ = instant trust */}
+            {/* 11yr / 10,000+ proof in subhead = instant trust */}
             <p style={{ fontSize: 18, lineHeight: 1.6, color: "#C8C4BE", maxWidth: 520 }}>
               11 years. 10,000+ Virginia members. 60-minute in-person visit,
               same-day labs in 15 minutes.
             </p>
 
-            {/* Trust badges (desktop; form card carries them on mobile) */}
             <div className="hidden sm:flex flex-wrap gap-3">
               {["No referral needed", "Same-day availability", "FSA and HSA accepted"].map((badge) => (
                 <span
@@ -226,9 +226,9 @@ export default function TRTPage() {
             </div>
           </div>
 
-          {/* RIGHT: Inline lead form — form + phone above the fold (CRO rule) */}
+          {/* RIGHT: 4-field lead form — name, phone, ZIP, location */}
           <div className="flex justify-center lg:justify-end">
-            <LeadForm formId="hero" source="trt-lander" variant="cro" />
+            <LeadForm formId="hero" source="trt-paid-lander" variant="cro" showZip />
           </div>
         </div>
       </section>
@@ -297,13 +297,11 @@ export default function TRTPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════
-          04. STICKY ANCHOR SUBNAV (desktop)
-      ════════════════════════════════════════════════════ */}
+      {/* 04. STICKY ANCHOR SUBNAV (desktop; mobile uses sticky CTA bar) */}
       <TRTSubnav />
 
       {/* ════════════════════════════════════════════════════
-          05. SERVICE TRIPTYCH — "are they generalists?"
+          05. THIS IS ALL WE DO — "are they generalists?"
       ════════════════════════════════════════════════════ */}
       <section id="services" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-surface">
         <div style={MAX_W}>
@@ -357,7 +355,6 @@ export default function TRTPage() {
                   flexDirection: "column",
                 }}
               >
-                {/* Image area */}
                 <div style={{ height: 200, position: "relative", overflow: "hidden" }}>
                   <img
                     src={img}
@@ -388,7 +385,6 @@ export default function TRTPage() {
                     {tag}
                   </div>
                 </div>
-                {/* Card content */}
                 <div style={{ padding: "20px 20px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
                   <h3
                     style={{
@@ -538,109 +534,99 @@ export default function TRTPage() {
       ════════════════════════════════════════════════════ */}
       <section id="providers" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-surface">
         <div style={MAX_W}>
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 lg:gap-16 items-center">
-            {/* Left: team photo */}
-            <div
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <p style={LABEL_STYLE}>MEET YOUR VIRGINIA PROVIDERS</p>
+            <h2 style={H2_STYLE}>You&rsquo;ll know exactly who&rsquo;s treating you.</h2>
+            <p
               style={{
-                borderRadius: 12,
-                aspectRatio: "4/5",
-                overflow: "hidden",
-                position: "relative",
+                fontSize: 17,
+                color: "var(--color-ink-soft)",
+                lineHeight: 1.65,
+                maxWidth: 680,
+                margin: "14px auto 0",
               }}
             >
-              <img
-                src="/images/cro/mwc-team.webp"
-                alt="Men's Wellness Centers provider team in Virginia"
-                loading="lazy"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center top",
-                  display: "block",
-                }}
-              />
+              The same local team, in the same centers, for 11 years. Credentials and Virginia
+              licensure are posted at every center — and you meet your provider in person on
+              your first visit.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {PROVIDERS.map(({ role, lines }) => (
               <div
+                key={role}
                 style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: "40px 20px 20px",
-                  background: "linear-gradient(to top, rgba(11,16,41,0.80) 0%, transparent 100%)",
+                  background: "var(--color-surface-elevated)",
+                  border: "1px solid var(--color-navy-line)",
+                  borderRadius: 12,
+                  padding: "32px 24px",
+                  textAlign: "center",
                 }}
               >
-                <p style={{ color: "rgba(255,255,255,0.85)", fontSize: 13, fontWeight: 500, lineHeight: 1.4 }}>
-                  Our Virginia provider team. Real physicians. Local to Virginia.
-                </p>
+                {/* Editorial portrait placeholder — swap for real provider photos */}
+                <div
+                  style={{
+                    width: 96,
+                    height: 96,
+                    borderRadius: "50%",
+                    background: "var(--color-navy)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "0 auto 18px",
+                  }}
+                >
+                  <UserRound size={44} color="rgba(255,255,255,0.85)" strokeWidth={1.5} />
+                </div>
+                <h3
+                  style={{
+                    fontSize: 17,
+                    fontWeight: 700,
+                    color: "var(--color-ink)",
+                    letterSpacing: "0.01em",
+                    marginBottom: 14,
+                  }}
+                >
+                  {role}
+                </h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {lines.map((line) => (
+                    <p key={line} style={{ fontSize: 13.5, color: "var(--color-ink-soft)", lineHeight: 1.5 }}>
+                      {line}
+                    </p>
+                  ))}
+                </div>
+                <div
+                  style={{
+                    marginTop: 18,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    color: "var(--color-accent)",
+                  }}
+                >
+                  <BadgeCheck size={14} strokeWidth={2} /> VA licensure verified
+                </div>
               </div>
-            </div>
-
-            {/* Right: credentials */}
-            <div>
-              <p style={LABEL_STYLE}>MEET YOUR VIRGINIA PROVIDERS</p>
-              <h2 style={H2_STYLE}>You&rsquo;ll know exactly who&rsquo;s treating you.</h2>
-              <p style={{ ...BODY_STYLE, color: "var(--color-ink-soft)" }}>
-                Every evaluation, every protocol, and every dose adjustment at Men&rsquo;s Wellness
-                Centers is overseen by a Virginia-licensed provider who works exclusively in
-                men&rsquo;s health. You meet them in person, at your local center, on your first visit.
-              </p>
-
-              <div className="flex flex-col" style={{ marginTop: 28, gap: 14 }}>
-                {[
-                  {
-                    Icon: BadgeCheck,
-                    title: "Virginia-licensed providers",
-                    body: "Licensed in the Commonwealth of Virginia. Credentials and licensure available at every center.",
-                  },
-                  {
-                    Icon: Stethoscope,
-                    title: "Men's hormone health is their only focus",
-                    body: "Not a general practice rotation. Your provider evaluates men's hormone panels every single day.",
-                  },
-                  {
-                    Icon: Clock,
-                    title: "11 years serving Virginia men",
-                    body: "The same local team, in the same centers — not a rotating cast of telehealth contractors.",
-                  },
-                ].map(({ Icon, title, body }) => (
-                  <div
-                    key={title}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 14,
-                      background: "var(--color-surface-elevated)",
-                      border: "1px solid var(--color-navy-line)",
-                      borderRadius: 10,
-                      padding: "16px 18px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: 8,
-                        background: "var(--color-accent-tint)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                      }}
-                    >
-                      <Icon size={18} color="var(--color-accent)" strokeWidth={1.75} />
-                    </div>
-                    <div>
-                      <p style={{ fontSize: 14, fontWeight: 700, color: "var(--color-ink)" }}>{title}</p>
-                      <p style={{ fontSize: 13, color: "var(--color-ink-soft)", lineHeight: 1.55, marginTop: 4 }}>
-                        {body}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
+
+          <p
+            style={{
+              textAlign: "center",
+              marginTop: 24,
+              fontSize: 13,
+              color: "var(--color-ink-muted)",
+            }}
+          >
+            <Stethoscope size={13} style={{ display: "inline", verticalAlign: "-2px", marginRight: 6 }} />
+            Every evaluation, protocol, and dose adjustment is overseen by a Virginia-licensed physician.
+          </p>
         </div>
       </section>
 
@@ -703,7 +689,7 @@ export default function TRTPage() {
       <section style={{ ...SECTION_PAD }} className="bg-surface">
         <div style={MAX_W}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: member portrait (45–55 demographic) */}
+            {/* Member portrait, 45–55 demographic */}
             <div
               className="hidden lg:block relative"
               style={{ borderRadius: 16, overflow: "hidden", aspectRatio: "4/5" }}
@@ -746,7 +732,6 @@ export default function TRTPage() {
               </div>
             </div>
 
-            {/* Right: Symptoms */}
             <div>
               <p style={LABEL_STYLE}>Do Any of These Sound Familiar?</p>
               <h2 style={H2_STYLE}>
@@ -760,10 +745,7 @@ export default function TRTPage() {
 
               <div className="flex flex-col" style={{ marginTop: 28, gap: 14 }}>
                 {SYMPTOMS.map((s) => (
-                  <div
-                    key={s}
-                    style={{ display: "flex", alignItems: "flex-start", gap: 12 }}
-                  >
+                  <div key={s} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
                     <div
                       style={{
                         width: 22,
@@ -803,12 +785,11 @@ export default function TRTPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          10. INCLUDED + NOT HERE — cost / hidden fees objection
+          10. WHAT'S INCLUDED / NOT HERE — cost objection
       ════════════════════════════════════════════════════ */}
       <section style={{ ...SECTION_PAD }} className="bg-navy">
         <div style={MAX_W}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left: What's Included */}
             <div>
               <p style={{ ...LABEL_STYLE, color: "#E8670A" }}>What&rsquo;s Included</p>
               <h2 style={{ ...H2_STYLE, color: "#fff", fontSize: "clamp(26px, 3.5vw, 38px)" }}>
@@ -855,7 +836,6 @@ export default function TRTPage() {
               </div>
             </div>
 
-            {/* Right: NOT HERE */}
             <div
               style={{
                 background: "#161B3A",
@@ -890,10 +870,7 @@ export default function TRTPage() {
               </h3>
               <div className="flex flex-col" style={{ gap: 14 }}>
                 {NOT_HERE_ITEMS.map((item) => (
-                  <div
-                    key={item}
-                    style={{ display: "flex", alignItems: "center", gap: 14 }}
-                  >
+                  <div key={item} style={{ display: "flex", alignItems: "center", gap: 14 }}>
                     <div
                       style={{
                         width: 28,
@@ -997,87 +974,18 @@ export default function TRTPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════
-          12. REVIEWS — "are testimonials fake?"
+          12. LIVE GOOGLE REVIEWS (carousel) — "are testimonials fake?"
       ════════════════════════════════════════════════════ */}
       <section id="reviews" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-surface">
         <div style={MAX_W}>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
             <p style={LABEL_STYLE}>Real Members</p>
             <h2 style={H2_STYLE}>
               Men Just Like You{" "}
               Are Getting Their Life Back
             </h2>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {TESTIMONIALS.map(({ quote, name, location, stars }) => (
-              <div
-                key={name}
-                style={{
-                  background: "var(--color-surface-elevated)",
-                  border: "1px solid var(--color-navy-line)",
-                  borderRadius: 12,
-                  padding: "28px 24px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                }}
-              >
-                <div style={{ display: "flex", gap: 2 }}>
-                  {[...Array(stars)].map((_, i) => (
-                    <Star key={i} size={14} fill="var(--color-star)" stroke="var(--color-star)" aria-hidden />
-                  ))}
-                </div>
-                <p
-                  style={{
-                    fontSize: 15,
-                    color: "var(--color-ink-soft)",
-                    lineHeight: 1.65,
-                    fontStyle: "italic",
-                    flex: 1,
-                  }}
-                >
-                  &ldquo;{quote}&rdquo;
-                </p>
-                <div>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-ink)" }}>
-                    {name}
-                  </p>
-                  <p style={{ fontSize: 12, color: "var(--color-ink-muted)", marginTop: 2 }}>
-                    {location} &middot; Verified Member
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Google rating bar — links to live reviews */}
-          <div style={{ marginTop: 48, display: "flex", justifyContent: "center" }}>
-            <a
-              href="https://www.google.com/maps/search/Men%27s+Wellness+Centers"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                textDecoration: "none",
-                background: "var(--color-surface-elevated)",
-                border: "1px solid var(--color-navy-line)",
-                borderRadius: 100,
-                padding: "10px 20px",
-              }}
-            >
-              <span style={{ display: "flex", gap: 2 }}>
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={15} fill="var(--color-star)" stroke="var(--color-star)" aria-hidden />
-                ))}
-              </span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: "var(--color-ink)" }}>
-                4.9 out of 5 &middot; 191+ verified Google reviews &middot; read them live
-              </span>
-            </a>
-          </div>
+          <ReviewsCarousel />
         </div>
       </section>
 
@@ -1116,7 +1024,7 @@ export default function TRTPage() {
               >
                 Three Virginia centers. Physician-led. The opposite of mail-order telehealth.
               </p>
-              {/* Proof line above the button (wireframe 13) */}
+              {/* Proof line above the button */}
               <p
                 style={{
                   marginTop: 20,
@@ -1131,14 +1039,14 @@ export default function TRTPage() {
               </p>
             </div>
             <div className="flex justify-center lg:justify-end">
-              <LeadForm formId="midpage" source="trt-lander-midpage" variant="cro" />
+              <LeadForm formId="midpage" source="trt-paid-lander-midpage" variant="cro" showZip />
             </div>
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════
-          14. LOCATIONS + MAPS — "are they near me?"
+          14. 3 VIRGINIA LOCATIONS + MAPS — "are they near me?"
       ════════════════════════════════════════════════════ */}
       <section id="locations" style={{ ...SECTION_PAD, scrollMarginTop: 120 }} className="bg-surface">
         <div style={MAX_W}>
@@ -1163,7 +1071,6 @@ export default function TRTPage() {
                   flexDirection: "column",
                 }}
               >
-                {/* Embedded map (keyless Google embed) */}
                 <iframe
                   title={`Map to Men's Wellness Centers ${city}`}
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=14&output=embed`}
@@ -1286,7 +1193,6 @@ export default function TRTPage() {
             >
               Your first visit is no-cost. On-site labs. Same-day results. No referral needed.
             </p>
-            {/* Proof line — 11 years, 10,000+ members, locally owned */}
             <p
               style={{
                 fontSize: 13,
@@ -1317,7 +1223,6 @@ export default function TRTPage() {
               </a>
             </div>
 
-            {/* Reassurance lines */}
             <div
               style={{
                 marginTop: 20,
@@ -1369,7 +1274,9 @@ export default function TRTPage() {
         </div>
       </section>
 
+      {/* 17. FOOTER — LegitScript, HIPAA, compliance disclosures */}
       <Footer />
+      {/* 18. STICKY MOBILE BOTTOM BAR — CALL + BOOK, one thumb-tap */}
       <StickyMobileCTA />
       <DesktopStickyBar />
     </main>
