@@ -4,11 +4,12 @@
  * real booking funnel via ProtoLeadForm.
  */
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ProtoLeadForm } from "@/components/ProtoLeadForm";
 import "./home.css";
 
 export const metadata: Metadata = {
-  title: "Men's Wellness Centers | TRT in Virginia",
+  title: "Men’s Wellness Centers | TRT in Virginia",
   description:
     "Provider-supervised testosterone replacement therapy at 3 Virginia locations. 60-minute in-person visit. Same-day labs. No insurance needed.",
 };
@@ -75,7 +76,7 @@ const NOT_HERE = [
 const REVIEWS = [
   {
     quote:
-      "I went to two GPs who told me my levels were fine. After one visit at Men's Wellness Centers I had answers and a plan.",
+      "I went to two GPs who told me my levels were fine. After one visit at Men’s Wellness Centers I had answers and a plan.",
     who: "R.T. · Richmond, VA",
   },
   {
@@ -85,7 +86,7 @@ const REVIEWS = [
   },
   {
     quote:
-      "Within 6 weeks I felt like myself again. Energy is back. Focus is back. I only wish I'd found them sooner.",
+      "Within 6 weeks I felt like myself again. Energy is back. Focus is back. I only wish I’d found them sooner.",
     who: "J.K. · Newport News, VA",
   },
 ];
@@ -130,15 +131,15 @@ const FAQS = [
   },
   {
     q: "Do you take insurance?",
-    a: "Men's health and hormone optimization services are typically not covered by most insurance plans. Men's Wellness Centers offers transparent self-pay pricing. HSA and FSA cards are accepted, and documentation can be provided if you choose to submit claims independently.",
+    a: "Men’s health and hormone optimization services are typically not covered by most insurance plans. Men’s Wellness Centers offers transparent self-pay pricing. HSA and FSA cards are accepted, and documentation can be provided if you choose to submit claims independently.",
   },
   {
     q: "Do I need a referral?",
-    a: "No referral is required. You can schedule directly with Men's Wellness Centers. Same-day appointments are often available at all three Virginia centers.",
+    a: "No referral is required. You can schedule directly with Men’s Wellness Centers. Same-day appointments are often available at all three Virginia centers.",
   },
   {
     q: "Is my information private?",
-    a: "Yes. Men's Wellness Centers is a HIPAA-compliant medical practice. All personal and medical information is handled in accordance with applicable privacy regulations.",
+    a: "Yes. Men’s Wellness Centers is a HIPAA-compliant medical practice. All personal and medical information is handled in accordance with applicable privacy regulations.",
   },
 ];
 
@@ -151,7 +152,15 @@ export default function HomePage() {
       <header className="hdr">
         <div className="wrap hdr-in">
           <span>
-            <img src="/logos/Text_Logo_white.webp" alt="Men's Wellness Centers" className="logo" />
+            <Image
+              src="/logos/Text_Logo_white.webp"
+              alt="Men’s Wellness Centers"
+              className="logo"
+              width={500}
+              height={115}
+              sizes="131px"
+              priority
+            />
           </span>
           <div className="hdr-right">
             <a href="tel:+18663444955" className="phone">
@@ -165,7 +174,15 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="hero">
-        <img src="/images/trt-vial.webp" alt="" className="vial-wrap" />
+        <Image
+          src="/images/trt-vial.webp"
+          alt=""
+          className="vial-wrap"
+          width={1109}
+          height={1419}
+          sizes="230px"
+          priority
+        />
         <div className="wrap">
           <div className="hero-grid">
             <div>
@@ -175,7 +192,7 @@ export default function HomePage() {
               </h1>
               <p className="sub">
                 11 years in Virginia. 10,000+ members seen. A 60-minute in-person visit with
-                same-day labs read in 15 minutes. Not telehealth. Not a med spa. This is all we do.
+                same-day labs read in 15 minutes. Real physicians at three Virginia centers. This is all we do.
               </p>
               <div className="pills">
                 {["No referral needed", "Same-day availability", "FSA and HSA accepted"].map((p) => (
@@ -223,24 +240,27 @@ export default function HomePage() {
                 img: "/images/cro/hero-trt-v4.jpg",
                 h: "Get your energy back",
                 p: "Physician-led hormone evaluation with same-day labs. Personalized protocols when clinically appropriate.",
+                cta: "Reserve Hormone Visit",
               },
               {
                 img: "/images/cro/hero-ed-v2.jpg",
                 h: "Perform with confidence again",
                 p: "An in-person evaluation with a Virginia-licensed provider, same-day. FDA-approved options reviewed when clinically appropriate.",
+                cta: "Reserve ED Visit",
               },
               {
                 img: "/images/cro/hero-wl-v3.jpg",
-                h: "Drop the weight that won't budge",
+                h: "Drop the weight that won’t budge",
                 p: "Physician-led, lab-guided weight loss monitored at your local center. GLP-1 medications when clinically appropriate.",
+                cta: "Reserve Weight-Loss Visit",
               },
-            ].map(({ img, h, p }) => (
+            ].map(({ img, h, p, cta }) => (
               <div key={h} className="card">
                 <div className="img" style={{ backgroundImage: `url('${img}')` }} />
                 <div className="body">
                   <h3>{h}</h3>
                   <p>{p}</p>
-                  <a href="#hero-form" className="btn sm">Reserve my visit</a>
+                  <a href="#hero-form" className="btn sm">{cta}</a>
                 </div>
               </div>
             ))}
@@ -294,14 +314,14 @@ export default function HomePage() {
             <h2>Real Virginia physicians</h2>
             <p>
               Every evaluation, every protocol, every dose adjustment is overseen by a
-              Virginia-licensed physician. Not a nurse practitioner. Not a coordinator.
+              Virginia-licensed physician. Your physician, start to finish.
             </p>
           </div>
           <div className="prov3">
             {[
               {
                 creds: "MD · Virginia-licensed",
-                p: "Board-certified. 10+ years in men's health and hormone optimization.",
+                p: "Board-certified. 10+ years in men’s health and hormone optimization.",
               },
               {
                 creds: "DO · Virginia-licensed",
@@ -309,7 +329,7 @@ export default function HomePage() {
               },
               {
                 creds: "MD · Virginia-licensed",
-                p: "Men's sexual health and weight loss. Locally owned since 2014.",
+                p: "Men’s sexual health and weight loss. Locally owned since 2014.",
               },
             ].map(({ creds, p }, i) => (
               <div key={i} className="prov">
@@ -331,7 +351,7 @@ export default function HomePage() {
             <h2>Inside our Virginia centers</h2>
             <p>
               Three real centers. In-person visits, local providers, and same-day labs.
-              No mail-order. No video calls.
+              Everything happens under one roof, close to home.
             </p>
           </div>
           <div className="center3">
@@ -377,7 +397,13 @@ export default function HomePage() {
           </div>
           <div className="sym-grid">
             <div className="sym-portrait">
-              <img src="/images/patient-trt.webp" alt="Men's Wellness Centers member" />
+              <Image
+                src="/images/patient-trt.webp"
+                alt="Men’s Wellness Centers member"
+                width={1024}
+                height={697}
+                sizes="(max-width: 860px) 100vw, 40vw"
+              />
             </div>
             <ul className="sym-list">
               {SYMPTOMS.map((s) => (
@@ -490,7 +516,7 @@ export default function HomePage() {
           <ProtoLeadForm
             formId="midpage-form"
             source="home-midpage"
-            subline="You'll hear back within one business hour."
+            subline="You’ll hear back within one business hour."
           />
         </div>
       </section>
@@ -507,7 +533,7 @@ export default function HomePage() {
               <div key={city} className="loccard">
                 <div className="map">
                   <iframe
-                    title={`Map to Men's Wellness Centers ${city}`}
+                    title={`Map to Men’s Wellness Centers ${city}`}
                     src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=14&output=embed`}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -551,7 +577,7 @@ export default function HomePage() {
             <h2>Stop accepting &ldquo;normal&rdquo; when you don&rsquo;t feel normal.</h2>
             <p>
               Your first visit is no-cost. On-site labs. Same-day results. No referral needed.
-              Virginia&rsquo;s only specialty men&rsquo;s health practice with 3 locations.
+              Virginia&rsquo;s specialty men&rsquo;s health practice with 3 locations.
             </p>
             <a href="#hero-form" className="btn light">Book my no-cost consultation</a>
           </div>
@@ -563,7 +589,14 @@ export default function HomePage() {
         <div className="wrap">
           <div className="foot-grid">
             <div>
-              <img src="/logos/Text_Logo_white.webp" alt="Men's Wellness Centers" className="foot-logo" />
+              <Image
+                src="/logos/Text_Logo_white.webp"
+                alt="Men’s Wellness Centers"
+                className="foot-logo"
+                width={500}
+                height={115}
+                sizes="148px"
+              />
               <p style={{ fontSize: 12.5, lineHeight: 1.6 }}>
                 Locally owned in Virginia since 2014. Physician-led men&rsquo;s health across
                 three centers. Find Your Edge Over Age.
@@ -608,6 +641,7 @@ export default function HomePage() {
 
       {/* MOBILE STICKY BAR */}
       <div className="mobile-bar">
+        <a href="tel:+18663444955" className="bar-phone">(866) 344-4955 &middot; Same-day availability</a>
         <div className="grid">
           <a href="tel:+18663444955" className="btn ghost">Call</a>
           <a href="#hero-form" className="btn">Book my visit</a>

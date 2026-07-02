@@ -203,8 +203,14 @@ export function ProtoLeadForm({
         {errors.tcpa && <p className="ferr" role="alert">{errors.tcpa}</p>}
 
         <button type="submit" className="btn" disabled={submitting}>
-          {submitting ? "Booking..." : "Check availability"}
+          {submitting ? "Confirming your visit..." : "Check availability"}
         </button>
+
+        {submitting && (
+          <p className="fine" role="status" style={{ fontSize: 11 }}>
+            A real Virginia team member will call you within one business hour.
+          </p>
+        )}
 
         {formError && <p className="ferr" role="alert" style={{ marginTop: 10 }}>{formError}</p>}
 

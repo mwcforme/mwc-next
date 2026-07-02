@@ -23,8 +23,10 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       practice."). No "free"/"patients"/"guy" in visible copy; testimonial
       first-person and TCPA/disclaimer text untouched. FAQ questions voiced as
       the visitor ("Do I need a referral?") left as user-voice convention.)
-- [ ] Verify LegitScript badge + required disclosures + working legal links in
-      the homepage footer. Skill: mwc-brand-cro-compliance + accesslint-audit.
+- [x] Verify LegitScript badge + required disclosures + working legal links in
+      the homepage footer. (Verified: LegitScript seal present, clinical-evaluation
+      disclosure present, Privacy/HIPAA/Terms/Telehealth links target
+      menswellnesscenters.com correctly.) Skill: mwc-brand-cro-compliance + accesslint-audit.
 
 ## P0 — Accessibility (WCAG 2.2 AA)
 - [x] Fix every serious/critical axe violation on `/`: contrast, label
@@ -45,36 +47,108 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       one h1, zero gaps across all 39 headings.)
 
 ## P1 — CRO (mobile-first, 390px)
-- [ ] Hero at 390px: headline + subhead + primary CTA visible above the fold;
+- [x] Hero at 390px: headline + subhead + primary CTA visible above the fold;
       compress hero spacing if needed. Skill: anthropic-frontend-design.
-- [ ] Differentiate the 3 service CTAs: "Reserve Hormone Visit", "Reserve ED
+      (Result: already compliant, no compression needed. Measured at 390x844:
+      h1 bottom 213px, .sub bottom 323px, hero stars 459px, form-card top 489px
+      with heading + name/phone fields above the fold; header BOOK MY VISIT at
+      13-51px. 390px Playwright test strengthened to assert h1 AND .sub are
+      fully within the 844px viewport.)
+- [x] Differentiate the 3 service CTAs: "Reserve Hormone Visit", "Reserve ED
       Visit", "Reserve Weight-Loss Visit". Skill: ui-ux-pro-max.
-- [ ] Add tap-to-call phone number to the mobile sticky bar subtext or header
+      (Result: service-card map data now carries a `cta` field per card; labels
+      verified at 1440px and 390px. Reserve verb per brand rules.)
+- [x] Add tap-to-call phone number to the mobile sticky bar subtext or header
       (fallback Richmond). Skill: ui-ux-pro-max.
-- [ ] Trust strip: confirm order/content LegitScript · Physician-Led · Locally
+      (Result: visible tap-to-call line "(866) 344-4955 · Same-day availability"
+      added above the sticky-bar buttons; tel: link, 11px, 24px min tap height,
+      navy-light for contrast, generic focus-visible ring applies. Bar stays
+      fixed and compact (~95px); footer padding-bottom bumped 96→120px so the
+      LegitScript seal clears it. Main line used, Richmond fallback not needed.)
+- [x] Trust strip: confirm order/content LegitScript · Physician-Led · Locally
       Owned · Transparent Pricing fits brand; adjust labels. Skill: ui-ux-pro-max.
-- [ ] Form confirmation UX: inline success state copy per brand skill after
+      (Verification-only: kept numeric proof strip (stronger social proof);
+      LegitScript already present. No label changes.)
+- [x] Form confirmation UX: inline success state copy per brand skill after
       submit (before redirect). Skill: mwc-brand-cro-compliance.
+      (Result: while submitting, button reads "Confirming your visit..." and a
+      status line appears below it: "A real Virginia team member will call you
+      within one business hour." (.fine at 11px, role=status). Redirect timing
+      unchanged, non-blocking.)
 
 ## P2 — UX polish
-- [ ] Motion pass on `/`: entrance fades <= 300ms, respect
+- [x] Motion pass on `/`: entrance fades <= 300ms, respect
       prefers-reduced-motion. Skill: bencium-innovative-ux-designer.
-- [ ] Section rhythm: consistent vertical spacing scale (48/64/96) in home.css.
+      (Result: CSS-only load entrance on the hero stack, h1/.sub/.pills/
+      .form-card fade+rise 12px, 260ms ease-out, staggered 0/60/120/180ms,
+      fill-mode both. Keyframes + animation rules live entirely inside
+      `@media (prefers-reduced-motion: no-preference)`, verified live:
+      reduced-motion computes animation-name none / opacity 1 with zero hidden
+      frames. No scroll-triggered animation (unreliable without JS); nothing
+      else animates.)
+- [x] Section rhythm: consistent vertical spacing scale (48/64/96) in home.css.
       Skill: anthropic-frontend-design.
-- [ ] Typographic pass: quote marks, dashes, spacing per typography skill on
+      (Result: .sec padding normalized 62px→64px desktop, 46px→48px mobile.
+      Trust strip intentionally kept compact at 18px; hero-grid untouched.
+      Verified via full-page screenshots at 1440 and 390, no breakage.)
+- [x] Typographic pass: quote marks, dashes, spacing per typography skill on
       homepage copy. Skill: typography.
+      (Result: 13 straight apostrophes in visible copy replaced with U+2019 —
+      review quotes, "won't budge" card, provider bios, FAQ answers, midpage
+      form subline, plus user-facing metadata title, logo/portrait alt text,
+      and map iframe titles. Curly quotes, real middots, and &ldquo;/&rdquo;
+      already correct elsewhere; no em-dashes or double spaces found.)
 - [ ] Componentize repeated service card into `ServiceCard` with variants
       (hormone|ed|weightloss). Skill: vercel-composition-patterns.
-- [ ] Soften the "Not telehealth. Not a med spa. Not a general practice."
+      DEFERRED: refactor-only, no user-visible value; revisit when a second
+      consumer appears.
+- [x] Soften the "Not telehealth. Not a med spa. Not a general practice."
       repetition across `/`; keep once, replace others with positive claims.
       Skill: mwc-brand-cro-compliance.
-- [ ] Substantiate or soften "Virginia's only specialty men's health practice
+      (Result: kept ONE rhetorical negation cluster, the services sec-head
+      "Not a general practice. Not a med spa. Not telehealth." right under
+      "This is all we do". Hero .sub → "Real physicians at three Virginia
+      centers. This is all we do."; providers sec-head "Not a nurse
+      practitioner. Not a coordinator." → "Your physician, start to finish.";
+      inside-centers "No mail-order. No video calls." → "Everything happens
+      under one roof, close to home." NOT_HERE compare list untouched (feature
+      list, not rhetoric); single "Not a coordinator." in differentiators card
+      left, not a cluster and no longer duplicated by providers copy.)
+- [x] Substantiate or soften "Virginia's only specialty men's health practice
       with 3 locations". Skill: mwc-brand-cro-compliance.
+      (Result: final CTA → "Virginia's specialty men's health practice with
+      3 locations." Superlative "only" removed, rhythm kept.)
 
 ## P3 — Perf
-- [ ] next/image for homepage images with sizes+priority (hero vial priority,
+- [x] next/image for homepage images with sizes+priority (hero vial priority,
       below-fold lazy). Skill: vercel-react-best-practices.
-- [ ] Font loading: confirm next/font subsets/weights are minimal;
+      (Result: the 4 real `<img>` on `/` converted — header logo + hero vial
+      with `priority`, symptoms portrait + footer logo default-lazy. Intrinsic
+      dims read from file headers: logo 500×115, vial 1109×1419, portrait
+      1024×697. sizes: logo 131px, vial 230px, portrait "(max-width: 860px)
+      100vw, 40vw", foot logo 148px. `.vial-wrap` got height:auto since only
+      width was styled and next/image adds a height attribute. CSS
+      background-image cards (services/ccards) intentionally left as-is.
+      Verified on `next start`: optimizer 200s, priority imgs eager, others
+      loading=lazy; before/after full-page shots pixel-equivalent at 1440
+      and 390 (portrait 495×420 / 346×320, logos 130×30 / 148×34 unchanged).)
+- [x] Font loading: confirm next/font subsets/weights are minimal;
       display=swap. Skill: vercel-react-best-practices.
-- [ ] Lighthouse run recorded to .ralph/artifacts/; fix any easy CLS/LCP wins.
+      (Verification-only, no change. All three loaders already
+      subsets:["latin"] + display:"swap". Checked every fontWeight/font-weight
+      in src/: css has 500/600/700, inline styles have 400/500/600/700 (plus
+      800 on trt/lp-trt/what-we-do and 900 on trt2, which render synthetic
+      bold since only ≤700 is loaded — adding weights is out of scope).
+      Oswald/Montserrat/Inter are each applied at container scope (home.css,
+      CROPage, Header/LeadForm/TrustStrip, booking layout) with descendants
+      spanning all four loaded weights, so no declared weight has zero
+      usages; nothing safe to drop.)
+- [x] Lighthouse run recorded to .ralph/artifacts/; fix any easy CLS/LCP wins.
       Skill: vercel-react-best-practices.
+      (Recorded .ralph/artifacts/lh-home.json against local `next start`:
+      Performance 91, Accessibility 98, Best Practices 100, SEO 100.
+      LCP 3.5s (lab throttling + cold local optimizer), CLS 0, FCP 1.1s,
+      TBT 50ms, SI 1.1s. CLS 0 < 0.05 threshold → no fix required; the a11y
+      98 is landmark-one-main (moderate; the axe serious/critical gate on `/`
+      remains 0). No easy LCP win left inside scope — hero images already
+      priority + right-sized.)

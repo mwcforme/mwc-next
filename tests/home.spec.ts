@@ -19,6 +19,15 @@ test.describe("homepage smoke", () => {
     const box = await cta.boundingBox();
     expect(box).not.toBeNull();
     expect(box!.y + box!.height).toBeLessThan(844);
+    // Hero headline AND subhead must be fully within the 844px fold (no scroll).
+    for (const sel of [".hero h1", ".hero .sub"]) {
+      const el = page.locator(sel).first();
+      await expect(el).toBeVisible();
+      const b = await el.boundingBox();
+      expect(b, `${sel} should have a bounding box`).not.toBeNull();
+      expect(b!.y, `${sel} top should be below the header`).toBeGreaterThan(0);
+      expect(b!.y + b!.height, `${sel} bottom should be above the 844px fold`).toBeLessThan(844);
+    }
     await ctx.close();
   });
 
@@ -29,7 +38,8 @@ test.describe("homepage smoke", () => {
     await page.evaluate(() => window.scrollTo(0, 1500));
     const bar = page.locator(".mobile-bar");
     await expect(bar).toBeVisible();
-    await expect(bar.locator("a[href^='tel:']")).toBeVisible();
+    await expect(bar.locator("a.btn[href^='tel:']")).toBeVisible();
+    await expect(bar.locator("a.bar-phone[href^='tel:']")).toBeVisible();
     await ctx.close();
   });
 
