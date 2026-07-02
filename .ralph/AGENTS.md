@@ -68,5 +68,23 @@ city testimonials only; no invented providers/reviews.
 - Decorative orange dots in eyebrows are hidden via `.proto .eyebrow .dot`
   (taste-skill: dots only for real semantic state). Eyebrow copy itself is
   frozen content; quiet it with CSS, don't delete the spans.
-- maps.google.com iframes are blocked in this sandbox; `.loccard .map` has a
+- maps.google.com iframes are blocked in this sandbox; `.locrow .map` has a
   navy gradient fallback so local screenshots look intentional. Maps render in prod.
+  Sometimes the blocked iframe paints Chromium's gray error tile over the fallback
+  in desktop screenshots; ignore locally, verify maps in prod only.
+- Iter 13 layout language: section headers are left-aligned `.sec-head` blocks
+  (hairline `border-top` + quiet caps label + display h2 with `text-wrap: balance`).
+  Hairline tokens: `--hair-l` on cream, `--hair-d` on navy. New sections should
+  join this rail system, not reintroduce centered headers or boxed cards on cream.
+- Frozen-copy split trick: "STEP 01" is rendered as `<span class="k">STEP</span>
+  <span class="n">01</span>` so the numeral can take display scale while
+  textContent stays byte-identical. Reuse for typographic treatment of frozen copy.
+- Eyebrow spans are frozen copy on every section; the design absorbs them as the
+  rail label layer. Don't delete them and don't re-chrome them into pills.
+- `/images/cro/doctor-consult.webp` shows a white coat + stethoscope, which the
+  imagery rule bans; it predates the redesign and matches the frozen "Private exam
+  rooms" caption, and no compliant replacement exists in `/public/images`. Flagged
+  for Eric: needs a compliant exam-room photo.
+- axe gotcha: `#6b7280` passes on white but fails (4.36) on the cream `#F5F3F0`
+  surface at small sizes. When moving text out of white cards onto cream, bump
+  small gray text to `#5b6470` or darker.
