@@ -27,7 +27,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { ReviewsCarousel } from "@/components/ReviewsCarousel";
 
 export const metadata: Metadata = {
-  title: "TRT in Virginia — Claim Your No-Cost Visit | Men's Wellness Centers",
+  title: "TRT in Virginia. Claim Your No-Cost Visit | Men's Wellness Centers",
   description:
     "Physician-led TRT at 3 Virginia centers. 60-minute in-person visit, same-day labs in 15 minutes. No referral needed. Same-day availability.",
   // Paid-media lander — stays out of organic search
@@ -76,7 +76,7 @@ const PROVIDERS = [
     ],
   },
   {
-    role: "Lead Provider — Richmond",
+    role: "Lead Provider, Richmond",
     lines: [
       "Virginia-licensed provider",
       "Daily hormone panel evaluations",
@@ -84,7 +84,7 @@ const PROVIDERS = [
     ],
   },
   {
-    role: "Lead Provider — Hampton Roads",
+    role: "Lead Provider, Hampton Roads",
     lines: [
       "Virginia-licensed provider",
       "Serving Virginia Beach and Newport News",
@@ -547,7 +547,7 @@ export default function TRTPaidLanderPage() {
               }}
             >
               The same local team, in the same centers, for 11 years. Credentials and Virginia
-              licensure are posted at every center — and you meet your provider in person on
+              licensure are posted at every center, and you meet your provider in person on
               your first visit.
             </p>
           </div>
@@ -637,7 +637,7 @@ export default function TRTPaidLanderPage() {
         <div style={MAX_W}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={{ ...LABEL_STYLE, color: "#E8670A" }}>INSIDE OUR CENTERS</p>
-            <h2 style={{ ...H2_STYLE, color: "#fff" }}>A real clinic. Not a shipping label.</h2>
+            <h2 style={{ ...H2_STYLE, color: "#fff" }}>A real center. Not a shipping label.</h2>
             <p
               style={{
                 fontSize: 16,
@@ -648,7 +648,7 @@ export default function TRTPaidLanderPage() {
               }}
             >
               Three brick-and-mortar centers across Virginia. Walk in, meet your provider,
-              get your labs drawn — all under one roof.
+              get your labs drawn, all under one roof.
             </p>
           </div>
 
@@ -739,7 +739,7 @@ export default function TRTPaidLanderPage() {
               </h2>
               <p style={{ ...BODY_STYLE, color: "var(--color-ink-soft)" }}>
                 These aren&rsquo;t signs of aging you just have to accept. They&rsquo;re symptoms
-                of a hormonal imbalance that can be identified, measured, and treated — and your
+                of a hormonal imbalance that can be identified, measured, and treated. Your
                 physician interprets your numbers against your symptoms and your life, not just a chart.
               </p>
 

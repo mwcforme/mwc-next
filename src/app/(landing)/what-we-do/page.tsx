@@ -21,7 +21,7 @@ import { CtaButton } from "@/components/CtaButton";
 export const metadata: Metadata = {
   title: "What We Do - Men's Wellness Centers | TRT, ED & Weight Loss",
   description:
-    "We specialize exclusively in testosterone therapy, erectile dysfunction, and medical weight loss. Physician-led. Virginia-based. We are NOT a general clinic. See if you're a good fit.",
+    "We specialize exclusively in testosterone therapy, erectile dysfunction, and medical weight loss. Physician-led. Virginia-based. We are NOT a general practice. See if you're a good fit.",
   // Paid-ads clarifier page — stays out of organic search
   robots: { index: false, follow: false },
 };
@@ -252,7 +252,7 @@ export default function WhatWeDoPage() {
             Testosterone therapy, erectile dysfunction, and medical weight loss.
           </p>
           <p style={{ fontSize: 18, lineHeight: 1.6, color: "#FFFFFF", fontWeight: 700, marginTop: 8 }}>
-            NOT a general clinic. NOT mail-order. NOT telehealth.
+            NOT a general practice. NOT mail-order. NOT telehealth.
           </p>
 
           {/* Service pills */}
@@ -454,7 +454,7 @@ export default function WhatWeDoPage() {
           >
             <p style={{ fontSize: 14, fontWeight: 600, color: "var(--color-ink)", lineHeight: 1.6 }}>
               We&rsquo;re specialists, not generalists. Our focus is <strong>TRT</strong>,{" "}
-              <strong>ED</strong>, and <strong>weight loss</strong> — with physician-led
+              <strong>ED</strong>, and <strong>weight loss</strong>, with physician-led
               in-person care.
             </p>
           </div>

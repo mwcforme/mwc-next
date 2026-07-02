@@ -601,7 +601,7 @@ export default function TRTPage() {
                   {
                     Icon: Clock,
                     title: "11 years serving Virginia men",
-                    body: "The same local team, in the same centers — not a rotating cast of telehealth contractors.",
+                    body: "The same local team, in the same centers, not a rotating cast of telehealth contractors.",
                   },
                 ].map(({ Icon, title, body }) => (
                   <div
@@ -651,7 +651,7 @@ export default function TRTPage() {
         <div style={MAX_W}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={{ ...LABEL_STYLE, color: "#E8670A" }}>INSIDE OUR CENTERS</p>
-            <h2 style={{ ...H2_STYLE, color: "#fff" }}>A real clinic. Not a shipping label.</h2>
+            <h2 style={{ ...H2_STYLE, color: "#fff" }}>A real center. Not a shipping label.</h2>
             <p
               style={{
                 fontSize: 16,
@@ -662,7 +662,7 @@ export default function TRTPage() {
               }}
             >
               Three brick-and-mortar centers across Virginia. Walk in, meet your provider,
-              get your labs drawn — all under one roof.
+              get your labs drawn, all under one roof.
             </p>
           </div>
 
@@ -754,7 +754,7 @@ export default function TRTPage() {
               </h2>
               <p style={{ ...BODY_STYLE, color: "var(--color-ink-soft)" }}>
                 These aren&rsquo;t signs of aging you just have to accept. They&rsquo;re symptoms
-                of a hormonal imbalance that can be identified, measured, and treated — and your
+                of a hormonal imbalance that can be identified, measured, and treated. Your
                 physician interprets your numbers against your symptoms and your life, not just a chart.
               </p>
 

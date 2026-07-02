@@ -16,7 +16,13 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       casing "Find Your Edge Over Age."). Fix in one pass. Skill: mwc-brand-cro-compliance.
       (Result: one violation, footer tagline casing; all other banned-token hits
       were code comments/image paths, not visible copy.)
-- [ ] Same sweep for `/trt`, `/lp/trt`, `/what-we-do` shared copy. Skill: mwc-brand-cro-compliance.
+- [x] Same sweep for `/trt`, `/lp/trt`, `/what-we-do` shared copy. Skill: mwc-brand-cro-compliance.
+      (Result: 16 fixes across 4 files — 12 em-dashes in visible copy/titles/roles
+      replaced with periods or commas, 4 "clinic" hits replaced with "center"/
+      "practice" ("A real center. Not a shipping label.", "NOT a general
+      practice."). No "free"/"patients"/"guy" in visible copy; testimonial
+      first-person and TCPA/disclaimer text untouched. FAQ questions voiced as
+      the visitor ("Do I need a referral?") left as user-voice convention.)
 - [ ] Verify LegitScript badge + required disclosures + working legal links in
       the homepage footer. Skill: mwc-brand-cro-compliance + accesslint-audit.
 

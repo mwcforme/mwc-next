@@ -4,3 +4,4 @@
 | 1 | Test harness: playwright.config + smoke/axe specs (@axe-core/playwright dev dep) | 3 | +130 | ok | ok | ok | 5/5 | 0 | committed |
 | 2 | a11y: contrast fixes (navy-on-orange CTAs, darker fine print, underlined links) + pre-existing lint errors greened | 9 | +40/-25 | 0 err | ok | ok | 5/5 | 0 | committed |
 | 3 | brand/compliance sweep on `/`: footer tagline casing fixed to "Find Your Edge Over Age."; no other visible-copy violations found | 1 | +1/-1 | 0 err | ok | ok | 5/5 | 0 | committed |
+| 4 | brand/compliance sweep on `/trt`, `/lp/trt`, `/what-we-do` + shared components: 12 em-dashes and 4 "clinic" hits fixed in visible copy (TRTFAQAccordion answers, section copy, metadata) | 4 | +16/-16 | 0 err | ok | ok | 5/5 | 0 | committed |
