@@ -83,11 +83,24 @@ home.css, ProtoLeadForm). `/trt`, `/lp/trt`, `/what-we-do` are secondary.
       homepage copy. Skill: typography.
 - [ ] Componentize repeated service card into `ServiceCard` with variants
       (hormone|ed|weightloss). Skill: vercel-composition-patterns.
-- [ ] Soften the "Not telehealth. Not a med spa. Not a general practice."
+      DEFERRED: refactor-only, no user-visible value; revisit when a second
+      consumer appears.
+- [x] Soften the "Not telehealth. Not a med spa. Not a general practice."
       repetition across `/`; keep once, replace others with positive claims.
       Skill: mwc-brand-cro-compliance.
-- [ ] Substantiate or soften "Virginia's only specialty men's health practice
+      (Result: kept ONE rhetorical negation cluster, the services sec-head
+      "Not a general practice. Not a med spa. Not telehealth." right under
+      "This is all we do". Hero .sub → "Real physicians at three Virginia
+      centers. This is all we do."; providers sec-head "Not a nurse
+      practitioner. Not a coordinator." → "Your physician, start to finish.";
+      inside-centers "No mail-order. No video calls." → "Everything happens
+      under one roof, close to home." NOT_HERE compare list untouched (feature
+      list, not rhetoric); single "Not a coordinator." in differentiators card
+      left, not a cluster and no longer duplicated by providers copy.)
+- [x] Substantiate or soften "Virginia's only specialty men's health practice
       with 3 locations". Skill: mwc-brand-cro-compliance.
+      (Result: final CTA → "Virginia's specialty men's health practice with
+      3 locations." Superlative "only" removed, rhythm kept.)
 
 ## P3 — Perf
 - [ ] next/image for homepage images with sizes+priority (hero vial priority,

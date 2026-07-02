@@ -175,7 +175,7 @@ export default function HomePage() {
               </h1>
               <p className="sub">
                 11 years in Virginia. 10,000+ members seen. A 60-minute in-person visit with
-                same-day labs read in 15 minutes. Not telehealth. Not a med spa. This is all we do.
+                same-day labs read in 15 minutes. Real physicians at three Virginia centers. This is all we do.
               </p>
               <div className="pills">
                 {["No referral needed", "Same-day availability", "FSA and HSA accepted"].map((p) => (
@@ -297,7 +297,7 @@ export default function HomePage() {
             <h2>Real Virginia physicians</h2>
             <p>
               Every evaluation, every protocol, every dose adjustment is overseen by a
-              Virginia-licensed physician. Not a nurse practitioner. Not a coordinator.
+              Virginia-licensed physician. Your physician, start to finish.
             </p>
           </div>
           <div className="prov3">
@@ -334,7 +334,7 @@ export default function HomePage() {
             <h2>Inside our Virginia centers</h2>
             <p>
               Three real centers. In-person visits, local providers, and same-day labs.
-              No mail-order. No video calls.
+              Everything happens under one roof, close to home.
             </p>
           </div>
           <div className="center3">
@@ -554,7 +554,7 @@ export default function HomePage() {
             <h2>Stop accepting &ldquo;normal&rdquo; when you don&rsquo;t feel normal.</h2>
             <p>
               Your first visit is no-cost. On-site labs. Same-day results. No referral needed.
-              Virginia&rsquo;s only specialty men&rsquo;s health practice with 3 locations.
+              Virginia&rsquo;s specialty men&rsquo;s health practice with 3 locations.
             </p>
             <a href="#hero-form" className="btn light">Book my no-cost consultation</a>
           </div>
